@@ -67,7 +67,9 @@ st.markdown("")
 centrar_texto("Application for temporary rental management.", 5, "white")
 centrar_texto("If you want customization of this project, consult with our developer.", 5, "white")
 
-photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "80px")
+col1, col2, col3 = st.columns([1, 2, 1])  # Establecer anchos personalizados (en este caso, la columna central es el doble de ancha)
+with col2:
+    photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "80px")
 
 
 
