@@ -80,7 +80,7 @@ st.markdown("")
 centrar_texto("Aplicacion para la administración de alquileres temporarios.", 5, "white")
 centrar_texto("Si desea una personalizacion de este proyecto consulte con nuestro desarrollador.", 5, "white")
 
-col4, col5, col6 = st.columns([5, 3.5, 2])
+col4, col5, col6 = st.columns([5, 3.7, 2])
 with col5:
     photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
@@ -91,7 +91,7 @@ st.markdown("")
 centrar_texto("Aplicativo para gerenciamento de aluguel temporário.", 5, "white")
 centrar_texto("Caso queira customização deste projeto consulte nosso desenvolvedor.", 5, "white")
 
-col7, col8, col9 = st.columns([5, 3.5, 2])
+col7, col8, col9 = st.columns([5, 3.3, 2])
 with col8:
     photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
