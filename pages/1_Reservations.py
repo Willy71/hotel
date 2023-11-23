@@ -58,7 +58,7 @@ with st.container():
     with col02:
         opciones_numericas = list(range(31))
         option = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
-     with col04:
+    with col04:
         opciones_numericas = list(range(11))
         option = st.selectbox("Number of guests", opciones_numericas, index=None, placeholder="Guests...")
 
