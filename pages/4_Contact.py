@@ -50,7 +50,7 @@ def centrar_texto(texto, tamanho, color):
                 unsafe_allow_html=True)
 
 def photo_link(alt_text, img_url, link_url):
-    markdown_code = f"[![{alt_text}]({img_url})]({link_url}){:width='100px'}"
+    markdown_code = f"[![{alt_text}]({img_url})]({link_url}){:width='80px'}"
     st.markdown(markdown_code, unsafe_allow_html=True)
     
 st.write("#")
