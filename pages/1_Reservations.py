@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import webbrowser
+import datetime
 from datetime import datetime
 
 # Colocar nome na pagina, icone e ampliar a tela
@@ -58,6 +59,10 @@ with st.container():
         opciones_numericas = list(range(31))
         option = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
 
+with st.container():    
+    col11, col12, col13, col14, col15 = st.columns(5)
+    with col12:
+        st.time_input('Set an alarm for', datetime.time(8, 45))
 
 
 
