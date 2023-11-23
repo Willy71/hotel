@@ -51,6 +51,10 @@ def centrar_texto(texto, tamanho, color):
     st.markdown(f"<h{tamanho} style='text-align: center; color: {color}'>{texto}</h{tamanho}>",
                 unsafe_allow_html=True)
 
+def photo_link(alt_text, img_url, link_url, img_width):
+    markdown_code = f'<a href="{link_url}" target="_blank"><img src="{img_url}" alt="{alt_text}" width="{img_width}"></a>'
+    st.markdown(markdown_code, unsafe_allow_html=True)
+
 st.write("#")
 
 centrar_imagen("https://i.postimg.cc/kg86jt2S/Your-Company-removebg-preview.png", 300)
