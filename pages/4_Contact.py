@@ -53,7 +53,7 @@ def centrar_texto(texto, tamanho, color):
 st.write("#")
 
 with st.container():    
-    col60, col61, col62, col63, col64, col65, col66, cl67 = st.columns(8)
+    col60, col61, col62, col63, col64, col65, col66 = st.columns(7)
     with col61:
         centrar_texto("[Kaggle](https://www.kaggle.com/willycerato)", 7, "blue")
     with col62:
