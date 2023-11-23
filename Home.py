@@ -7,7 +7,7 @@ from datetime import datetime
 st.set_page_config(
     page_title="Hotels Service",
     page_icon=":house",
-    layout="wide"
+    layout="wide",
     initial_sidebar_state="auto",  # Opciones: 'auto', 'expanded', 'collapsed'
 )
 
