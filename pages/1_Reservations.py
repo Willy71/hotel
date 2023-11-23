@@ -55,12 +55,7 @@ st.write("#")
 with st.container():    
     col01, col02, col03, col04, col05 = st.columns(5)
     with col02:
-        option = st.selectbox(
-   centrar_texto("Room", 7, "white"),
-   (1, 2, 3, 4, 5, 6, 7, 8, 9),
-   index=None,
-   placeholder="Select a room...",
-)
+        option = st.selectbox(centrar_texto("Room", 7, "white"), (1, 2, 3, 4, 5, 6, 7, 8, 9), index=None, placeholder="Select a room...")
 
 
 
