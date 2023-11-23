@@ -11,6 +11,18 @@ st.set_page_config(
     initial_sidebar_state="collapsed",  # Opciones: 'auto', 'expanded', 'collapsed'
 )
 
+st.markdown(
+    """
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
