@@ -64,17 +64,17 @@ with st.container():
 
 
 with st.container():    
-    col11, col12, col13, col14, col15 = st.columns(5)
+    col11, col12, col13, col14 = st.columns(4)
     with col12:
         t = st.time_input('Check in time', value=None)
-    with col14:
+    with col13:
         d = st.date_input("Date of admission", format="DD.MM.YYYY")
 
 with st.container():    
-    col21, col22, col23, col24, col25 = st.columns(5)
+    col21, col22, col23, col24 = st.columns(4)
     with col22:
         t = st.time_input('Check out time', value=None)
-    with col24:
+    with col23:
         d = st.date_input("Departure date", format="DD.MM.YYYY")
         
         
