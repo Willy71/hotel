@@ -54,3 +54,7 @@ st.write("#")
 
 centrar_texto("Free application for temporary rental management. If you want customization of this project, consult with our developer.", 5, "white")
 
+centrar_texto("Aplicacion gratuita para administracion de alquileres temporarios. Si desea una personalizacion de este proyecto consulte con nuestro desarrollador.", 5, "white")
+
+centrar_texto("Aplicativo gratuito para gerenciamento de aluguel temporário. Caso queira customização deste projeto consulte nosso desenvolvedor.", 5, "white")
+
