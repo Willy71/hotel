@@ -6,7 +6,7 @@ from datetime import datetime
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
     page_title="Hotels Service",
-    page_icon="https://www.flaticon.com/free-icons/home",
+    page_icon="<a href="https://www.flaticon.com/free-icons/home" title="home icons">Home icons created by Vectors Market - Flaticon</a>",
     layout="wide"
 )
 
