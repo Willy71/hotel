@@ -13,7 +13,7 @@ st.set_page_config(
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://i.postimg.cc/bYK1LLsL/pawel-czerwinski-ISg-Dx2a-OAB8-unsplash.jpg");
+background-image: url("https://i.postimg.cc/ZqCqGtQN/tim-mossholder-v-GNXOd-pg98-unsplash.jpg");
 background-size: 180%;
 background-position: top left;
 background-repeat: repeat;
