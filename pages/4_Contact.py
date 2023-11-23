@@ -49,7 +49,7 @@ def centrar_texto(texto, tamanho, color):
     st.markdown(f"<h{tamanho} style='text-align: center; color: {color}'>{texto}</h{tamanho}>",
                 unsafe_allow_html=True)
 
-def centrar_link(nombre, imagen, link, ancho)
+def centrar_link(nombre, imagen, link)
     st.markdown(f"[![{nombre}]({imagen})]({link})")
 
 st.write("#")
