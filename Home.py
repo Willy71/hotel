@@ -51,6 +51,9 @@ def centrar_texto(texto, tamanho, color):
                 unsafe_allow_html=True)
 
 st.write("#")
+
+centrar_imagen("https://i.postimg.cc/4dkLhcrx/Encabezado-nombre-removebg-preview.png", 100)
+
 centrar_imagen("https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/255px-Flag_of_the_United_Kingdom_%283-5%29.svg.png", 50)
 st.markdown("")
 centrar_texto("Free application for temporary rental management. If you want customization of this project, consult with our developer.", 5, "white")
