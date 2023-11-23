@@ -52,3 +52,10 @@ def centrar_texto(texto, tamanho, color):
 
 st.write("#")
 
+options = st.multiselect(
+    'Room',
+    ['1', '2', '3', '4'],
+    ['5', '6'])
+
+st.write('You selected:', options)
+
