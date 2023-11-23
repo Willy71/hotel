@@ -52,7 +52,7 @@ def centrar_texto(texto, tamanho, color):
 def centrar_link(nombre, imagen, link):
     st.markdown(
         f'<div style="display: flex; justify-content: center;">'
-        f"[![{nombre}]({imagen})]({link})"
+        f"[![{nombre}]({imagen})]({link})")
 
 st.write("#")
 
