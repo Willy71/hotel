@@ -52,7 +52,10 @@ def centrar_texto(texto, tamanho, color):
 
 st.write("#")
 
-option = st.selectbox(
+with st.container():    
+    col01, col02, col03, col04 = st.columns(4)
+    with col02:
+        option = st.selectbox(
    "Room",
    (1, 2, 3, 4, 5, 6, 7, 8, 9),
    index=None,
@@ -60,4 +63,6 @@ option = st.selectbox(
 )
 
 st.write('You selected:', option)
+
+
 
