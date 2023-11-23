@@ -65,7 +65,13 @@ with st.container():
     with col12:
         t = st.time_input('Check in time', value=None)
     with col14:
-        d = st.date_input("When's your birthday", value=None)
+        d = st.date_input(
+    "Select your vacation for next year",
+    (jan_1, datetime.date(next_year, 1, 7)),
+    jan_1,
+    dec_31,
+    format="MM.DD.YYYY",
+)
         
         
 
