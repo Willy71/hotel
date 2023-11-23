@@ -56,7 +56,7 @@ option = st.selectbox(
    "Room",
    (1, 2, 3, 4, 5, 6, 7, 8, 9),
    index=None,
-   placeholder="Select contact method...",
+   placeholder="Select a room...",
 )
 
 st.write('You selected:', option)
