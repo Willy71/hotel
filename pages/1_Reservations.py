@@ -52,9 +52,8 @@ def centrar_texto(texto, tamanho, color):
 
 st.write("#")
 
-options = st.multiselect(
-    'Room',
-    ['1', '2', '3', '4'])
-
-st.write('You selected:', options)
+values = st.slider(
+    'Select a range of values',
+    (1, 30))
+st.write('Values:', values))
 
