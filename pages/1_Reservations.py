@@ -59,16 +59,16 @@ with st.container():
         opciones_numericas = list(range(31))
         option = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
 
+today = datetime.datetime.now()
+next_year = today.year + 1
+jan_1 = datetime.date(next_year, 1, 1)
+dec_31 = datetime.date(next_year, 12, 31)
+
 with st.container():    
     col11, col12, col13, col14, col15 = st.columns(5)
     with col12:
         tci = st.time_input('Check in time', value=None)
     with col14:
-        today = datetime.datetime.now()
-        next_year = today.year + 1
-        jan_1 = datetime.date(next_year, 1, 1)
-        dec_31 = datetime.date(next_year, 12, 31)
-
         d = st.date_input(
             "Select your vacation for next year",
             (jan_1, datetime.date(next_year, 1, 7)),
