@@ -91,4 +91,4 @@ with st.container():
     with col68:
         centrar_texto("[Whatsapp](https://wa.me/5542991657847)", 7, "blue")
 
-centrar_imagen("[![Foo](http://www.google.com.au/images/nav_logo7.png)](http://google.com.au/)")
+centrar_imagen("[![Foo](http://www.google.com.au/images/nav_logo7.png)](http://google.com.au/)", 300)
