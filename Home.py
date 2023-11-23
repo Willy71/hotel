@@ -67,9 +67,9 @@ st.markdown("")
 centrar_texto("Application for temporary rental management.", 5, "white")
 centrar_texto("If you want customization of this project, consult with our developer.", 5, "white")
 
-col1, col2, col3 = st.columns([5, 3.8, 2])  # Establecer anchos personalizados (en este caso, la columna central es el doble de ancha)
-with col2:
-    photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "80px")
+col1, col2, col3, col4, col5 = st.columns(5)  # Establecer anchos personalizados (en este caso, la columna central es el doble de ancha)
+with col3:
+    photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
 
 
@@ -80,9 +80,9 @@ st.markdown("")
 centrar_texto("Aplicacion para la administración de alquileres temporarios.", 5, "white")
 centrar_texto("Si desea una personalizacion de este proyecto consulte con nuestro desarrollador.", 5, "white")
 
-col4, col5, col6 = st.columns([5, 3.8, 2])
-with col5:
-    photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "80px")
+col6, col7, col8, col9, col10 = st.columns(5)
+with col8:
+    photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
 st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
 
@@ -91,9 +91,9 @@ st.markdown("")
 centrar_texto("Aplicativo para gerenciamento de aluguel temporário.", 5, "white")
 centrar_texto("Caso queira customização deste projeto consulte nosso desenvolvedor.", 5, "white")
 
-col7, col8, col9 = st.columns([5, 3.8, 2])
-with col8:
-    photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "80px")
+col11, col12, col13, col14, col15 = st.columns(5)
+with col13:
+    photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
 st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
 
