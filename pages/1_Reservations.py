@@ -52,8 +52,12 @@ def centrar_texto(texto, tamanho, color):
 
 st.write("#")
 
-values = st.slider(
-    'Select a range of values',
-    0.0, 100.0, (25.0, 75.0))
-st.write('Values:', values)
+option = st.selectbox(
+   "Room",
+   (1, 2, 3, 4, 5, 6, 7, 8, 9),
+   index=None,
+   placeholder="Select contact method...",
+)
+
+st.write('You selected:', option)
 
