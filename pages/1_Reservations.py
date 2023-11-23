@@ -62,7 +62,7 @@ with st.container():
 with st.container():    
     col11, col12, col13, col14, col15 = st.columns(5)
     with col12:
-        st.time_input('Set an alarm for', datetime.time(8, 45))
+        st.time_input('Check in time', datetime.time(9, 00))
 
 
 
