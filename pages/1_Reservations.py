@@ -54,11 +54,11 @@ def centrar_texto(texto, tamanho, color):
 st.write("#")
 
 with st.container():    
-    col01, col02, col03, col04, col05 = st.columns(5)
+    col01, col02, col03, col04 = st.columns(4)
     with col02:
         opciones_numericas = list(range(31))
         option = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
-    with col04:
+    with col03:
         opciones_numericas = list(range(11))
         option = st.selectbox("Number of guests", opciones_numericas, index=None, placeholder="Guests...")
 
