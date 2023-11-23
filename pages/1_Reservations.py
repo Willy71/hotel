@@ -53,7 +53,7 @@ def centrar_texto(texto, tamanho, color):
 st.write("#")
 
 with st.container():    
-    col01, col02, col03, col04 = st.columns(4)
+    col01, col02, col03, col04, col05 = st.columns(5)
     with col02:
         option = st.selectbox(
    "Room",
@@ -62,7 +62,6 @@ with st.container():
    placeholder="Select a room...",
 )
 
-st.write('You selected:', option)
 
 
 
