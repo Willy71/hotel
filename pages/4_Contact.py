@@ -49,7 +49,7 @@ def centrar_texto(texto, tamanho, color):
     st.markdown(f"<h{tamanho} style='text-align: center; color: {color}'>{texto}</h{tamanho}>",
                 unsafe_allow_html=True)
 
-def centrar_link(nombre, imagen, link)
+def centrar_link(nombre, imagen, link, ancho):
     st.markdown(f"[![{nombre}]({imagen})]({link})")
 
 st.write("#")
@@ -93,6 +93,6 @@ with st.container():
     with col68:
         centrar_texto("[Whatsapp](https://wa.me/5542991657847)", 7, "blue")
 
-centrar_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847")
+centrar_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", 80)
 
 #st.markdown("[![Whatsapp](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png)](https://wa.me/5542991657847)")
