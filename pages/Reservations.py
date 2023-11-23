@@ -1,3 +1,8 @@
+import streamlit as st
+import pandas as pd
+import webbrowser
+from datetime import datetime
+
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
     page_title="Reservations",
