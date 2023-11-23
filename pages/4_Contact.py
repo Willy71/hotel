@@ -57,7 +57,7 @@ with st.container():
     with col51:
         centrar_imagen("https://e7.pngegg.com/pngimages/399/47/png-clipart-kaggle-predictive-modelling-data-science-business-predictive-analytics-%E6%95%B0%E6%8D%AE-blue-text.png", 50)
     with col52:
-        centrar_imagen("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/200px-GitHub_Invertocat_Logo.svg.png", 50)
+        centrar_imagen("https://cdn-icons-png.flaticon.com/512/25/25231.png", 50)
     with col53:
         centrar_imagen("https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/150px-Instagram_logo_2022.svg.png", 50)
             
