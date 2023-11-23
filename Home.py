@@ -67,7 +67,7 @@ st.markdown("")
 centrar_texto("Application for temporary rental management.", 5, "white")
 centrar_texto("If you want customization of this project, consult with our developer.", 5, "white")
 
-col1, col2, col3, col4, col5, col6 = st.columns(6)  # Establecer anchos personalizados (en este caso, la columna central es el doble de ancha)
+col1, col2, col3, col4, col5, col6, col7 = st.columns(7)  # Establecer anchos personalizados (en este caso, la columna central es el doble de ancha)
 with col4:
     photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
@@ -80,8 +80,8 @@ st.markdown("")
 centrar_texto("Aplicacion para la administración de alquileres temporarios.", 5, "white")
 centrar_texto("Si desea una personalizacion de este proyecto consulte con nuestro desarrollador.", 5, "white")
 
-col6, col7, col8, col9, col10 = st.columns(5)
-with col8:
+col8, col9, col10, col11, col12 = st.columns(5)
+with col10:
     photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
 st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
@@ -91,8 +91,8 @@ st.markdown("")
 centrar_texto("Aplicativo para gerenciamento de aluguel temporário.", 5, "white")
 centrar_texto("Caso queira customização deste projeto consulte nosso desenvolvedor.", 5, "white")
 
-col11, col12, col13, col14, col15 = st.columns(5)
-with col13:
+col21, col22, col23, col24, col25 = st.columns(5)
+with col23:
     photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "50px")
 
 st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
