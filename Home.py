@@ -52,9 +52,12 @@ def centrar_texto(texto, tamanho, color):
 
 st.write("#")
 centrar_imagen("https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/255px-Flag_of_the_United_Kingdom_%283-5%29.svg.png", 50)
+st.markdown("")
 centrar_texto("Free application for temporary rental management. If you want customization of this project, consult with our developer.", 5, "white")
 centrar_imagen("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/255px-Flag_of_Spain.svg.png", 50)
+st.markdown("")
 centrar_texto("Aplicacion gratuita para administracion de alquileres temporarios. Si desea una personalizacion de este proyecto consulte con nuestro desarrollador.", 5, "white")
 centrar_imagen("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/260px-Flag_of_Portugal.svg.png", 50)
+st.markdown("")
 centrar_texto("Aplicativo gratuito para gerenciamento de aluguel temporário. Caso queira customização deste projeto consulte nosso desenvolvedor.", 5, "white")
 
