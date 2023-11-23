@@ -8,7 +8,7 @@ st.set_page_config(
     page_title="Hotels Service",
     page_icon=":house",
     layout="wide",
-    initial_sidebar_state="auto",  # Opciones: 'auto', 'expanded', 'collapsed'
+    initial_sidebar_state="collapsed",  # Opciones: 'auto', 'expanded', 'collapsed'
 )
 
 page_bg_img = f"""
