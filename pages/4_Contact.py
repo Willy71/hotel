@@ -51,3 +51,18 @@ def centrar_texto(texto, tamanho, color):
                 unsafe_allow_html=True)
 
 st.write("#")
+
+with st.container():    
+    col60, col61, col62, col63, col64, col65, col66, cl67 = st.columns(8)
+    with col61:
+        centrar_texto("[Kaggle](https://www.kaggle.com/willycerato)", 7, "blue")
+    with col62:
+        centrar_texto("[Github](https://github.com/Willy71)", 7, "blue")
+    with col63:
+        centrar_texto("[Instagram](https://www.instagram.com/willycerato)", 7, "blue")
+    with col64:
+        centrar_texto("[Facebook](https://www.facebook.com/guillermo.cerato)", 7, "blue")
+    with col65:
+        centrar_texto("[Whatsapp](https://wa.me/5542991657847)", 7, "blue")
+
+st.title("")
