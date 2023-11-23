@@ -13,7 +13,7 @@ st.set_page_config(
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://i.postimg.cc/430MMcSq/wepik-export-20231112174143b-KKB.jpg");
+background-image: url("https://i.postimg.cc/bYK1LLsL/pawel-czerwinski-ISg-Dx2a-OAB8-unsplash.jpg");
 background-size: 180%;
 background-position: top left;
 background-repeat: repeat;
