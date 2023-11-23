@@ -66,9 +66,12 @@ centrar_imagen("https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_o
 st.markdown("")
 centrar_texto("Application for temporary rental management.", 5, "white")
 centrar_texto("If you want customization of this project, consult with our developer.", 5, "white")
-st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "80px")
-st.markdown("</div>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+with col2:
+    st.image(photo_link("Whatsapp", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/120px-WhatsApp.svg.png", "https://wa.me/5542991657847", "80px"))
+
+
 
 st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
 
