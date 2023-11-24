@@ -114,6 +114,8 @@ with st.container():
 # Lista de prefijos telefónicos internacionales
 prefijos = {'Estados Unidos': '+1',
             'Canadá': '+1',
+            'Brasil': '+55',
+            'Argentina': '+54',
             'Reino Unido': '+44',
             'Australia': '+61',
             'India': '+91',
