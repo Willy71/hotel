@@ -3,12 +3,6 @@ import pandas as pd
 import webbrowser
 import datetime
 import re
-from datetime import datetime
-import requests
-import re
-import googleapiclient.discovery
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
