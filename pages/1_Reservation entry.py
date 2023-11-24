@@ -167,7 +167,7 @@ with st.form(key="reservation"):
             opciones_saldo = ["None", "Full payment", "Partial payment"]
             option = st.selectbox("Pay", opciones_saldo, index=None, placeholder="Pay...")
         with col84:
-            pay = st.number_input(label='Insert a pay', format="%d")
+            pay = st.number_input(label='Insert a pay')
 
     with st.container():    
         col91, col92, col93, col94 = st.columns(4)
