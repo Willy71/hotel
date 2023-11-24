@@ -13,19 +13,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# Configuración de Google Sheets
-SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-CREDENTIALS_FILE = "path/to/your/credentials_file.json"  # Reemplazar con la ruta de tu archivo JSON de credenciales
-SPREADSHEET_KEY = "your_spreadsheet_key"  # Reemplazar con la clave de tu hoja de cálculo de Google Sheets
-
-# Autorizar con las credenciales
-credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, SCOPE)
-gc = gspread.authorize(credentials)
-spreadsheet = gc.open_by_key(SPREADSHEET_KEY)
-worksheet = spreadsheet.get_worksheet(0)  # Obtener la primera hoja de la hoja de cálculo
-
-# 
-
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
@@ -225,9 +212,4 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    # Enviar datos a Google Sheets
-    try:
-        worksheet.append_row(list(data.values()))
-        centrar_texto("Reserva enviada correctamente a Google Sheets", 5, "green")
-    except Exception as e:
-        centrar_texto(f"Error al enviar reserva a Google Sheets: {str(e)}", 5, "red")
+    
