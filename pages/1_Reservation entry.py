@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import webbrowser
 import datetime
+import re
 from datetime import datetime
 
 # Colocar nome na pagina, icone e ampliar a tela
@@ -83,6 +84,27 @@ with st.container():
         first_name = st.text_input('First name')
     with col33:
         last_name = st.text_input('Last name')
+
+def validar_email(email):
+    # Expresión regular para validar direcciones de correo electrónico
+    patron_email = r'^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$'
+    if re.match(patron_email, email):
+        return True
+    else:
+        return False
+
+with st.container():    
+    col41, col42, col43, col44 = st.columns(4)
+    with col42:
+        email_input = st.text_input("Enter a valid email:")
+        if validar_email(email_input):
+            st.success("¡La dirección de correo electrónico es válida!")
+        else:
+            st.error("La dirección de correo electrónico no es válida. Por favor, ingrese una dirección válida.")
+    
+
+
+
         
         
 
