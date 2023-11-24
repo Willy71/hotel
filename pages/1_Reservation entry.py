@@ -89,10 +89,10 @@ st.write("#")
 with st.form(key="reservation"):
     with st.container():    
         col01, col02, col03, col04 = st.columns(4)
-        with col02:
+        with col01:
             opciones_numericas = list(range(31))
             option = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
-        with col03:
+        with col02:
             opciones_numericas = list(range(11))
             option = st.selectbox("Number of guests", opciones_numericas, index=None, placeholder="Guests...")
     
