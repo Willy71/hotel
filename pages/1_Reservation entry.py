@@ -131,7 +131,7 @@ with st.container():
     col51, col52, col53, col54 = st.columns(4)
     with col52:
         # Selecciona el país desde el selectbox
-        pais_seleccionado = st.selectbox('Selecciona un país', list(prefijos.values()))
+        pais_seleccionado = st.selectbox('Select a country', list(prefijos.keys()))
     with col53:
         numero_telefono = st.text_input("Enter your phone number:")
     with col54:
