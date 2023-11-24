@@ -97,7 +97,7 @@ with st.form(key="reservation"):
             option = st.selectbox("Number of guests", opciones_numericas, index=None, placeholder="Guests...")
     
     with st.container():    
-        col10, col11, col12, col13, col14 = st.columns(5)
+        col10, col11, col12, col13, col14 = st.columns([1, 2, 2, 2, 3])
         with col11:
             t = st.time_input('Check in time', value=None)
         with col12:
