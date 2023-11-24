@@ -6,7 +6,7 @@ import re
 from datetime import datetime
 import requests
 import re
-from googleapiclient.discovery import build
+import googleapiclient.discovery
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
