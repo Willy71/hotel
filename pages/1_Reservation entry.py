@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
-import webbrowser
 import datetime
-import re
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -10,33 +8,6 @@ st.set_page_config(
     page_icon=":house",
     layout="wide"
 )
-
-# credenciales = pygsheets.autorize(service_file=os.getcwd() + "/credi.json")
-# mi_archivo_google_sheets = "https://docs.google.com/spreadsheets/d/1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38/edit#gid=1805674101" 
-# archivo = credenciales.open_by_url(mi_archivo_google_sheets)
-# pestana = archivo.worksheet_by_tilte(reservations)
-# data = pestana.get_all_values()
-# df = pd.DataFrame(data)
-
-# Configuración de Google Sheets
-SPREADSHEET_ID = "1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38"  # Reemplazar con el ID de tu hoja de cálculo de Google Sheets
-RANGE_NAME = "reservations.csv"  # Reemplazar con el nombre de la hoja
-
-# Autenticación con OAuth2
-creds = st.secrets["google_sheets"] if "google_sheets" in st.secrets else None
-if not creds or not creds.valid:
-    if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-    else:
-        flow = st.credentials.Credentials.from_authorized_user_file("token.json", ["https://www.googleapis.com/auth/spreadsheets"])
-        creds = st.credentials.Credentials.get_from_flow(flow)
-
-# Crear la conexión a la API de Google Sheets
-service = build("sheets", "v4", credentials=creds)
-
-# Obtener datos de la hoja de cálculo
-result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
-values = result.get("values", [])
 
 page_bg_img = f"""
 <style>
@@ -237,9 +208,4 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    try:
-        worksheet.append_row(list(data.values()))
-        centrar_texto("Reserva enviada correctamente a Google Sheets", 5, "green")
-    except Exception as e:
-        centrar_texto(f"Error al enviar reserva a Google Sheets: {str(e)}", 5, "red")
     
