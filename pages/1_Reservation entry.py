@@ -161,10 +161,10 @@ with st.container():
 with st.container():    
     col81, col82, col83, col84 = st.columns(4)
     with col82:
-        opciones_pago = list("Credit card", "Cash", "Debit")
+        opciones_pago = ["Credit card", "Cash", "Debit"]
         option = st.selectbox("Payment", opciones_pago, index=None, placeholder="Payment option...")
     with col83:
-        opciones_saldo = list("Full payment", "Partial payment", "No reservation payment")
+        opciones_saldo = ["Full payment", "Partial payment", "No reservation payment"]
         option = st.selectbox("Pay", opciones_saldo, index=None, placeholder="Pay...")
 
 
