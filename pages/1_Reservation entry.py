@@ -131,7 +131,7 @@ with st.form(key="reservation"):
             # Selecciona el país desde el selectbox
             pais_seleccionado = st.selectbox('Select a country', list(prefijos.keys()))
         with col42:
-            numero_telefono = st.text_input("Enter your phone number:")
+            numero_telefono = st.text_input("Phone number:")
         with col44:
             st.text("")
             # Validar el número de teléfono continuamente
