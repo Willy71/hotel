@@ -98,16 +98,16 @@ with st.form(key="reservation"):
     
     with st.container():    
         col11, col12, col13, col14 = st.columns(4)
-        with col12:
+        with col11:
             t = st.time_input('Check in time', value=None)
-        with col13:
+        with col12:
             d = st.date_input("Date of admission", format="DD.MM.YYYY")
     
     with st.container():    
         col21, col22, col23, col24 = st.columns(4)
-        with col22:
+        with col21:
             t = st.time_input('Check out time', value=None)
-        with col23:
+        with col22:
             d = st.date_input("Departure date", format="DD.MM.YYYY")
     
     with st.container():    
