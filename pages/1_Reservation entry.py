@@ -172,7 +172,7 @@ with st.form(key="reservation"):
             pay = st.number_input(label='Insert a pay')
 
     with st.container():    
-        col81, col82, col83, col84, col85 = st.columns([1, 1, 2, 1, 1])
+        col81, col82, col83, col84, col85 = st.columns([2, 2, 1, 1, 1])
         with col83:
             input_submit = st.form_submit_button("submit")
 
