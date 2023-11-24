@@ -142,6 +142,13 @@ with st.container():
         else:
             st.error("Invalid phone number. Enter a 10-digit number.")
 
+with st.container():    
+    col61, col62, col63, col64 = st.columns(4)
+    with col62:
+        street = st.text_input('Street')
+    with col63:
+        street_number = st.text_input('Street number')
+
 
 
         
