@@ -179,7 +179,7 @@ with st.form(key="reservation"):
 
 
 with st.container():    
-        col91, col92, col93, col94, col95 = st.columns([1.6, 1.6, 1, 1, 1])
+        col91, col92, col93, col94, col95 = st.columns([1.3, 1.3, 1, 1, 1])
         with col93:
             if input_submit:
                 centrar_texto("Sent", 7, "green")
