@@ -4,7 +4,7 @@ import webbrowser
 import datetime
 import re
 from datetime import datetime
-import sqlite3
+import csv
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -187,62 +187,44 @@ with st.container():
             else:
                 centrar_texto("No sent", 5, "red")
 
-
 if input_submit:
-    # Conectar a la base de datos
-    conn = sqlite3.connect('datasets/reservations.db')
-    cursor = conn.cursor()
-
     # Obtener los datos ingresados
     data = {
-        'room': room,
-        'guests': guests,
-        'checkin_time': checkin_time,
-        'admission_date': admission_date,
-        'checkout_time': checkout_time,
-        'departure_date': departure_date,
-        'first_name': first_name,
-        'last_name': last_name,
-        'email': email,
-        'country': country,
-        'phone_number': phone_number,
-        'street': street,
-        'street_number': street_number,
-        'department_number': department_number,
-        'city': city,
-        'state': state,
-        'zip_code': zip_code,
-        'total_cost': total_cost,
-        'payment_option': payment_option,
-        'pay_option': pay_option,
-        'pay_amount': pay_amount
+        'Room': room,
+        'Guests': guests,
+        'Checkin Time': checkin_time,
+        'Admission Date': admission_date,
+        'Checkout Time': checkout_time,
+        'Departure Date': departure_date,
+        'First Name': first_name,
+        'Last Name': last_name,
+        'Email': email,
+        'Country': country,
+        'Phone Number': phone_number,
+        'Street': street,
+        'Street Number': street_number,
+        'Department Number': department_number,
+        'City': city,
+        'State': state,
+        'Zip Code': zip_code,
+        'Total Cost': total_cost,
+        'Payment Option': payment_option,
+        'Pay Option': pay_option,
+        'Pay Amount': pay_amount
     }
 
-    # Insertar los datos en la base de datos
-    cursor.execute('''
-        INSERT INTO reservas
-        (room, guests, checkin_time, admission_date, checkout_time, departure_date,
-        first_name, last_name, email, country, phone_number, street, street_number,
-        department_number, city, state, zip_code, total_cost, payment_option, pay_option, pay_amount)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', tuple(data.values()))
+    # Escribir los datos en el archivo CSV
+    with open('reservations.csv', 'a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(data.values())
 
-    # Confirmar y cerrar la conexión con la base de datos
-    conn.commit()
-    conn.close()
+    st.success("Reservation data saved successfully!")
 
+# ... Resto del código ...
 
-
-
-            
-            
-
-
-        
-        
-
-
-
-
-
-
+# Mostrar los datos almacenados en el archivo CSV
+st.write("## Stored Reservations")
+with open('reservations.csv', 'r', encoding='utf-8') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        st.write(row)
