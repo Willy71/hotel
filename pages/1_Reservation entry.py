@@ -76,6 +76,13 @@ with st.container():
         t = st.time_input('Check out time', value=None)
     with col23:
         d = st.date_input("Departure date", format="DD.MM.YYYY")
+
+with st.container():    
+    col31, col32, col33, col34 = st.columns(4)
+    with col32:
+        first_name = st.text_input('First name')
+    with col33:
+        last_name = st.text_input('Last name')
         
         
 
