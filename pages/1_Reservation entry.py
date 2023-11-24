@@ -228,6 +228,12 @@ if input_submit:
     }
 
 if input_submit:
+    # Convertir fechas y horas a cadenas de texto
+    data['Checkin Time'] = checkin_time.strftime('%H:%M:%S') if checkin_time else None
+    data['Admission Date'] = admission_date.strftime('%Y-%m-%d') if admission_date else None
+    data['Checkout Time'] = checkout_time.strftime('%H:%M:%S') if checkout_time else None
+    data['Departure Date'] = departure_date.strftime('%Y-%m-%d') if departure_date else None
+
     # Enviar datos a Airtable
     response = requests.post(AIRTABLE_API_URL, json={'fields': data}, headers=headers)
     
