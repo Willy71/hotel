@@ -27,6 +27,6 @@ jobs:
       run: echo "$GOOGLE_SHEETS_CREDENTIALS" > credi.json
 
     - name: Run Streamlit App
-      run: streamlit run Home.py
+      run: streamlit run 1_Reservation entry.py
       env:
         GOOGLE_APPLICATION_CREDENTIALS: credi.json
