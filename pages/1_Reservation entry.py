@@ -186,6 +186,53 @@ with st.container():
             else:
                 centrar_texto("No sent", 5, "red")
 
+
+if input_submit:
+    # Conectar a la base de datos
+    conn = sqlite3.connect('reservations.db')
+    cursor = conn.cursor()
+
+    # Obtener los datos ingresados
+    data = {
+        'room': room,
+        'guests': guests,
+        'checkin_time': checkin_time,
+        'admission_date': admission_date,
+        'checkout_time': checkout_time,
+        'departure_date': departure_date,
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
+        'country': country,
+        'phone_number': phone_number,
+        'street': street,
+        'street_number': street_number,
+        'department_number': department_number,
+        'city': city,
+        'state': state,
+        'zip_code': zip_code,
+        'total_cost': total_cost,
+        'payment_option': payment_option,
+        'pay_option': pay_option,
+        'pay_amount': pay_amount
+    }
+
+    # Insertar los datos en la base de datos
+    cursor.execute('''
+        INSERT INTO reservas
+        (room, guests, checkin_time, admission_date, checkout_time, departure_date,
+        first_name, last_name, email, country, phone_number, street, street_number,
+        department_number, city, state, zip_code, total_cost, payment_option, pay_option, pay_amount)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', tuple(data.values()))
+
+    # Confirmar y cerrar la conexión con la base de datos
+    conn.commit()
+    conn.close()
+
+
+
+
             
             
 
