@@ -149,6 +149,15 @@ with st.container():
     with col63:
         street_number = st.text_input('Street number')
 
+with st.container():    
+    col71, col72, col73, col74 = st.columns(4)
+    with col72:
+        city = st.text_input('City')
+    with col73:
+        state = st.text_input('State')
+    with col74:
+        zip_code = st.text_input('Zip code')
+
 
 
         
