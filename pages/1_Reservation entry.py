@@ -134,6 +134,7 @@ with st.container():
         pais_seleccionado = st.selectbox('Selecciona un país', list(prefijos.keys()))
     with col53:
         numero_telefono = st.text_input("Enter your phone number:")
+    with col54:
         # Validar el número de teléfono continuamente
         if validar_numero_telefono(numero_telefono):
             st.success("Valid phone number!")
