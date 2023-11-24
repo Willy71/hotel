@@ -6,8 +6,9 @@ import re
 from datetime import datetime
 import requests
 import re
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from googleapiclient.discovery import build
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -24,15 +25,24 @@ st.set_page_config(
 # df = pd.DataFrame(data)
 
 # Configuración de Google Sheets
-SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-CREDENTIALS_FILE = "/credi.json"  # Reemplazar con la ruta de tu archivo JSON de credenciales
-SPREADSHEET_KEY = "1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38"  # Reemplazar con la clave de tu hoja de cálculo de Google Sheets
+SPREADSHEET_ID = "1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38"  # Reemplazar con el ID de tu hoja de cálculo de Google Sheets
+RANGE_NAME = "reservations.csv"  # Reemplazar con el nombre de la hoja
 
-# Autorizar con las credenciales
-credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, SCOPE)
-gc = gspread.authorize(credentials)
-spreadsheet = gc.open_by_key(SPREADSHEET_KEY)
-worksheet = spreadsheet.get_worksheet(0)  # Obtener la primera hoja de la hoja de cálculo
+# Autenticación con OAuth2
+creds = st.secrets["google_sheets"] if "google_sheets" in st.secrets else None
+if not creds or not creds.valid:
+    if creds and creds.expired and creds.refresh_token:
+        creds.refresh(Request())
+    else:
+        flow = st.credentials.Credentials.from_authorized_user_file("token.json", ["https://www.googleapis.com/auth/spreadsheets"])
+        creds = st.credentials.Credentials.get_from_flow(flow)
+
+# Crear la conexión a la API de Google Sheets
+service = build("sheets", "v4", credentials=creds)
+
+# Obtener datos de la hoja de cálculo
+result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
+values = result.get("values", [])
 
 page_bg_img = f"""
 <style>
