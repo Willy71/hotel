@@ -135,6 +135,7 @@ with st.container():
     with col53:
         numero_telefono = st.text_input("Enter your phone number:")
     with col54:
+        st.title("")
         # Validar el número de teléfono continuamente
         if validar_numero_telefono(numero_telefono):
             st.success("Valid phone number!")
