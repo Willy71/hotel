@@ -5,6 +5,7 @@ import datetime
 import re
 from datetime import datetime
 import csv
+import requests
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -38,6 +39,19 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+# Configuración de Airtable
+AIRTABLE_API_KEY = 'patUruatk3rVOInkL.50aa2ed728947de75d19df08fb1a0c2673ef44535a0bbaa6e6a09be73f530496'
+AIRTABLE_BASE_ID = 'appi36zdXH2XJO59d'
+AIRTABLE_TABLE_NAME = 'reservations.csv'
+
+# URL de la API de Airtable
+AIRTABLE_API_URL = f'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
+
+# Encabezados para la solicitud de la API de Airtable
+headers = {
+    'Authorization': f'Bearer {AIRTABLE_API_KEY}',
+    'Content-Type': 'application/json'
+}
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
@@ -213,18 +227,24 @@ if input_submit:
         'Pay Amount': pay_amount
     }
 
-    # Escribir los datos en el archivo CSV
-    with open('reservations.csv', 'a', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(data.values())
+  if st.button("Agregar Datos"):
+    # Realizar la solicitud a la API de Airtable para agregar nuevos datos
+    new_data_json = {'fields': eval(data)}
+    response = requests.post(AIRTABLE_API_URL, json=new_data_json, headers=headers)
+    
+    if response.status_code == 200:
+        st.success("Datos agregados con éxito!")
+    else:
+        st.error("Error al agregar datos. Verifica el formato y vuelve a intentarlo.")
 
-    st.success("Reservation data saved successfully!")
+# Mostrar los datos actualizados desde Airtable
+st.write("## Datos Actualizados")
 
-# ... Resto del código ...
+# Realizar la solicitud a la API de Airtable para obtener los datos actualizados
+response = requests.get(AIRTABLE_API_URL, headers=headers)
+data = response.json()
+records = data.get('records', [])
 
-# Mostrar los datos almacenados en el archivo CSV
-st.write("## Stored Reservations")
-with open('reservations.csv', 'r', encoding='utf-8') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        st.write(row)
+# Crear un DataFrame de pandas con los datos de Airtable
+df = pd.json_normalize(records)
+st.write(df)
