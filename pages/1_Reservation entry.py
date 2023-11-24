@@ -166,6 +166,8 @@ with st.container():
     with col83:
         opciones_saldo = ["Full payment", "Partial payment", "No reservation payment"]
         option = st.selectbox("Pay", opciones_saldo, index=None, placeholder="Pay...")
+    with col84:
+        pay = st.number_input('Insert a pay')
 
 
         
