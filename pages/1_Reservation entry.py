@@ -92,24 +92,24 @@ with st.form(key="reservation"):
         col00, col01, col02, col03, col04 = st.columns([1, 2, 2, 2, 3])
         with col01:
             opciones_numericas = list(range(31))
-            option = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
+            room = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
         with col02:
-            opciones_numericas = list(range(11))
-            option = st.selectbox("Number of guests", opciones_numericas, index=None, placeholder="Guests...")
+            opciones_numericas_2 = list(range(11))
+            guests = st.selectbox("Number of guests", opciones_numericas_2, index=None, placeholder="Guests...")
     
     with st.container():    
         col10, col11, col12, col13, col14 = st.columns([1, 2, 2, 2, 3])
         with col11:
-            t = st.time_input('Check in time', value=None)
+            checkin_time = st.time_input('Check in time', value=None)
         with col12:
-            d = st.date_input("Date of admission", format="DD.MM.YYYY")
+            admission_date = st.date_input("Date of admission", format="DD.MM.YYYY")
     
     with st.container():    
         col20, col21, col22, col23, col24 = st.columns([1, 2, 2, 2, 3])
         with col21:
-            t = st.time_input('Check out time', value=None)
+            checkout_time = st.time_input('Check out time', value=None)
         with col22:
-            d = st.date_input("Departure date", format="DD.MM.YYYY")
+            departure_date = st.date_input("Departure date", format="DD.MM.YYYY")
     
     with st.container():    
         col30, col31, col32, col33, col34 = st.columns([1, 2, 2, 2, 3])
@@ -118,10 +118,10 @@ with st.form(key="reservation"):
         with col32:
             last_name = st.text_input('Last name')
         with col33:
-            email_input = st.text_input("Enter a valid email:")
+            email = st.text_input("Enter a valid email:")
         with col34:
             st.text("")
-            if validar_email(email_input):
+            if validar_email(email):
                 st.success("¡The email address is valid!")
             else:
                 st.error("The email address is not valid. Please enter a valid address.")
@@ -131,13 +131,13 @@ with st.form(key="reservation"):
         col40, col41, col42, col43, col44 = st.columns([1, 2, 2, 2, 3])
         with col41:
             # Selecciona el país desde el selectbox
-            pais_seleccionado = st.selectbox('Select a country', list(prefijos.keys()))
+            country = st.selectbox('Select a country', list(prefijos.keys()))
         with col42:
-            numero_telefono = st.text_input("Phone number:")
+            phone_number = st.text_input("Phone number:")
         with col44:
             st.text("")
             # Validar el número de teléfono continuamente
-            if validar_numero_telefono(numero_telefono):
+            if validar_numero_telefono(phone_number):
                 st.success("Valid phone number!")
             else:
                 st.error("Invalid phone number. Enter a 11-digit number.")
@@ -149,7 +149,7 @@ with st.form(key="reservation"):
         with col52:
             street_number = st.text_input('Street number')
         with col53:
-            department = st.text_input("Department number")
+            department_number = st.text_input("Department number")
     
     with st.container():    
         col60, col61, col62, col63, col64 = st.columns([1, 2, 2, 2, 3])
@@ -166,12 +166,12 @@ with st.form(key="reservation"):
             total_cost = st.number_input(label="Total cost")       
         with col72:
             opciones_pago = ["None", "Credit card", "Cash", "Debit"]
-            option = st.selectbox("Payment", opciones_pago, index=None, placeholder="Payment option...")
+            payment_option = st.selectbox("Payment", opciones_pago, index=None, placeholder="Payment option...")
         with col73:
             opciones_saldo = ["None", "Full payment", "Partial payment"]
-            option = st.selectbox("Pay", opciones_saldo, index=None, placeholder="Pay...")
+            pay_option = st.selectbox("Pay", opciones_saldo, index=None, placeholder="Pay...")
         with col74:
-            pay = st.number_input(label='Insert a pay')
+            pay_amount = st.number_input(label='Insert a pay')
 
     with st.container():    
         col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
