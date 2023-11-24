@@ -119,6 +119,7 @@ with st.form(key="reservation"):
         with col33:
             email_input = st.text_input("Enter a valid email:")
         with col34:
+            st.text("")
             if validar_email(email_input):
                 st.success("¡The email address is valid!")
             else:
