@@ -6,6 +6,9 @@ import re
 from datetime import datetime
 import csv
 import requests
+import datetime
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
