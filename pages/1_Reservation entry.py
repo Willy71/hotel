@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import datetime
 import re
+from streamlit_gsheets import GSheetsConnection
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -34,6 +35,15 @@ background: rgba(28,28,56,1);
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# Create a connection object.
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+df = conn.read()
+
+# Print results.
+for row in df.itertuples():
+    st.write(f"{row.name} has a :{row.pet}:")
 
 
 def centrar_imagen(imagen, ancho):
