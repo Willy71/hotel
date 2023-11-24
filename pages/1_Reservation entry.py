@@ -159,19 +159,21 @@ with st.form(key="reservation"):
             zip_code = st.text_input('Zip code')
     
     with st.container():    
-        col81, col82, col83, col84 = st.columns(4)
-        with col82:
+        col71, col72, col73, col74 = st.columns(4)
+        with col71:
+            total_cost = st.number_input(label="Total cost")       
+        with col72:
             opciones_pago = ["None", "Credit card", "Cash", "Debit"]
             option = st.selectbox("Payment", opciones_pago, index=None, placeholder="Payment option...")
-        with col83:
+        with col73:
             opciones_saldo = ["None", "Full payment", "Partial payment"]
             option = st.selectbox("Pay", opciones_saldo, index=None, placeholder="Pay...")
-        with col84:
+        with col74:
             pay = st.number_input(label='Insert a pay')
 
     with st.container():    
-        col91, col92, col93, col94 = st.columns(4)
-        with col94:
+        col81, col82, col83, col84, col85 = st.columns(5)
+        with col83:
             input_submit = st.form_submit_button("submit")
 
 
