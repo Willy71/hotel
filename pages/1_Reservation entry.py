@@ -227,24 +227,12 @@ if input_submit:
         'Pay Amount': pay_amount
     }
 
-  if st.button("Agregar Datos"):
-    # Realizar la solicitud a la API de Airtable para agregar nuevos datos
-    new_data_json = {'fields': eval(data)}
-    response = requests.post(AIRTABLE_API_URL, json=new_data_json, headers=headers)
+if input_submit:
+    # Enviar datos a Airtable
+    response = requests.post(AIRTABLE_API_URL, json={'fields': data}, headers=headers)
     
+    # Verificar el código de estado de la respuesta
     if response.status_code == 200:
-        st.success("Datos agregados con éxito!")
+        centrar_texto("Reserva enviada correctamente a Airtable", 5, "green")
     else:
-        st.error("Error al agregar datos. Verifica el formato y vuelve a intentarlo.")
-
-# Mostrar los datos actualizados desde Airtable
-st.write("## Datos Actualizados")
-
-# Realizar la solicitud a la API de Airtable para obtener los datos actualizados
-response = requests.get(AIRTABLE_API_URL, headers=headers)
-data = response.json()
-records = data.get('records', [])
-
-# Crear un DataFrame de pandas con los datos de Airtable
-df = pd.json_normalize(records)
-st.write(df)
+        centrar_texto(f"Error al enviar reserva a Airtable. Código de estado: {response.status_code}", 5, "red")
