@@ -141,19 +141,21 @@ with st.form(key="reservation"):
                 st.error("Invalid phone number. Enter a 11-digit number.")
     
     with st.container():    
-        col61, col62, col63, col64 = st.columns(4)
-        with col62:
+        col51, col52, col53, col54 = st.columns(4)
+        with col51:
             street = st.text_input('Street')
-        with col63:
+        with col52:
             street_number = st.text_input('Street number')
+        with col53:
+            department = st.text_input("Department number")
     
     with st.container():    
-        col71, col72, col73, col74 = st.columns(4)
-        with col72:
+        col61, col62, col63, col64 = st.columns(4)
+        with col61:
             city = st.text_input('City')
-        with col73:
+        with col62:
             state = st.text_input('State')
-        with col74:
+        with col63:
             zip_code = st.text_input('Zip code')
     
     with st.container():    
