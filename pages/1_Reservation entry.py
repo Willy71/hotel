@@ -138,7 +138,7 @@ with st.form(key="reservation"):
             if validar_numero_telefono(numero_telefono):
                 st.success("Valid phone number!")
             else:
-                st.error("Invalid phone number. Enter a 10-digit number.")
+                st.error("Invalid phone number. Enter a 11-digit number.")
     
     with st.container():    
         col61, col62, col63, col64 = st.columns(4)
