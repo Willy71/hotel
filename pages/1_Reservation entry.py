@@ -112,20 +112,18 @@ with st.form(key="reservation"):
     
     with st.container():    
         col31, col32, col33, col34 = st.columns(4)
-        with col32:
+        with col31:
             first_name = st.text_input('First name')
-        with col33:
+        with col32:
             last_name = st.text_input('Last name')
-    
-    with st.container():    
-        col41, col42, col43, col44 = st.columns(4)
-        with col42:
+        with col33:
             email_input = st.text_input("Enter a valid email:")
-        with col43:
+        with col34:
             if validar_email(email_input):
                 st.success("¡The email address is valid!")
             else:
                 st.error("The email address is not valid. Please enter a valid address.")
+         
     
     with st.container():    
         col51, col52, col53, col54 = st.columns(4)
