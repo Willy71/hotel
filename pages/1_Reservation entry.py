@@ -106,6 +106,7 @@ with st.container():
     col41, col42, col43, col44 = st.columns(4)
     with col42:
         email_input = st.text_input("Enter a valid email:")
+    with col43:
         if validar_email(email_input):
             st.success("¡The email address is valid!")
         else:
