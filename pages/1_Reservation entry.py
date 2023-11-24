@@ -98,9 +98,9 @@ with st.container():
     with col42:
         email_input = st.text_input("Enter a valid email:")
         if validar_email(email_input):
-            st.success("¡La dirección de correo electrónico es válida!")
+            st.success("¡The email address is valid!")
         else:
-            st.error("La dirección de correo electrónico no es válida. Por favor, ingrese una dirección válida.")
+            st.error("The email address is not valid. Please enter a valid address.")
     
 
 
