@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import datetime
 import re
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -46,18 +44,6 @@ def centrar_imagen(imagen, ancho):
         f'</div>',
         unsafe_allow_html=True
     )
-
-# Cargar credenciales del archivo credi.json
-credentials = ServiceAccountCredentials.from_json_keyfile_name('credi.json', ['https://www.googleapis.com/auth/spreadsheets'])
-gc = gspread.authorize(credentials)
-
-# ID de la hoja de cálculo
-spreadsheet_id = '1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38'
-
-# Abrir la hoja de cálculo
-sh = gc.open_by_key(spreadsheet_id)
-worksheet = sh.get_worksheet(0)  # Puedes ajustar el índice según tu hoja de cálculo
-
 
 def centrar_texto(texto, tamanho, color):
     st.markdown(f"<h{tamanho} style='text-align: center; color: {color}'>{texto}</h{tamanho}>",
@@ -222,10 +208,4 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    # Convertir los datos a un DataFrame de Pandas para facilitar su manipulación
-    df = pd.DataFrame([data])
-
-    # Agregar los datos al final de la hoja de cálculo
-    worksheet.append_table(df.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
-     
-   
+    
