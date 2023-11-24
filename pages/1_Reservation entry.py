@@ -4,6 +4,7 @@ import webbrowser
 import datetime
 import re
 from datetime import datetime
+import sqlite3
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
