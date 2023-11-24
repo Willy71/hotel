@@ -88,7 +88,7 @@ st.write("#")
 
 with st.form(key="reservation"):
     with st.container():    
-        col01, col02, col03, col04 = st.columns(4)
+        col00, col01, col02, col03, col04 = st.columns(5)
         with col01:
             opciones_numericas = list(range(31))
             option = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
@@ -97,21 +97,21 @@ with st.form(key="reservation"):
             option = st.selectbox("Number of guests", opciones_numericas, index=None, placeholder="Guests...")
     
     with st.container():    
-        col11, col12, col13, col14 = st.columns(4)
+        col10, col11, col12, col13, col14 = st.columns(5)
         with col11:
             t = st.time_input('Check in time', value=None)
         with col12:
             d = st.date_input("Date of admission", format="DD.MM.YYYY")
     
     with st.container():    
-        col21, col22, col23, col24 = st.columns(4)
+        col20, col21, col22, col23, col24 = st.columns(5)
         with col21:
             t = st.time_input('Check out time', value=None)
         with col22:
             d = st.date_input("Departure date", format="DD.MM.YYYY")
     
     with st.container():    
-        col31, col32, col33, col34 = st.columns(4)
+        col30, col31, col32, col33, col34 = st.columns(5)
         with col31:
             first_name = st.text_input('First name')
         with col32:
@@ -126,7 +126,7 @@ with st.form(key="reservation"):
          
     
     with st.container():    
-        col41, col42, col43, col44 = st.columns(4)
+        col40, col41, col42, col43, col44 = st.columns(5)
         with col41:
             # Selecciona el país desde el selectbox
             pais_seleccionado = st.selectbox('Select a country', list(prefijos.keys()))
@@ -141,7 +141,7 @@ with st.form(key="reservation"):
                 st.error("Invalid phone number. Enter a 11-digit number.")
     
     with st.container():    
-        col51, col52, col53, col54 = st.columns(4)
+        col50, col51, col52, col53, col54 = st.columns(5)
         with col51:
             street = st.text_input('Street')
         with col52:
@@ -150,7 +150,7 @@ with st.form(key="reservation"):
             department = st.text_input("Department number")
     
     with st.container():    
-        col61, col62, col63, col64 = st.columns(4)
+        col60, col61, col62, col63, col64 = st.columns(5)
         with col61:
             city = st.text_input('City')
         with col62:
@@ -159,7 +159,7 @@ with st.form(key="reservation"):
             zip_code = st.text_input('Zip code')
     
     with st.container():    
-        col71, col72, col73, col74 = st.columns(4)
+        col70, col71, col72, col73, col74 = st.columns(5)
         with col71:
             total_cost = st.number_input(label="Total cost")       
         with col72:
