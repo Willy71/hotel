@@ -178,10 +178,15 @@ with st.form(key="reservation"):
             input_submit = st.form_submit_button("submit")
 
 
-if input_submit:
-    st.write("Sent")
-else:
-    st.write("No sent")
+with st.container():    
+        col91, col92, col93, col94, col95 = st.columns([1.2, 1.2, 1, 1, 1])
+        with col93:
+            if input_submit:
+                centrar_texto("Sent", 7, "blue")
+            else:
+                centrar_texto("No sent", 7, "blue")
+
+            
             
 
 
