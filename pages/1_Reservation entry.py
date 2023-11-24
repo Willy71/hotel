@@ -5,8 +5,9 @@ import datetime
 import re
 from datetime import datetime
 import requests
-import pygsheets
-import os
+import re
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -15,12 +16,23 @@ st.set_page_config(
     layout="wide"
 )
 
-credenciales = pygsheets.autorize(service_file=os.getcwd() + "/credi.json")
-mi_archivo_google_sheets = "https://docs.google.com/spreadsheets/d/1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38/edit#gid=1805674101" 
-archivo = credenciales.open_by_url(mi_archivo_google_sheets)
-pestana = archivo.worksheet_by_tilte(reservations)
-data = pestana.get_all_values()
-df = pd.DataFrame(data)
+# credenciales = pygsheets.autorize(service_file=os.getcwd() + "/credi.json")
+# mi_archivo_google_sheets = "https://docs.google.com/spreadsheets/d/1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38/edit#gid=1805674101" 
+# archivo = credenciales.open_by_url(mi_archivo_google_sheets)
+# pestana = archivo.worksheet_by_tilte(reservations)
+# data = pestana.get_all_values()
+# df = pd.DataFrame(data)
+
+# Configuración de Google Sheets
+SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+CREDENTIALS_FILE = "/credi.json"  # Reemplazar con la ruta de tu archivo JSON de credenciales
+SPREADSHEET_KEY = "1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38"  # Reemplazar con la clave de tu hoja de cálculo de Google Sheets
+
+# Autorizar con las credenciales
+credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, SCOPE)
+gc = gspread.authorize(credentials)
+spreadsheet = gc.open_by_key(SPREADSHEET_KEY)
+worksheet = spreadsheet.get_worksheet(0)  # Obtener la primera hoja de la hoja de cálculo
 
 page_bg_img = f"""
 <style>
