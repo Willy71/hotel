@@ -182,9 +182,9 @@ with st.container():
         col91, col92, col93, col94, col95 = st.columns([1.3, 1.3, 1, 1, 1])
         with col93:
             if input_submit:
-                centrar_texto("Sent", 7, "green")
+                centrar_texto("Sent", 5, "green")
             else:
-                centrar_texto("No sent", 7, "red")
+                centrar_texto("No sent", 5, "red")
 
             
             
