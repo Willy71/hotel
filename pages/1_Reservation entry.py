@@ -189,7 +189,7 @@ with st.container():
 
 if input_submit:
     # Conectar a la base de datos
-    conn = sqlite3.connect('reservations.db')
+    conn = sqlite3.connect('datasets/reservations.db')
     cursor = conn.cursor()
 
     # Obtener los datos ingresados
