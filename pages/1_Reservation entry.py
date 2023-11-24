@@ -14,6 +14,19 @@ st.set_page_config(
     layout="wide"
 )
 
+# Configuración de Google Sheets
+SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+CREDENTIALS_FILE = "path/to/your/credentials_file.json"  # Reemplazar con la ruta de tu archivo JSON de credenciales
+SPREADSHEET_KEY = "your_spreadsheet_key"  # Reemplazar con la clave de tu hoja de cálculo de Google Sheets
+
+# Autorizar con las credenciales
+credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, SCOPE)
+gc = gspread.authorize(credentials)
+spreadsheet = gc.open_by_key(SPREADSHEET_KEY)
+worksheet = spreadsheet.get_worksheet(0)  # Obtener la primera hoja de la hoja de cálculo
+
+# 
+
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
@@ -39,19 +52,6 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Configuración de Airtable
-AIRTABLE_API_KEY = 'patUruatk3rVOInkL.50aa2ed728947de75d19df08fb1a0c2673ef44535a0bbaa6e6a09be73f530496'
-AIRTABLE_BASE_ID = 'appi36zdXH2XJO59d'
-AIRTABLE_TABLE_NAME = 'reservations.csv'
-
-# URL de la API de Airtable
-AIRTABLE_API_URL = f'https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AIRTABLE_TABLE_NAME}'
-
-# Encabezados para la solicitud de la API de Airtable
-headers = {
-    'Authorization': f'Bearer {AIRTABLE_API_KEY}',
-    'Content-Type': 'application/json'
-}
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
@@ -226,19 +226,9 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-
-if input_submit:
-    # Convertir fechas y horas a cadenas de texto
-    data['Checkin Time'] = checkin_time.strftime('%H:%M:%S') if checkin_time else None
-    data['Admission Date'] = admission_date.strftime('%Y-%m-%d') if admission_date else None
-    data['Checkout Time'] = checkout_time.strftime('%H:%M:%S') if checkout_time else None
-    data['Departure Date'] = departure_date.strftime('%Y-%m-%d') if departure_date else None
-
-    # Enviar datos a Airtable
-    response = requests.post(AIRTABLE_API_URL, json={'fields': data}, headers=headers)
-    
-    # Verificar el código de estado de la respuesta
-    if response.status_code == 200:
-        centrar_texto("Reserva enviada correctamente a Airtable", 5, "green")
-    else:
-        centrar_texto(f"Error al enviar reserva a Airtable. Código de estado: {response.status_code}", 5, "red")
+    # Enviar datos a Google Sheets
+    try:
+        worksheet.append_row(list(data.values()))
+        centrar_texto("Reserva enviada correctamente a Google Sheets", 5, "green")
+    except Exception as e:
+        centrar_texto(f"Error al enviar reserva a Google Sheets: {str(e)}", 5, "red")
