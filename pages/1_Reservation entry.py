@@ -93,6 +93,15 @@ def validar_email(email):
     else:
         return False
 
+def validar_numero_telefono(numero):
+    # Define una expresión regular para un número de teléfono
+    patron = re.compile(r'^\d{11}$')  # Asumiendo un formato de 10 dígitos, ajusta según tus necesidades
+    # Comprueba si el número coincide con el patrón
+    if patron.match(numero):
+        return True
+    else:
+        return False
+
 with st.container():    
     col41, col42, col43, col44 = st.columns(4)
     with col42:
@@ -101,7 +110,32 @@ with st.container():
             st.success("¡The email address is valid!")
         else:
             st.error("The email address is not valid. Please enter a valid address.")
-    
+
+# Lista de prefijos telefónicos internacionales
+prefijos = {'Estados Unidos': '+1',
+            'Canadá': '+1',
+            'Reino Unido': '+44',
+            'Australia': '+61',
+            'India': '+91',
+            # Agrega más países según sea necesario
+           }
+
+# Función para obtener el prefijo seleccionado
+def obtener_prefijo(pais):
+    return prefijos.get(pais, '')
+
+with st.container():    
+    col51, col52, col53, col54 = st.columns(4)
+    with col52:
+        # Selecciona el país desde el selectbox
+        pais_seleccionado = st.selectbox('Selecciona un país', list(prefijos.keys()))
+    with col53:
+        numero_telefono = st.text_input("Enter your phone number:")
+        # Validar el número de teléfono continuamente
+        if validar_numero_telefono(numero_telefono):
+            st.success("Valid phone number!")
+        else:
+            st.error("Invalid phone number. Enter a 10-digit number.")
 
 
 
