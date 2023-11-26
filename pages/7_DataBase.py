@@ -3,9 +3,6 @@ import pandas as pd
 import boto3
 import io
 
-# Imprimir los secrets para depurar
-st.write("Secrets:", st.secrets)
-
 # Intenta obtener las credenciales de AWS S3 desde los secrets
 try:
     access_key_id = st.secrets["aws_s3"]["ACCESS_KEY_ID"]
