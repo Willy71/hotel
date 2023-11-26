@@ -12,7 +12,7 @@ s3 = boto3.client(
 )
 
 # Nombre del archivo CSV en el bucket de S3
-csv_filename = 'reservations_data.csv'
+csv_filename = 'reservations.csv'
 bucket = 'connect-acc'  # Reemplaza con el nombre de tu bucket
 
 # Descargar el archivo CSV desde S3
