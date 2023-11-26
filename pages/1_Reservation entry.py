@@ -72,22 +72,22 @@ def get_files(_connector, bucket) -> pd.DataFrame:
         )
         return df
 
-st.markdown(f"## 📦 Connecting to AWS S3")
+# st.markdown(f"## 📦 Connecting to AWS S3")
 
 s3 = get_connector()
 
 buckets = get_buckets(s3)
-if buckets:
-    st.write(f"🎉 Found {len(buckets)} bucket(s)!")
-    bucket = st.selectbox("Choose a bucket", buckets)
-    files = get_files(s3, bucket)
-    if isinstance(files, pd.DataFrame):
-        st.write(f"📁 Found {len(files)} file(s) in this bucket:")
-        st.dataframe(files)
-    else:
-        st.write(f"This bucket is empty!")
-else:
-    st.write(f"Couldn't find any bucket. Make sure to create one!")
+# if buckets:
+#      st.write(f"🎉 Found {len(buckets)} bucket(s)!")
+#     bucket = st.selectbox("Choose a bucket", buckets)
+#     files = get_files(s3, bucket)
+#     if isinstance(files, pd.DataFrame):
+#         st.write(f"📁 Found {len(files)} file(s) in this bucket:")
+#         st.dataframe(files)
+#     else:
+#         st.write(f"This bucket is empty!")
+# else:
+#     st.write(f"Couldn't find any bucket. Make sure to create one!")
 
 
 ("---")
