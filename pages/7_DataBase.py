@@ -58,8 +58,8 @@ if st.button("Eliminar Reserva"):
 
             # Mostrar mensaje de éxito
             st.success(f"Reserva con índice {index_to_delete} eliminada exitosamente.")
-
-            # Volver a cargar el DataFrame después de la eliminación
-            df = pd.read_csv(io.StringIO(data))
     else:
         st.error("Índice no válido. Por favor, ingrese un índice válido.")
+
+# Mostrar el DataFrame en una tabla de Streamlit después de cualquier cambio
+st.dataframe(df)
