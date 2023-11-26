@@ -270,12 +270,12 @@ if input_submit:
 
     # Descargar el archivo CSV existente desde S3 (si existe)
     try:
-        existing_data_df = pd.read_csv(s3_path)
+        df = pd.read_csv(s3_path)
     except FileNotFoundError:
-        existing_data_df = pd.DataFrame()
+        df = pd.DataFrame()
 
     # Concatenar los nuevos datos con los existentes
-    merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
+    merged_data_df = pd.concat([df, new_data_df], ignore_index=True)
 
     # Guardar el DataFrame combinado en un nuevo archivo CSV en S3
     merged_data_df.to_csv(csv_filename, index=False)
