@@ -3,8 +3,8 @@ import pandas as pd
 import boto3
 
 # Obtener las credenciales de AWS S3 desde los secrets
-access_key_id = st.secrets.aws_s3.ACCESS_KEY_ID
-secret_access_key = st.secrets.aws_s3.SECRET_ACCESS_KEY
+access_key_id = st.secrets["aws_s3"]["ACCESS_KEY_ID"]
+secret_access_key = st.secrets["aws_s3"]["SECRET_ACCESS_KEY"]
 
 @st.experimental_singleton()
 def get_connector():
