@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import boto3
+import io
+
+# Imprimir los secrets para depurar
+st.write("Secrets:", st.secrets)
 
 # Intenta obtener las credenciales de AWS S3 desde los secrets
 try:
