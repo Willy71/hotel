@@ -1,4 +1,4 @@
 gspread==4.0.1
 pandas==1.3.3
 streamlit==1.17.0
-pyairtable==2.2.0
+pyairtable==0.8.0
