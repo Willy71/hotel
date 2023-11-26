@@ -292,8 +292,8 @@ if input_submit:
     os.remove(csv_filename)
 
     # Mensaje de éxito
-    centrar_texto("Data Updated in S3", 5, "green")
+    centrar_texto("Reservation added successfully!!", 5, "green")
     centrar_texto("Sent", 5, "green")
 else:
-    centrar_texto("No sent", 5, "red")
+    centrar_texto("I haven't added this reservation yet.", 5, "red")
 
