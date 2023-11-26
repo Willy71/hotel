@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import re
 import requests
+from gsheetsdb import connect
 # from pyairtable import Table
 
 # Colocar nome na pagina, icone e ampliar a tela
@@ -36,10 +37,6 @@ background: rgba(28,28,56,1);
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
-
-import streamlit as st
-import pandas as pd
-from gsheetsdb import connect
 
 # Share the connector across all users connected to the app
 @st.experimental_singleton()
