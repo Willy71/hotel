@@ -258,22 +258,10 @@ if input_submit:
     }
     centrar_texto("Sent", 5, "green")
     # Convertir los datos a un DataFrame de Pandas para facilitar su manipulación
-    dataframe = pd.DataFrame([data])
+    df = pd.DataFrame([data])
 
     # Agregar los datos al final de la hoja de cálculo
     df.append_table(dataframe.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
 else:
     centrar_texto("No sent", 5, "red")
 
-    # Convertir los datos a un DataFrame de Pandas para facilitar su manipulación
-    df = pd.DataFrame([data])
-
-    # Agregar los datos al final de la hoja de cálculo
-    worksheet.append_table(df.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
-
-# Enviar datos a Airtable
-    # response = requests.post(AIRTABLE_API_URL, headers=headers, json={'fields': data})
-    # if response.status_code == 200:
-    #     centrar_texto("Sent", 5, "green")
-    # else:
-    #     centrar_texto(f"Error: {response.text}", 5, "red")
