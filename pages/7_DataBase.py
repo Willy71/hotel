@@ -49,8 +49,10 @@ if st.button("Eliminar Reserva"):
     if 0 <= index_to_delete < len(df):
         # Mostrar ventana emergente de confirmación
         if st.checkbox(f"¿Estás seguro de eliminar la reserva con índice {index_to_delete}?"):
-            # Eliminar la reserva y guardar el DataFrame actualizado en S3
+            # Eliminar la reserva localmente
             df = df.drop(index_to_delete).reset_index(drop=True)
+
+            # Guardar el DataFrame actualizado en S3
             s3.put_object(Body=df.to_csv(index=False), Bucket=bucket, Key=csv_filename)
 
             # Mostrar mensaje de éxito
