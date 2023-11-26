@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import datetime
 import re
+import requests
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -34,6 +35,15 @@ background: rgba(28,28,56,1);
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# URL de la API de Airtable y la clave de la API
+AIRTABLE_API_URL = 'https://api.airtable.com/v0/appi36zdXH2XJO59d/Table%201'
+AIRTABLE_API_KEY = 'patUruatk3rVOInkL'  # Reemplaza con tu clave de API de Airtable
+
+headers = {
+    'Authorization': f'Bearer {AIRTABLE_API_KEY}',
+    'Content-Type': 'application/json',
+}
 
 
 def centrar_imagen(imagen, ancho):
@@ -175,14 +185,6 @@ with st.form(key="reservation"):
             input_submit = st.form_submit_button("submit")
 
 
-with st.container():    
-        col91, col92, col93, col94, col95 = st.columns([1, 1, 1, 1, 1])
-        with col93:
-            if input_submit:
-                centrar_texto("Sent", 5, "green")
-            else:
-                centrar_texto("No sent", 5, "red")
-
 if input_submit:
     # Obtener los datos ingresados
     data = {
@@ -208,4 +210,10 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    
+
+# Enviar datos a Airtable
+    response = requests.post(AIRTABLE_API_URL, headers=headers, json={'fields': data})
+    if response.status_code == 200:
+        centrar_texto("Sent", 5, "green")
+    else:
+        centrar_texto(f"Error: {response.text}", 5, "red")
