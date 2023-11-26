@@ -58,5 +58,9 @@ if st.button("Eliminar Reserva"):
 
             # Mostrar mensaje de éxito
             st.success(f"Reserva con índice {index_to_delete} eliminada exitosamente.")
+
+            # Forzar la recarga de la página para mostrar los cambios
+            st.experimental_rerun()
     else:
         st.error("Índice no válido. Por favor, ingrese un índice válido.")
+
