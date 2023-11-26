@@ -40,7 +40,6 @@ df = pd.read_csv(io.StringIO(data))
 # Mostrar el DataFrame en una tabla de Streamlit
 st.dataframe(df)
 
-
 # Seleccionar una fila para eliminar
 index_to_delete = st.number_input("Ingrese el índice de la reserva que desea eliminar:", min_value=0, max_value=len(df)-1)
 
