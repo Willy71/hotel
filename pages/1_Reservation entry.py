@@ -37,6 +37,38 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+import streamlit as st
+import pandas as pd
+from gsheetsdb import connect
+
+# Share the connector across all users connected to the app
+@st.experimental_singleton()
+def get_connector():
+    return connect()
+
+# Time to live: the maximum number of seconds to keep an entry in the cache
+TTL = 24 * 60 * 60
+
+# Using `experimental_memo()` to memoize function executions
+@st.experimental_memo(ttl=TTL)
+def query_to_dataframe(_connector, query: str) -> pd.DataFrame:
+    rows = _connector.execute(query, headers=1)
+    dataframe = pd.DataFrame(list(rows))
+    return dataframe
+
+@st.experimental_memo(ttl=600)
+def get_data(_connector, gsheets_url) -> pd.DataFrame:
+    return query_to_dataframe(_connector, f'SELECT * FROM "{gsheets_url}"')
+
+st.markdown(f"## 📝 Connecting to a public Google Sheet")
+
+gsheet_connector = get_connector()
+gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
+
+data = get_data(gsheet_connector, gsheets_url)
+st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
+st.dataframe(data)
+
 # Token de Airtable (no necesitas una clave de API)
 # AIRTABLE_TOKEN = 'patUruatk3rVOInkL'  # Reemplaza con tu token de Airtable
 # AIRTABLE_BASE_ID = 'appi36zdXH2XJO59d'  # Reemplaza con el ID de tu base de datos en Airtable
@@ -209,8 +241,19 @@ if input_submit:
         'Pay Amount': pay_amount
     }
     centrar_texto("Sent", 5, "green")
+    # Convertir los datos a un DataFrame de Pandas para facilitar su manipulación
+    df = pd.DataFrame([data])
+
+    # Agregar los datos al final de la hoja de cálculo
+    worksheet.append_table(df.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
 else:
     centrar_texto("No sent", 5, "red")
+
+    # Convertir los datos a un DataFrame de Pandas para facilitar su manipulación
+    df = pd.DataFrame([data])
+
+    # Agregar los datos al final de la hoja de cálculo
+    worksheet.append_table(df.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
 
 # Enviar datos a Airtable
     # response = requests.post(AIRTABLE_API_URL, headers=headers, json={'fields': data})
