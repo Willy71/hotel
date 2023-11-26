@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import datetime
+import data_sources
+from data_sources import aws_s3_boto
+import boto3
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -35,10 +38,6 @@ background: rgba(28,28,56,1);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 ("---")
-
-import streamlit as st
-import pandas as pd
-import boto3
 
 @st.experimental_singleton()
 def get_connector():
