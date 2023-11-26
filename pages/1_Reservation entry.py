@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 import re
 import requests
+from pyairtable import Table
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -36,15 +37,12 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# URL de la API de Airtable y la clave de la API
-AIRTABLE_API_URL = 'https://api.airtable.com/v0/appi36zdXH2XJO59d/Table%201'
-AIRTABLE_API_KEY = 'patUruatk3rVOInkL'  # Reemplaza con tu clave de API de Airtable
+# Token de Airtable (no necesitas una clave de API)
+AIRTABLE_TOKEN = 'patUruatk3rVOInkL'  # Reemplaza con tu token de Airtable
+AIRTABLE_BASE_ID = 'appi36zdXH2XJO59d'  # Reemplaza con el ID de tu base de datos en Airtable
 
-headers = {
-    'Authorization': f'Bearer {AIRTABLE_API_KEY}',
-    'Content-Type': 'application/json',
-}
-
+# Crear una instancia de la tabla en Airtable
+airtable = Table(AIRTABLE_BASE_ID, 'Table 1', api_key=AIRTABLE_TOKEN)
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
