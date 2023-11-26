@@ -4,7 +4,6 @@ import datetime
 import re
 import requests
 from gsheetsdb import connect
-# from pyairtable import Table
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -50,8 +49,8 @@ TTL = 24 * 60 * 60
 @st.experimental_memo(ttl=TTL)
 def query_to_dataframe(_connector, query: str) -> pd.DataFrame:
     rows = _connector.execute(query, headers=1)
-    df = pd.DataFrame(list(rows))
-    return df
+    dataframe = pd.DataFrame(list(rows))
+    return dataframe
 
 @st.experimental_memo(ttl=600)
 def get_data(_connector, gsheets_url) -> pd.DataFrame:
@@ -239,10 +238,10 @@ if input_submit:
     }
     centrar_texto("Sent", 5, "green")
     # Convertir los datos a un DataFrame de Pandas para facilitar su manipulación
-    df = pd.DataFrame([data])
+    dataframe = pd.DataFrame([data])
 
     # Agregar los datos al final de la hoja de cálculo
-    worksheet.append_table(df.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
+    worksheet.append_table(dataframe.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
 else:
     centrar_texto("No sent", 5, "red")
 
