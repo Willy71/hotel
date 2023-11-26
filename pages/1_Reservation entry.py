@@ -50,8 +50,8 @@ TTL = 24 * 60 * 60
 @st.experimental_memo(ttl=TTL)
 def query_to_dataframe(_connector, query: str) -> pd.DataFrame:
     rows = _connector.execute(query, headers=1)
-    dataframe = pd.DataFrame(list(rows))
-    return dataframe
+    df = pd.DataFrame(list(rows))
+    return df
 
 @st.experimental_memo(ttl=600)
 def get_data(_connector, gsheets_url) -> pd.DataFrame:
