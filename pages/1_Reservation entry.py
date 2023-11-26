@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 import re
 import requests
-from pyairtable import Table
+# from pyairtable import Table
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
