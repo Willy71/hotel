@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import datetime
 import re
+import os
 import boto3
 
 # Colocar nome na pagina, icone e ampliar a tela
@@ -77,6 +78,15 @@ def get_files(_connector, bucket) -> pd.DataFrame:
 s3 = get_connector()
 
 buckets = get_buckets(s3)
+bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
+
+# Nombre del archivo CSV en el bucket de S3
+csv_filename = 'reservations.csv'
+
+# Ruta del archivo en S3
+s3_path = f's3://{bucket}/{csv_filename}' if bucket else None
+
+
 # if buckets:
 #      st.write(f"🎉 Found {len(buckets)} bucket(s)!")
 #     bucket = st.selectbox("Choose a bucket", buckets)
@@ -255,7 +265,28 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    centrar_texto("Sent", 5, "green")
-else:
-    centrar_texto("No sent", 5, "red")
+    # Convertir los datos a un DataFrame
+    new_data_df = pd.DataFrame([data])
+
+    # Descargar el archivo CSV existente desde S3 (si existe)
+    try:
+        existing_data_df = pd.read_csv(s3_path)
+    except FileNotFoundError:
+        existing_data_df = pd.DataFrame()
+
+    # Concatenar los nuevos datos con los existentes
+    merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
+
+    # Guardar el DataFrame combinado en un nuevo archivo CSV en S3
+    merged_data_df.to_csv(csv_filename, index=False)
+    s3.meta.client.upload_file(csv_filename, bucket, csv_filename)
+
+    # Eliminar el archivo local después de cargarlo en S3
+    os.remove(csv_filename)
+
+    # Mensaje de éxito
+    centrar_texto("Data Updated in S3", 5, "green")
+        centrar_texto("Sent", 5, "green")
+    else:
+        centrar_texto("No sent", 5, "red")
 
