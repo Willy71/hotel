@@ -36,7 +36,7 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-("---")
+# ----------------------------------------------------------------------------------------------------------------------------------
 
 @st.experimental_singleton()
 def get_connector():
@@ -89,8 +89,7 @@ buckets = get_buckets(s3)
 # else:
 #     st.write(f"Couldn't find any bucket. Make sure to create one!")
 
-
-("---")
+# ----------------------------------------------------------------------------------------------------------------------------------
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
