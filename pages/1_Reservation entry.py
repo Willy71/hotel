@@ -208,6 +208,9 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
+    centrar_texto("Sent", 5, "green")
+else:
+    centrar_texto(f"Error: {response.text}", 5, "red")
 
 # Enviar datos a Airtable
     # response = requests.post(AIRTABLE_API_URL, headers=headers, json={'fields': data})
