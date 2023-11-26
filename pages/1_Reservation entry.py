@@ -75,7 +75,7 @@ def get_files(_connector, bucket) -> pd.DataFrame:
 
 # st.markdown(f"## 📦 Connecting to AWS S3")
 
-s3 = get_connector()
+# s3 = get_connector()
 
 buckets = get_buckets(s3)
 bucket = 'connect-acc'
