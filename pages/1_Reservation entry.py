@@ -210,7 +210,7 @@ if input_submit:
     }
     centrar_texto("Sent", 5, "green")
 else:
-    centrar_texto(f"Error: {response.text}", 5, "red")
+    centrar_texto("No sent", 5, "red")
 
 # Enviar datos a Airtable
     # response = requests.post(AIRTABLE_API_URL, headers=headers, json={'fields': data})
