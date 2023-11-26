@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import datetime
+import re
 import boto3
 
 # Colocar nome na pagina, icone e ampliar a tela
