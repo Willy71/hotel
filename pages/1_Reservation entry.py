@@ -38,11 +38,11 @@ background: rgba(28,28,56,1);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Token de Airtable (no necesitas una clave de API)
-AIRTABLE_TOKEN = 'patUruatk3rVOInkL'  # Reemplaza con tu token de Airtable
-AIRTABLE_BASE_ID = 'appi36zdXH2XJO59d'  # Reemplaza con el ID de tu base de datos en Airtable
+# AIRTABLE_TOKEN = 'patUruatk3rVOInkL'  # Reemplaza con tu token de Airtable
+# AIRTABLE_BASE_ID = 'appi36zdXH2XJO59d'  # Reemplaza con el ID de tu base de datos en Airtable
 
 # Crear una instancia de la tabla en Airtable
-airtable = Table(AIRTABLE_BASE_ID, 'Table 1', api_key=AIRTABLE_TOKEN)
+# airtable = Table(AIRTABLE_BASE_ID, 'Table 1', api_key=AIRTABLE_TOKEN)
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
@@ -210,8 +210,8 @@ if input_submit:
     }
 
 # Enviar datos a Airtable
-    response = requests.post(AIRTABLE_API_URL, headers=headers, json={'fields': data})
-    if response.status_code == 200:
-        centrar_texto("Sent", 5, "green")
-    else:
-        centrar_texto(f"Error: {response.text}", 5, "red")
+    # response = requests.post(AIRTABLE_API_URL, headers=headers, json={'fields': data})
+    # if response.status_code == 200:
+    #     centrar_texto("Sent", 5, "green")
+    # else:
+    #     centrar_texto(f"Error: {response.text}", 5, "red")
