@@ -84,7 +84,8 @@ bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
 csv_filename = 'reservations.csv'
 
 # Ruta del archivo en S3
-s3_path = f's3://{bucket}/{csv_filename}' if bucket else None
+bucket = 'connect-acc'
+# s3_path = f's3://{bucket}/{csv_filename}' if bucket else None
 
 
 # if buckets:
