@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import datetime
-import data_sources
-from data_sources import aws_s3_boto
 import boto3
 
 # Colocar nome na pagina, icone e ampliar a tela
