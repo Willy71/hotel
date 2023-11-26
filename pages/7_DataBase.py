@@ -48,7 +48,7 @@ if st.button("Eliminar Reserva"):
     # Verificar si el índice es válido
     if 0 <= index_to_delete < len(df):
         # Mostrar ventana emergente de confirmación
-        if st.confirm(f"¿Estás seguro de eliminar la reserva con índice {index_to_delete}?"):
+        if st.checkbox(f"¿Estás seguro de eliminar la reserva con índice {index_to_delete}?"):
             # Eliminar la reserva y actualizar el DataFrame
             df = df.drop(index_to_delete).reset_index(drop=True)
 
@@ -60,4 +60,3 @@ if st.button("Eliminar Reserva"):
             st.success(f"Reserva con índice {index_to_delete} eliminada exitosamente.")
     else:
         st.error("Índice no válido. Por favor, ingrese un índice válido.")
-
