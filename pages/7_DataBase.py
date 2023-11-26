@@ -23,7 +23,7 @@ except Exception as e:
     st.stop()
 
 # Nombre del archivo CSV en el bucket de S3
-csv_filename = 'reservations_data.csv'
+csv_filename = 'reservations.csv'
 bucket = 'connect-acc'  # Reemplaza con el nombre de tu bucket
 
 # Intenta descargar el archivo CSV desde S3
