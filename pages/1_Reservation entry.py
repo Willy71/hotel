@@ -269,18 +269,24 @@ if input_submit:
     new_data_df = pd.DataFrame([data])
 
     # Descargar el archivo CSV existente desde S3 (si existe)
+    import io
+
+    # Descargar el archivo CSV existente desde S3 (si existe)
     try:
-        df = pd.read_csv(s3_path)
+        s3_object = s3.Object(bucket, csv_filename)
+        existing_data_df = pd.read_csv(io.BytesIO(s3_object.get()['Body'].read()))
     except FileNotFoundError:
-        df = pd.DataFrame()
+        existing_data_df = pd.DataFrame()
+
 
     # Concatenar los nuevos datos con los existentes
-    merged_data_df = pd.concat([df, new_data_df], ignore_index=True)
-
+    merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
+    
     # Guardar el DataFrame combinado en un nuevo archivo CSV en S3
     merged_data_df.to_csv(csv_filename, index=False)
-    s3.meta.client.upload_file(csv_filename, bucket, csv_filename)
-
+    if bucket:
+        s3.meta.client.upload_file(csv_filename, bucket, csv_filename)
+    
     # Eliminar el archivo local después de cargarlo en S3
     os.remove(csv_filename)
 
