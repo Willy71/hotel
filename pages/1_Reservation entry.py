@@ -261,7 +261,7 @@ if input_submit:
     dataframe = pd.DataFrame([data])
 
     # Agregar los datos al final de la hoja de cálculo
-    worksheet.append_table(dataframe.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
+    df.append_table(dataframe.values.tolist(), start='A2', end=None, dimension='ROWS', overwrite=False)
 else:
     centrar_texto("No sent", 5, "red")
 
