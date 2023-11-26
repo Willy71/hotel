@@ -1,9 +1,6 @@
 import streamlit as st
 import pandas as pd
 import datetime
-import re
-import requests
-from gsheetsdb import connect
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -37,6 +34,8 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+from gsheetsdb import connect
+
 # Share the connector across all users connected to the app
 @st.experimental_singleton()
 def get_connector():
@@ -64,13 +63,6 @@ gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
 data = get_data(gsheet_connector, gsheets_url)
 st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
 st.dataframe(data)
-
-# Token de Airtable (no necesitas una clave de API)
-# AIRTABLE_TOKEN = 'patUruatk3rVOInkL'  # Reemplaza con tu token de Airtable
-# AIRTABLE_BASE_ID = 'appi36zdXH2XJO59d'  # Reemplaza con el ID de tu base de datos en Airtable
-
-# Crear una instancia de la tabla en Airtable
-# airtable = Table(AIRTABLE_BASE_ID, 'Table 1', api_key=AIRTABLE_TOKEN)
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
