@@ -49,17 +49,14 @@ if st.button("Eliminar Reserva"):
     if 0 <= index_to_delete < len(df):
         # Mostrar ventana emergente de confirmación
         if st.checkbox(f"¿Estás seguro de eliminar la reserva con índice {index_to_delete}?"):
-            # Eliminar la reserva y actualizar el DataFrame
+            # Eliminar la reserva y guardar el DataFrame actualizado en S3
             df = df.drop(index_to_delete).reset_index(drop=True)
-
-            # Guardar el DataFrame actualizado en S3
-            df.to_csv(io.BytesIO(df.to_csv(index=False).encode()), index=False)
-            s3.upload_fileobj(io.BytesIO(df.to_csv(index=False).encode()), bucket, csv_filename)
+            s3.put_object(Body=df.to_csv(index=False), Bucket=bucket, Key=csv_filename)
 
             # Mostrar mensaje de éxito
             st.success(f"Reserva con índice {index_to_delete} eliminada exitosamente.")
+
+            # Volver a cargar el DataFrame después de la eliminación
+            df = pd.read_csv(io.StringIO(data))
     else:
         st.error("Índice no válido. Por favor, ingrese un índice válido.")
-
-# Mostrar el DataFrame en una tabla de Streamlit después de cualquier cambio
-st.dataframe(df)
