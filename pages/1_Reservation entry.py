@@ -34,35 +34,65 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-from gsheetsdb import connect
+("---")
 
-# Share the connector across all users connected to the app
+import streamlit as st
+import pandas as pd
+import boto3
+
 @st.experimental_singleton()
 def get_connector():
-    return connect()
+    """Create a connector to AWS S3"""
+    connector = boto3.Session(
+        aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
+        aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
+    ).resource("s3")
+    return connector
 
 # Time to live: the maximum number of seconds to keep an entry in the cache
 TTL = 24 * 60 * 60
 
-# Using `experimental_memo()` to memoize function executions
 @st.experimental_memo(ttl=TTL)
-def query_to_dataframe(_connector, query: str) -> pd.DataFrame:
-    rows = _connector.execute(query, headers=1)
-    dataframe = pd.DataFrame(list(rows))
-    return dataframe
+def get_buckets(_connector) -> list:
+    return [bucket.name for bucket in list(_connector.buckets.all())]
 
-@st.experimental_memo(ttl=600)
-def get_data(_connector, gsheets_url) -> pd.DataFrame:
-    return query_to_dataframe(_connector, f'SELECT * FROM "{gsheets_url}"')
+def to_tuple(s3_object):
+    return (
+        s3_object.key,
+        s3_object.last_modified,
+        s3_object.size,
+        s3_object.storage_class,
+    )
 
-st.markdown(f"## 📝 Connecting to a public Google Sheet")
+@st.experimental_memo(ttl=TTL)
+def get_files(_connector, bucket) -> pd.DataFrame:
+    files = list(s3.Bucket(name=bucket).objects.all())
+    if files:
+        df = pd.DataFrame(
+            pd.Series(files).apply(to_tuple).tolist(),
+            columns=["key", "last_modified", "size", "storage_class"],
+        )
+        return df
 
-gsheet_connector = get_connector()
-gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
+st.markdown(f"## 📦 Connecting to AWS S3")
 
-data = get_data(gsheet_connector, gsheets_url)
-st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
-st.dataframe(data)
+s3 = get_connector()
+
+buckets = get_buckets(s3)
+if buckets:
+    st.write(f"🎉 Found {len(buckets)} bucket(s)!")
+    bucket = st.selectbox("Choose a bucket", buckets)
+    files = get_files(s3, bucket)
+    if isinstance(files, pd.DataFrame):
+        st.write(f"📁 Found {len(files)} file(s) in this bucket:")
+        st.dataframe(files)
+    else:
+        st.write(f"This bucket is empty!")
+else:
+    st.write(f"Couldn't find any bucket. Make sure to create one!")
+
+
+("---")
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
