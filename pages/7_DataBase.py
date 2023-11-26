@@ -2,32 +2,43 @@ import streamlit as st
 import pandas as pd
 import boto3
 
-# Obtener las credenciales de AWS S3 desde los secrets
-access_key_id = st.secrets["aws_s3"]["ACCESS_KEY_ID"]
-secret_access_key = st.secrets["aws_s3"]["SECRET_ACCESS_KEY"]
+# Intenta obtener las credenciales de AWS S3 desde los secrets
+try:
+    access_key_id = st.secrets["aws_s3"]["ACCESS_KEY_ID"]
+    secret_access_key = st.secrets["aws_s3"]["SECRET_ACCESS_KEY"]
+except KeyError:
+    st.error("No se pudieron encontrar las credenciales en los secrets.")
+    st.stop()
 
-@st.experimental_singleton()
-def get_connector():
-    """Create a connector to AWS S3"""
-    connector = boto3.Session(
+# Intenta crear el cliente de S3
+try:
+    s3 = boto3.client(
+        's3',
         aws_access_key_id=access_key_id,
         aws_secret_access_key=secret_access_key,
-    ).resource("s3")
-    return connector
-  
+    )
+except Exception as e:
+    st.error(f"Error al crear el cliente de S3: {str(e)}")
+    st.stop()
+
 # Nombre del archivo CSV en el bucket de S3
-csv_filename = 'reservations.csv'
+csv_filename = 'reservations_data.csv'
 bucket = 'connect-acc'  # Reemplaza con el nombre de tu bucket
 
-# Descargar el archivo CSV desde S3
-response = s3.get_object(Bucket=bucket, Key=csv_filename)
-data = response['Body'].read().decode('utf-8')
+# Intenta descargar el archivo CSV desde S3
+try:
+    response = s3.get_object(Bucket=bucket, Key=csv_filename)
+    data = response['Body'].read().decode('utf-8')
+except Exception as e:
+    st.error(f"Error al descargar el archivo CSV desde S3: {str(e)}")
+    st.stop()
 
 # Convierte los datos a DataFrame
 df = pd.read_csv(io.StringIO(data))
 
 # Mostrar el DataFrame en una tabla de Streamlit
 st.dataframe(df)
+
 
 # Seleccionar una fila para eliminar
 index_to_delete = st.number_input("Ingrese el índice de la reserva que desea eliminar:", min_value=0, max_value=len(df)-1)
