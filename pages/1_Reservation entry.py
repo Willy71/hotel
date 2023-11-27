@@ -244,7 +244,6 @@ if input_submit:
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
 
     # Guardar el DataFrame combinado en Google Sheets
-    gsheet_connector.execute(f'DROP TABLE IF EXISTS "{gsheets_url}"')
     gsheet_connector.upload(merged_data_df, gsheets_url, create_table=True)
 
     # Mensaje de éxito
