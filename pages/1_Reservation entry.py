@@ -233,23 +233,19 @@ if input_submit:
         'Payment Option': payment_option,
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
-    } 
-     # Crear la cadena de consulta y los valores
-    columns = ", ".join(["`{}`".format(col) for col in reservation_data.keys()])
-    values = ", ".join(["%s"] * len(reservation_data))
-    query = f'INSERT INTO `{gsheets_url}` ({columns}) VALUES ({values})'
-    params = tuple(reservation_data.values())
+    }
+    # Convertir a un DataFrame de Pandas
+    new_data_df = pd.DataFrame([reservation_data])
 
-    # Agrega estas impresiones para diagnosticar
-    print("Query:", query)
-    print("Params:", params)
+    # Leer los datos existentes
+    existing_data_df = get_data(gsheet_connector, gsheets_url)
 
-    # Autenticación con la hoja de cálculo de Google Sheets
-    gsheet_connector = get_connector()
+    # Concatenar los datos existentes y los nuevos datos
+    merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
 
     try:
-        # Insertar los datos en la hoja de cálculo
-        gsheet_connector.execute(query, params)
+        # Escribir en Google Sheets
+        merged_data_df.to_excel(gsheets_url, index=False, engine='openpyxl')
 
         # Mensaje de éxito
         centrar_texto("Reservation added successfully!!", 5, "green")
@@ -259,6 +255,7 @@ if input_submit:
         centrar_texto(f"Error during insertion: {e}", 5, "red")
 else:
     centrar_texto("I haven't added this reservation yet.", 5, "red")
+     
     
   
      
