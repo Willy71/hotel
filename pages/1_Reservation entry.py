@@ -87,7 +87,7 @@ s3_path = f's3://{bucket}/{csv_filename}' if bucket else None
 
 
 if buckets:
-     st.write(f"🎉 Found {len(buckets)} bucket(s)!")
+    st.write(f"🎉 Found {len(buckets)} bucket(s)!")
     bucket = st.selectbox("Choose a bucket", buckets)
     files = get_files(s3, bucket)
     if isinstance(files, pd.DataFrame):
