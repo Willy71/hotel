@@ -226,7 +226,7 @@ if input_submit:
         'City': city,
         'State': state,
         'Zip Code': zip_code,
-        'Total Cost': total_cost,
+        'Total Cost': total_cost,    
         'Payment Option': payment_option,
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
@@ -234,17 +234,18 @@ if input_submit:
     # Concatenar los nuevos datos con los existentes
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
     
-    # Convertir el DataFrame combinado a una lista de listas para actualizar Google Sheets
-    update_data = [merged_data_df.columns.tolist()] + merged_data_df.values.tolist()
+    # Obtener el conector de gsheetsdb
+    gsheet_connector = get_connector()
     
-    # Limpiar la hoja de cálculo y cargar los datos combinados
-    worksheet.clear()
-    worksheet.update(update_data)
+    # Eliminar la tabla existente si es necesario
+    gsheet_connector.execute(f'DROP TABLE IF EXISTS "{gsheets_url}"')
+    
+    # Crear la nueva tabla con los datos combinados
+    gsheet_connector.upload(merged_data_df, gsheets_url, create_table=True)
     
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
     centrar_texto("Sent", 5, "green")
-
 else:
     centrar_texto("I haven't added this reservation yet.", 5, "red")
 
