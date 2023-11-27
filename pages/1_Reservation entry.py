@@ -77,7 +77,7 @@ def get_files(_connector, bucket) -> pd.DataFrame:
 
 s3 = get_connector()
 buckets = get_buckets(s3)
-bucket = 'connect-acc'
+bucket = 'st-hotel-reservas'
 # bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
 
 # Nombre del archivo CSV en el bucket de S3
