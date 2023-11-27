@@ -38,10 +38,6 @@ background: rgba(28,28,56,1);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
-secrets = st.secrets["gsheets"]
-st.write(secrets)
-gsheets_url = secrets.get("public_gsheets_url")
-
 
 # Share the connector across all users connected to the app
 @st.experimental_singleton()
