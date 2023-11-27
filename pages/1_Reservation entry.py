@@ -61,7 +61,7 @@ def get_data(_connector, gsheets_url) -> pd.DataFrame:
 # st.markdown(f"## 📝 Connecting to a public Google Sheet")
 
 gsheet_connector = get_connector()
-gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
+gsheets_url = st.secrets["connections.gsheets"]["public_gsheets_url"]
 
 data = get_data(gsheet_connector, gsheets_url)
 # st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
