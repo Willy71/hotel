@@ -67,8 +67,6 @@ data = get_data(gsheet_connector, gsheets_url)
 # st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
 st.dataframe(data)
 
-df_1 = "https://docs.google.com/spreadsheets/d/1VdQNCoHkWIGqEhhUmMtmQRNdiBDr9jMvHLoZebO9z38/edit?usp=sharing"
-df_1
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 def centrar_imagen(imagen, ancho):
