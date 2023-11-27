@@ -231,24 +231,20 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-     # Convertir los datos a un DataFrame
-    new_data_df = pd.DataFrame([data])
-
-    # Descargar el archivo CSV existente desde Google Sheets (si existe)
-    gsheet_connector = get_connector()
-    gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
-
-    existing_data_df = get_data(gsheet_connector, gsheets_url)
-
     # Concatenar los nuevos datos con los existentes
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-
-    # Guardar el DataFrame combinado en Google Sheets
-    gsheet_connector.upload(merged_data_df, gsheets_url, create_table=True)
-
+    
+    # Convertir el DataFrame combinado a una lista de listas para actualizar Google Sheets
+    update_data = [merged_data_df.columns.tolist()] + merged_data_df.values.tolist()
+    
+    # Limpiar la hoja de cálculo y cargar los datos combinados
+    worksheet.clear()
+    worksheet.update(update_data)
+    
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
     centrar_texto("Sent", 5, "green")
+
 else:
     centrar_texto("I haven't added this reservation yet.", 5, "red")
 
