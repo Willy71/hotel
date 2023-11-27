@@ -235,22 +235,28 @@ if input_submit:
         'Pay Amount': pay_amount
     } 
     
-    # Crear la cadena de consulta y los valores
-    columns = ", ".join(reservation_data.keys())
+   # Crear la cadena de consulta y los valores
+    columns = ", ".join(["\"{}\"".format(col) for col in reservation_data.keys()])
     values = ", ".join(["%s"] * len(reservation_data))
     query = f'INSERT INTO "{gsheets_url}" ({columns}) VALUES ({values})'
     params = tuple(reservation_data.values())
 
+    # Agrega estas impresiones para diagnosticar
+    print("Query:", query)
+    print("Params:", params)
+
     # Autenticación con la hoja de cálculo de Google Sheets
     gsheet_connector = get_connector()
 
-    # Insertar los datos en la hoja de cálculo
-    gsheet_connector.execute(query, params)
+    try:
+        # Insertar los datos en la hoja de cálculo
+        gsheet_connector.execute(query, params)
 
-    # Mensaje de éxito
-    centrar_texto("Reservation added successfully!!", 5, "green")
-    centrar_texto("Sent", 5, "green")
+        # Mensaje de éxito
+        centrar_texto("Reservation added successfully!!", 5, "green")
+        centrar_texto("Sent", 5, "green")
+    except Exception as e:
+        # Capturar y mostrar cualquier error que ocurra durante la inserción
+        centrar_texto(f"Error during insertion: {e}", 5, "red")
 else:
     centrar_texto("I haven't added this reservation yet.", 5, "red")
-   
-
