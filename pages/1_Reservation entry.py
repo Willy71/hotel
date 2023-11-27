@@ -231,18 +231,29 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-   # Concatenar los nuevos datos con los existentes
-    merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-    
-    # Convertir el DataFrame combinado a una lista de listas para cargar en Google Sheets
-    data_to_upload = [merged_data_df.columns.values.tolist()] + merged_data_df.values.tolist()
-    
-    # Obtener el conector de gsheetsdb
-    gsheet_connector = get_connector()
-    
-    # Cargar los datos en la hoja de cálculo existente
-    gsheet_connector.upload(data_to_upload, gsheets_url, create_table=False, overwrite=True)
-    
+   # Autenticación con Google Sheets
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+        st.secrets["gsheets"]["google_sheets_credentials"],
+        scope
+    )
+    gc = gspread.authorize(credentials)
+
+    # Abrir la hoja de cálculo de Google Sheets
+    gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
+    worksheet = gc.open_by_url(gsheets_url).sheet1
+
+    # Obtener los datos existentes de Google Sheets
+    existing_data = worksheet.get_all_records()
+    existing_data_df = pd.DataFrame(existing_data)
+
+    # Agregar la nueva fila al DataFrame existente
+    existing_data_df = existing_data_df.append(data, ignore_index=True)
+
+    # Limpiar la hoja de cálculo y cargar los datos combinados
+    worksheet.clear()
+    worksheet.update([existing_data_df.columns.values.tolist()] + existing_data_df.values.tolist())
+
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
     centrar_texto("Sent", 5, "green")
