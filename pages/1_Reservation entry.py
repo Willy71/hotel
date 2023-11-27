@@ -79,7 +79,7 @@ buckets = get_buckets(s3)
 bucket = 'st-hotel-reserv'
 # bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
 
-Nombre del archivo CSV en el bucket de S3
+# Nombre del archivo CSV en el bucket de S3
 csv_filename = 'reservations.csv'
 
 # Ruta del archivo en S3
