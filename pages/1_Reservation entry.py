@@ -4,7 +4,9 @@ import datetime
 import re
 import os
 from gsheetsdb import connect
-from oauth2client.service_account import ServiceAccountCredentials
+from gspread_dataframe import set_with_dataframe
+from google.auth import exceptions
+from google.oauth2.service_account import Credentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -233,20 +235,24 @@ if input_submit:
         'Pay Amount': pay_amount
     }
    # Autenticación con Google Sheets
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-        st.secrets["gsheets"]["google_sheets_credentials"],
-        scope
-    )
-    gc = gspread.authorize(credentials)
+    try:
+        credentials = Credentials.from_service_account_info(
+            st.secrets["gsheets"]["google_sheets_credentials"],
+            scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+        )
+        gc = gspread.authorize(credentials)
+        sh = gc.open_by_url(st.secrets["gsheets"]["public_gsheets_url"])
+    except exceptions.GoogleAuthError:
+        st.error("Error de autenticación con Google Sheets. Verifica las credenciales en tus secretos.")
+        st.stop()
 
     # Abrir la hoja de cálculo de Google Sheets
     gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
     worksheet = gc.open_by_url(gsheets_url).sheet1
 
-    # Obtener los datos existentes de Google Sheets
-    existing_data = worksheet.get_all_records()
-    existing_data_df = pd.DataFrame(existing_data)
+    # Obtener datos de Google Sheets
+    data = pd.DataFrame(sh.get_worksheet(0).get_all_records())
+    st.dataframe(data)
 
     # Agregar la nueva fila al DataFrame existente
     existing_data_df = existing_data_df.append(data, ignore_index=True)
