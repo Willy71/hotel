@@ -236,36 +236,5 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-   # Autenticación con Google Sheets
-    try:
-        credentials = Credentials.from_service_account_info(
-            st.secrets["gsheets"]["google_sheets_credentials"],
-            scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        )
-        gc = gspread.authorize(credentials)
-        sh = gc.open_by_url(st.secrets["gsheets"]["public_gsheets_url"])
-    except exceptions.GoogleAuthError:
-        st.error("Error de autenticación con Google Sheets. Verifica las credenciales en tus secretos.")
-        st.stop()
-
-    # Abrir la hoja de cálculo de Google Sheets
-    gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
-    worksheet = gc.open_by_url(gsheets_url).sheet1
-
-    # Obtener datos de Google Sheets
-    data = pd.DataFrame(sh.get_worksheet(0).get_all_records())
-    st.dataframe(data)
-
-    # Agregar la nueva fila al DataFrame existente
-    existing_data_df = existing_data_df.append(data, ignore_index=True)
-
-    # Limpiar la hoja de cálculo y cargar los datos combinados
-    worksheet.clear()
-    worksheet.update([existing_data_df.columns.values.tolist()] + existing_data_df.values.tolist())
-
-    # Mensaje de éxito
-    centrar_texto("Reservation added successfully!!", 5, "green")
-    centrar_texto("Sent", 5, "green")
-else:
-    centrar_texto("I haven't added this reservation yet.", 5, "red")
+   
 
