@@ -51,3 +51,58 @@ def centrar_texto(texto, tamanho, color):
                 unsafe_allow_html=True)
 
 st.write("#")
+
+import streamlit as st
+import pandas as pd
+import boto3
+
+@st.experimental_singleton()
+def get_connector():
+    """Create a connector to AWS S3"""
+    connector = boto3.Session(
+        aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
+        aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
+    ).resource("s3")
+    return connector
+
+# Time to live: the maximum number of seconds to keep an entry in the cache
+TTL = 24 * 60 * 60
+
+@st.experimental_memo(ttl=TTL)
+def get_buckets(_connector) -> list:
+    return [bucket.name for bucket in list(_connector.buckets.all())]
+
+def to_tuple(s3_object):
+    return (
+        s3_object.key,
+        s3_object.last_modified,
+        s3_object.size,
+        s3_object.storage_class,
+    )
+
+@st.experimental_memo(ttl=TTL)
+def get_files(_connector, bucket) -> pd.DataFrame:
+    files = list(s3.Bucket(name=bucket).objects.all())
+    if files:
+        df = pd.DataFrame(
+            pd.Series(files).apply(to_tuple).tolist(),
+            columns=["key", "last_modified", "size", "storage_class"],
+        )
+        return df
+
+st.markdown(f"## 📦 Connecting to AWS S3")
+
+s3 = get_connector()
+
+buckets = get_buckets(s3)
+if buckets:
+    st.write(f"🎉 Found {len(buckets)} bucket(s)!")
+    bucket = st.selectbox("Choose a bucket", buckets)
+    files = get_files(s3, bucket)
+    if isinstance(files, pd.DataFrame):
+        st.write(f"📁 Found {len(files)} file(s) in this bucket:")
+        st.dataframe(files)
+    else:
+        st.write(f"This bucket is empty!")
+else:
+    st.write(f"Couldn't find any bucket. Make sure to create one!")
