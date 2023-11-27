@@ -38,6 +38,11 @@ background: rgba(28,28,56,1);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
+# Configura las credenciales de AWS S3
+st.secrets['aws_s3'] = {
+    'ACCESS_KEY_ID': 'AKIARV3P4L55RFKT7N7E',
+    'SECRET_ACCESS_KEY': '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',
+}
 
 @st.experimental_singleton()
 def get_connector():
