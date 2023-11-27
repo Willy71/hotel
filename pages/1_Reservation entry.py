@@ -234,11 +234,10 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     } 
-    
-   # Crear la cadena de consulta y los valores
-    columns = ", ".join(["\"{}\"".format(col) for col in reservation_data.keys()])
+     # Crear la cadena de consulta y los valores
+    columns = ", ".join(["`{}`".format(col) for col in reservation_data.keys()])
     values = ", ".join(["%s"] * len(reservation_data))
-    query = f'INSERT INTO "{gsheets_url}" ({columns}) VALUES ({values})'
+    query = f'INSERT INTO `{gsheets_url}` ({columns}) VALUES ({values})'
     params = tuple(reservation_data.values())
 
     # Agrega estas impresiones para diagnosticar
@@ -260,3 +259,6 @@ if input_submit:
         centrar_texto(f"Error during insertion: {e}", 5, "red")
 else:
     centrar_texto("I haven't added this reservation yet.", 5, "red")
+    
+  
+     
