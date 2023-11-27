@@ -113,7 +113,8 @@ prefijos = {'Estados Unidos': '+1',
 def obtener_prefijo(pais):
     return prefijos.get(pais, '')
 
-st.write("#")
+# Formulario para la entrada de reservas
+st.write("# Reservation Form")
 
 with st.form(key="reservation"):
     with st.container():    
@@ -204,9 +205,10 @@ with st.form(key="reservation"):
     with st.container():    
         col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
         with col83:
+            # Botón de envío del formulario
             input_submit = st.form_submit_button("submit")
-
-
+            
+  
 if input_submit:
     # Obtener los datos ingresados
     data = {
@@ -231,6 +233,27 @@ if input_submit:
         'Payment Option': payment_option,
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
-    }
+    } 
+    
+    # Autenticación con la hoja de cálculo de Google Sheets
+    gsheet_connector = get_connector()
+    gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
+
+    # Insertar los datos en la hoja de cálculo
+    gsheet_connector.execute(
+        f'INSERT INTO "{gsheets_url}" ({", ".join(reservation_data.keys())}) VALUES ({", ".join(["%s"] * len(reservation_data))})',
+        tuple(reservation_data.values())
+    )
+
+    # Actualizar el DataFrame con los nuevos datos
+    data = get_data(gsheet_connector, gsheets_url)
+    st.dataframe(data)
+
+    # Mensaje de éxito
+    centrar_texto("Reservation added successfully!!", 5, "green")
+    centrar_texto("Sent", 5, "green")
+else:
+    centrar_texto("Reservation not submitted yet.", 5, "red")
+    
    
 
