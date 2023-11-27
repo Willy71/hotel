@@ -231,17 +231,17 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    # Concatenar los nuevos datos con los existentes
+   # Concatenar los nuevos datos con los existentes
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
+    
+    # Convertir el DataFrame combinado a una lista de listas para cargar en Google Sheets
+    data_to_upload = [merged_data_df.columns.values.tolist()] + merged_data_df.values.tolist()
     
     # Obtener el conector de gsheetsdb
     gsheet_connector = get_connector()
     
-    # Eliminar la tabla existente si es necesario
-    gsheet_connector.execute(f'DROP TABLE IF EXISTS "{gsheets_url}"')
-    
-    # Crear la nueva tabla con los datos combinados
-    gsheet_connector.upload(merged_data_df, gsheets_url, create_table=True)
+    # Cargar los datos en la hoja de cálculo existente
+    gsheet_connector.upload(data_to_upload, gsheets_url, create_table=False, overwrite=True)
     
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
