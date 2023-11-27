@@ -4,7 +4,7 @@ import datetime
 import re
 import os
 import boto3
-from data_sources import aws_s3_boto
+# from data_sources import aws_s3_boto
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
