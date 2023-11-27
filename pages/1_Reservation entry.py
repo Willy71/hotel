@@ -42,8 +42,8 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 def get_connector():
     """Create a connector to AWS S3"""
     connector = boto3.Session(
-        aws_access_key_id=access_key_id,
-        aws_secret_access_key=secret_access_key,
+        aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
+        aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
     ).resource("s3")
     return connector
 
