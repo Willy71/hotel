@@ -24,7 +24,7 @@ except Exception as e:
 
 # Nombre del archivo CSV en el bucket de S3
 csv_filename = 'reservations.csv'
-bucket = 'connect-acc'  # Reemplaza con el nombre de tu bucket
+bucket = 'st-hotel-reservas'  # Reemplaza con el nombre de tu bucket
 
 # Intenta descargar el archivo CSV desde S3
 try:
