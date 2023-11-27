@@ -4,7 +4,6 @@ import datetime
 import re
 import os
 from gsheetsdb import connect
-from gspread_dataframe import set_with_dataframe
 from google.auth import exceptions
 from google.oauth2.service_account import Credentials
 
