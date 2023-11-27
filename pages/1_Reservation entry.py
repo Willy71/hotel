@@ -66,6 +66,8 @@ gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
 data = get_data(gsheet_connector, gsheets_url)
 # st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
 st.dataframe(data)
+
+print(dataframe)
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 def centrar_imagen(imagen, ancho):
@@ -255,6 +257,8 @@ if input_submit:
         centrar_texto(f"Error during insertion: {e}", 5, "red")
 else:
     centrar_texto("I haven't added this reservation yet.", 5, "red")
+
+
      
     
   
