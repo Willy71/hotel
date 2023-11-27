@@ -76,8 +76,8 @@ st.markdown(f"## 📦 Connecting to AWS S3")
 
 s3 = get_connector()
 buckets = get_buckets(s3)
-bucket = 'st-hotel-reserv'
-# bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
+bucket = 'st-hotel-reservas'
+bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
 
 # Nombre del archivo CSV en el bucket de S3
 csv_filename = 'reservations.csv'
