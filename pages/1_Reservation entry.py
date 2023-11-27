@@ -75,7 +75,14 @@ def get_files(_connector, bucket) -> pd.DataFrame:
 st.markdown(f"## 📦 Connecting to AWS S3")
 
 s3 = get_connector()
-buckets = get_buckets(s3)
+
+# ---------------------
+try:
+    buckets = get_buckets(s3)
+except Exception as e:
+    st.error(f"Error fetching buckets: {str(e)}")
+# ---------------------
+
 bucket = 'st-hotel-reservas'
 bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
 
@@ -97,6 +104,9 @@ if buckets:
       st.write(f"This bucket is empty!")
 else:
     st.write(f"Couldn't find any bucket. Make sure to create one!")
+
+st.write(f"AWS Access Key ID: {st.secrets.aws_s3.ACCESS_KEY_ID}")
+st.write(f"AWS Secret Access Key: {st.secrets.aws_s3.SECRET_ACCESS_KEY}")
 
 # ----------------------------------------------------------------------------------------------------------------------------------
 
