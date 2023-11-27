@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import webbrowser
 from datetime import datetime
-from data_sources import aws_s3_boto
+# from data_sources import aws_s3_boto
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
