@@ -241,8 +241,16 @@ if input_submit:
 
     # Insertar los datos en la hoja de cálculo
     gsheet_connector.execute(
-        f'INSERT INTO "{gsheets_url}" ({", ".join(reservation_data.keys())}) VALUES ({", ".join(["%s"] * len(reservation_data))})',
-        tuple(reservation_data.values())
+        columns = ", ".join(reservation_data.keys())
+        values = ", ".join(["%s"] * len(reservation_data))
+        query = f'INSERT INTO "{gsheets_url}" ({columns}) VALUES ({values})'
+        params = tuple(reservation_data.values())
+        
+        # Autenticación con la hoja de cálculo de Google Sheets
+        gsheet_connector = get_connector()
+        
+        # Insertar los datos en la hoja de cálculo
+        gsheet_connector.execute(query, params)
     )
 
     # Actualizar el DataFrame con los nuevos datos
