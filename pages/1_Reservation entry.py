@@ -235,33 +235,22 @@ if input_submit:
         'Pay Amount': pay_amount
     } 
     
+    # Crear la cadena de consulta y los valores
+    columns = ", ".join(reservation_data.keys())
+    values = ", ".join(["%s"] * len(reservation_data))
+    query = f'INSERT INTO "{gsheets_url}" ({columns}) VALUES ({values})'
+    params = tuple(reservation_data.values())
+
     # Autenticación con la hoja de cálculo de Google Sheets
     gsheet_connector = get_connector()
-    gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
 
     # Insertar los datos en la hoja de cálculo
-    gsheet_connector.execute(
-        columns = ", ".join(reservation_data.keys())
-        values = ", ".join(["%s"] * len(reservation_data))
-        query = f'INSERT INTO "{gsheets_url}" ({columns}) VALUES ({values})'
-        params = tuple(reservation_data.values())
-        
-        # Autenticación con la hoja de cálculo de Google Sheets
-        gsheet_connector = get_connector()
-        
-        # Insertar los datos en la hoja de cálculo
-        gsheet_connector.execute(query, params)
-    )
-
-    # Actualizar el DataFrame con los nuevos datos
-    data = get_data(gsheet_connector, gsheets_url)
-    st.dataframe(data)
+    gsheet_connector.execute(query, params)
 
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
     centrar_texto("Sent", 5, "green")
 else:
-    centrar_texto("Reservation not submitted yet.", 5, "red")
-    
+    centrar_texto("I haven't added this reservation yet.", 5, "red")
    
 
