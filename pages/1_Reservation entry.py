@@ -231,30 +231,21 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    # Convertir los datos a un DataFrame
+     # Convertir los datos a un DataFrame
     new_data_df = pd.DataFrame([data])
 
-    # Descargar el archivo CSV existente desde S3 (si existe)
-    import io
+    # Descargar el archivo CSV existente desde Google Sheets (si existe)
+    gsheet_connector = get_connector()
+    gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
 
-    # Descargar el archivo CSV existente desde S3 (si existe)
-    try:
-        s3_object = s3.Object(bucket, csv_filename)
-        existing_data_df = pd.read_csv(io.BytesIO(s3_object.get()['Body'].read()))
-    except FileNotFoundError:
-        existing_data_df = pd.DataFrame()
-
+    existing_data_df = get_data(gsheet_connector, gsheets_url)
 
     # Concatenar los nuevos datos con los existentes
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-    
-    # Guardar el DataFrame combinado en un nuevo archivo CSV en S3
-    merged_data_df.to_csv(csv_filename, index=False)
-    if bucket:
-        s3.meta.client.upload_file(csv_filename, bucket, csv_filename)
-    
-    # Eliminar el archivo local después de cargarlo en S3
-    os.remove(csv_filename)
+
+    # Guardar el DataFrame combinado en Google Sheets
+    gsheet_connector.execute(f'DROP TABLE IF EXISTS "{gsheets_url}"')
+    gsheet_connector.upload(merged_data_df, gsheets_url, create_table=True)
 
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
