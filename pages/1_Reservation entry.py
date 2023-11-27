@@ -4,6 +4,7 @@ import datetime
 import re
 import os
 from gsheetsdb import connect
+import openpyxl
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
