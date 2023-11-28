@@ -264,13 +264,15 @@ if input_submit:
         # Mostrar mensajes de error detallados
         st.error(f"Error: {str(e)}")
     
+        # Imprimir detalles adicionales sobre la excepción
+        print("Details of the exception:")
+        print(e)
+    
         # También puedes imprimir el traceback para obtener más detalles
         import traceback
         traceback.print_exc()
 
-
     try:
-        bq_client.load_table_from_dataframe(merged_data_df, table_ref, job_config=job_config).result()
         # Mensaje de éxito
         centrar_texto("Reservation added successfully!!", 5, "green")
         centrar_texto("Sent", 5, "green")
