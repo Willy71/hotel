@@ -69,8 +69,6 @@ except Exception as e:
 
 dataset_name = st.selectbox("Choose a dataset", datasets) if datasets else None
 
-# Update the code accordingly to use BigQuery tables and datasets
-
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 def centrar_imagen(imagen, ancho):
@@ -239,7 +237,7 @@ if input_submit:
     }
 
      # Especificar el dataset y la tabla de BigQuery
-    dataset_id = 'powerful-genre-402117.reservacc'
+    dataset_id = 'powerful-genre-402117.reservacc.reservations'
     table_id = 'reservations'
 
     try:
