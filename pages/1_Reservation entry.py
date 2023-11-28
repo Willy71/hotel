@@ -241,11 +241,16 @@ if input_submit:
      # Especificar el dataset y la tabla de BigQuery
     dataset_id = 'powerful-genre-402117.reservacc'
     table_id = 'reservations'
-    
-    # Obtener datos existentes de BigQuery
-    query = f"SELECT * FROM `{dataset_id}.{table_id}`"
-    existing_data_df = bq_client.query(query).to_dataframe()
-    
+
+    try:
+        query = f"SELECT * FROM `{dataset_id}.{table_id}`"
+        existing_data_df = bq_client.query(query).to_dataframe()
+    except Exception as e:
+        st.error(f"Error executing query: {str(e)}")
+        # También puedes imprimir el traceback para obtener más detalles
+        import traceback
+        traceback.print_exc()
+     
     # Crear un nuevo DataFrame para los datos de reserva ingresados
     new_data_df = pd.DataFrame([data])
     
@@ -256,6 +261,17 @@ if input_submit:
     table_ref = bq_client.dataset(dataset_id).table(table_id)
     job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
     bq_client.load_table_from_dataframe(merged_data_df, table_ref, job_config=job_config).result()
+
+    # Verificar la existencia del dataset y la tabla
+    dataset_ref = bq_client.dataset(dataset_id)
+    table_ref = dataset_ref.table(table_id)
+    
+    if not bq_client.get_table(table_ref):
+        st.error(f"Table '{table_id}' does not exist in dataset '{dataset_id}'.")
+    else:
+        # Ejecutar la consulta solo si la tabla existe
+        query = f"SELECT * FROM `{dataset_id}.{table_id}`"
+        existing_data_df = bq_client.query(query).to_dataframe()
     
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
