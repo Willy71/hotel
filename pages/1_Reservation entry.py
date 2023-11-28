@@ -243,14 +243,16 @@ if input_submit:
     table_id = 'reservations'
 
     try:
-        query = f"SELECT * FROM `{dataset_id}.{table_id}`"
-        existing_data_df = bq_client.query(query).to_dataframe()
+        bq_client.load_table_from_dataframe(merged_data_df, table_ref, job_config=job_config).result()
+        # Mensaje de éxito
+        centrar_texto("Reservation added successfully!!", 5, "green")
+        centrar_texto("Sent", 5, "green")
     except Exception as e:
-        st.error(f"Error executing query: {str(e)}")
+        st.error(f"Error loading data to BigQuery: {str(e)}")
         # También puedes imprimir el traceback para obtener más detalles
         import traceback
         traceback.print_exc()
-     
+
     # Crear un nuevo DataFrame para los datos de reserva ingresados
     new_data_df = pd.DataFrame([data])
     
