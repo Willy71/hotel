@@ -237,18 +237,25 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    # Concatenate the new data with the existing data
+    # Obtener datos existentes de BigQuery
+    query = f"SELECT * FROM `{dataset_id}.{table_id}`"
+    existing_data_df = bq_client.query(query).to_dataframe()
+    
+    # Crear un nuevo DataFrame para los datos de reserva ingresados
+    new_data_df = pd.DataFrame([data])
+    
+    # Concatenar los nuevos datos con los existentes
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-
-    # Specify the BigQuery dataset and table
+    
+    # Especificar el dataset y la tabla de BigQuery
     dataset_id = 'powerful-genre-402117.reservacc'
-    table_id = 'powerful-genre-402117.reservacc.reservations'
-
-    # Write the merged data to BigQuery
+    table_id = 'reservations'
+    
+    # Escribir los datos combinados en BigQuery
     table_ref = bq_client.dataset(dataset_id).table(table_id)
     job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
     bq_client.load_table_from_dataframe(merged_data_df, table_ref, job_config=job_config).result()
-
+    
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
     centrar_texto("Sent", 5, "green")
