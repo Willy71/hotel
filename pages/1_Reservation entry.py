@@ -236,9 +236,10 @@ if input_submit:
         'Pay Amount': pay_amount
     }
 
-     # Especificar el dataset y la tabla de BigQuery
+    # Especificar el dataset y la tabla de BigQuery
     dataset_id = 'powerful-genre-402117.reservacc'
     table_id = 'reservations'
+    table_ref = bq_client.dataset(dataset_id).table(table_id)
 
     try:
         # Obtener datos existentes de BigQuery
@@ -250,13 +251,8 @@ if input_submit:
     
         # Concatenar los nuevos datos con los existentes
         merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-    
-        # Especificar el dataset y la tabla de BigQuery
-        dataset_id = 'powerful-genre-402117.reservacc'
-        table_id = 'reservations'
-    
+              
         # Escribir los datos combinados en BigQuery
-        table_ref = bq_client.dataset(dataset_id).table(table_id)
         job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
         bq_client.load_table_from_dataframe(merged_data_df, table_ref, job_config=job_config).result()
     
