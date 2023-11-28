@@ -237,7 +237,7 @@ if input_submit:
     }
 
      # Especificar el dataset y la tabla de BigQuery
-    dataset_id = 'powerful-genre-402117.reservacc.reservations'
+    dataset_id = 'powerful-genre-402117.reservacc'
     table_id = 'reservations'
 
     try:
