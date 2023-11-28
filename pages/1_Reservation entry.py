@@ -45,7 +45,7 @@ def get_bq_client():
     client = bigquery.Client.from_service_account_info(credentials)
     return client
 
-@st.experimental_memo(ttl=TTL)
+# @st.experimental_memo(ttl=TTL)
 def get_datasets(client) -> list:
     """Get a list of BigQuery datasets"""
     return [dataset.dataset_id for dataset in client.list_datasets()]
