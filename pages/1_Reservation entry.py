@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 import re
 import os
-import boto3
+from google.cloud import bigquery
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -39,74 +39,37 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
 @st.experimental_singleton()
-def get_connector():
-    """Create a connector to AWS S3"""
-    connector = boto3.Session(
-        aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
-        aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
-    ).resource("s3")
-    return connector
-
-# Time to live: the maximum number of seconds to keep an entry in the cache
-TTL = 24 * 60 * 60
+def get_bq_client():
+    """Create a connector to BigQuery"""
+    credentials = st.secrets.bigquery
+    client = bigquery.Client.from_service_account_info(credentials)
+    return client
 
 @st.experimental_memo(ttl=TTL)
-def get_buckets(_connector) -> list:
-    return [bucket.name for bucket in list(_connector.buckets.all())]
-
-def to_tuple(s3_object):
-    return (
-        s3_object.key,
-        s3_object.last_modified,
-        s3_object.size,
-        s3_object.storage_class,
-    )
+def get_datasets(client) -> list:
+    """Get a list of BigQuery datasets"""
+    return [dataset.dataset_id for dataset in client.list_datasets()]
 
 @st.experimental_memo(ttl=TTL)
-def get_files(_connector, bucket) -> pd.DataFrame:
-    files = list(s3.Bucket(name=bucket).objects.all())
-    if files:
-        df = pd.DataFrame(
-            pd.Series(files).apply(to_tuple).tolist(),
-            columns=["key", "last_modified", "size", "storage_class"],
-        )
+def get_tables(client, dataset) -> pd.DataFrame:
+    """Get a list of tables in a BigQuery dataset"""
+    tables = list(client.list_tables(dataset))
+    if tables:
+        df = pd.DataFrame([table.table_id for table in tables], columns=["Table"])
         return df
 
-st.markdown(f"## 📦 Connecting to AWS S3")
+st.markdown(f"## 📦 Connecting to BigQuery")
 
-s3 = get_connector()
+bq_client = get_bq_client()
 
-# ---------------------
 try:
-    buckets = get_buckets(s3)
+    datasets = get_datasets(bq_client)
 except Exception as e:
-    st.error(f"Error fetching buckets: {str(e)}")
-# ---------------------
+    st.error(f"Error fetching datasets: {str(e)}")
 
-bucket = 'st-hotel-reservas'
-bucket = st.selectbox("Choose a bucket", buckets) if buckets else None
+dataset_name = st.selectbox("Choose a dataset", datasets) if datasets else None
 
-# Nombre del archivo CSV en el bucket de S3
-csv_filename = 'reservations.csv'
-
-# Ruta del archivo en S3
-s3_path = f's3://{bucket}/{csv_filename}' if bucket else None
-
-
-if buckets:
-    st.write(f"🎉 Found {len(buckets)} bucket(s)!")
-    bucket = st.selectbox("Choose a bucket", buckets)
-    files = get_files(s3, bucket)
-    if isinstance(files, pd.DataFrame):
-        st.write(f"📁 Found {len(files)} file(s) in this bucket:")
-        st.dataframe(files)
-    else:
-      st.write(f"This bucket is empty!")
-else:
-    st.write(f"Couldn't find any bucket. Make sure to create one!")
-
-st.write(f"AWS Access Key ID: {st.secrets.aws_s3.ACCESS_KEY_ID}")
-st.write(f"AWS Secret Access Key: {st.secrets.aws_s3.SECRET_ACCESS_KEY}")
+# Update the code accordingly to use BigQuery tables and datasets
 
 # ----------------------------------------------------------------------------------------------------------------------------------
 
@@ -274,30 +237,17 @@ if input_submit:
         'Pay Option': pay_option,
         'Pay Amount': pay_amount
     }
-    # Convertir los datos a un DataFrame
-    new_data_df = pd.DataFrame([data])
-
-    # Descargar el archivo CSV existente desde S3 (si existe)
-    import io
-
-    # Descargar el archivo CSV existente desde S3 (si existe)
-    try:
-        s3_object = s3.Object(bucket, csv_filename)
-        existing_data_df = pd.read_csv(io.BytesIO(s3_object.get()['Body'].read()))
-    except FileNotFoundError:
-        existing_data_df = pd.DataFrame()
-
-
-    # Concatenar los nuevos datos con los existentes
+    # Concatenate the new data with the existing data
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-    
-    # Guardar el DataFrame combinado en un nuevo archivo CSV en S3
-    merged_data_df.to_csv(csv_filename, index=False)
-    if bucket:
-        s3.meta.client.upload_file(csv_filename, bucket, csv_filename)
-    
-    # Eliminar el archivo local después de cargarlo en S3
-    os.remove(csv_filename)
+
+    # Specify the BigQuery dataset and table
+    dataset_id = 'powerful-genre-402117.reservacc'
+    table_id = 'powerful-genre-402117.reservacc.reservations'
+
+    # Write the merged data to BigQuery
+    table_ref = bq_client.dataset(dataset_id).table(table_id)
+    job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
+    bq_client.load_table_from_dataframe(merged_data_df, table_ref, job_config=job_config).result()
 
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
