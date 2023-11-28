@@ -50,7 +50,7 @@ def get_datasets(client) -> list:
     """Get a list of BigQuery datasets"""
     return [dataset.dataset_id for dataset in client.list_datasets()]
 
-@st.experimental_memo(ttl=TTL)
+# @st.experimental_memo(ttl=TTL)
 def get_tables(client, dataset) -> pd.DataFrame:
     """Get a list of tables in a BigQuery dataset"""
     tables = list(client.list_tables(dataset))
