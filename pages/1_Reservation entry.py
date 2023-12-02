@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 import re
 import os
-from google.cloud import bigquery
+from gsheetsdb import connect
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -38,10 +38,6 @@ background: rgba(28,28,56,1);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
-import streamlit as st
-import pandas as pd
-from gsheetsdb import connect
-
 # Share the connector across all users connected to the app
 @st.experimental_singleton()
 def get_connector():
