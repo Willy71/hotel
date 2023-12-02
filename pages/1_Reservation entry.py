@@ -2,9 +2,8 @@ import streamlit as st
 import pandas as pd
 import datetime
 import re
-import os
 from gsheetsdb import connect
-import gspread
+from openpyxl import load_workbook
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -234,19 +233,22 @@ if input_submit:
         'Pay Amount': pay_amount
     }
 
-   # Autenticar con la API de Google Sheets
-    gc = gspread.service_account()
-    
-    # Abrir la hoja de Google Sheets
-    sh = gc.open_by_url(st.secrets["gsheets"]["public_gsheets_url"])
+   # Cargar el libro de trabajo de Excel desde la URL de Google Sheets
+    wb = load_workbook(st.secrets["gsheets"]["public_gsheets_url"])
 
-    # Seleccionar la primera hoja del libro
-    worksheet = sh.get_worksheet(0)
+    # Seleccionar la hoja de trabajo
+    ws = wb.active
 
     # Obtener la última fila no vacía para agregar datos debajo
-    last_row = worksheet.row_count
+    last_row = ws.max_row
     data_list = list(data.values())
-    worksheet.insert_row(data_list, last_row + 1)
+
+    # Escribir datos en la nueva fila
+    for col_num, value in enumerate(data_list, 1):
+        ws.cell(row=last_row + 1, column=col_num, value=value)
+
+    # Guardar el libro de trabajo modificado
+    wb.save(st.secrets["gsheets"]["public_gsheets_url"])
 
     # Mensaje de éxito
     centrar_texto("Reservation added successfully!!", 5, "green")
