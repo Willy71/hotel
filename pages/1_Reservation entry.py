@@ -233,30 +233,13 @@ if input_submit:
         'Pay Amount': pay_amount
     }
 
-    # Especificar el dataset y la tabla de BigQuery
-    dataset_id = 'powerful-genre-402117.reservacc'
-    table_id = 'reservations'
-    table_ref = bq_client.dataset(dataset_id).table(table_id)
-
     try:
-        # Obtener datos existentes de BigQuery
-        query = f"SELECT * FROM `{dataset_id}.{table_id}`"
-        existing_data_df = bq_client.query(query).to_dataframe()
-    
-        # Crear un nuevo DataFrame para los datos de reserva ingresados
-        new_data_df = pd.DataFrame([data])
-    
-        # Concatenar los nuevos datos con los existentes
-        merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-              
-        # Escribir los datos combinados en BigQuery
-        job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
-        bq_client.load_table_from_dataframe(merged_data_df, table_ref, job_config=job_config).result()
-    
+        # Escribir los datos en la hoja de Google Sheets
+        gsheet_connector.execute(f'INSERT INTO "{gsheets_url}" (Room, Guests, `Checkin Time`, `Admission Date`, `Checkout Time`, `Departure Date`, `First Name`, `Last Name`, Email, Country, `Phone Number`, Street, `Street Number`, `Department Number`, City, State, `Zip Code`, `Total Cost`, `Payment Option`, `Pay Option`, `Pay Amount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                parameters=(room, guests, checkin_time, admission_date, checkout_time, departure_date, first_name, last_name, email, country, phone_number, street, street_number, department_number, city, state, zip_code, total_cost, payment_option, pay_option, pay_amount))
+        
         # Mensaje de éxito
         centrar_texto("Reservation added successfully!!", 5, "green")
-        centrar_texto("Sent", 5, "green")
-
     except Exception as e:
         # Mostrar mensajes de error detallados
         st.error(f"Error: {str(e)}")
@@ -265,16 +248,6 @@ if input_submit:
         print("Details of the exception:")
         print(e)
     
-        # También puedes imprimir el traceback para obtener más detalles
-        import traceback
-        traceback.print_exc()
-
-    try:
-        # Mensaje de éxito
-        centrar_texto("Reservation added successfully!!", 5, "green")
-        centrar_texto("Sent", 5, "green")
-    except Exception as e:
-        st.error(f"Error loading data to BigQuery: {str(e)}")
         # También puedes imprimir el traceback para obtener más detalles
         import traceback
         traceback.print_exc()
