@@ -1,14 +1,1 @@
-# Python / pyenv
-.python-version
-*.pyc
-.venv
-
-# Streamlit
-.streamlit
-
-# Mac stuff
-.DS_Store
-
-# Editors
-.vscode
-.vim
+.streamlit/secrets.toml
