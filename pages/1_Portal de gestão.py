@@ -1,9 +1,8 @@
 import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 import datetime
 import re
-from gsheetsdb import connect
-from openpyxl import load_workbook
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
