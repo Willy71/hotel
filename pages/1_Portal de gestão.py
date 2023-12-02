@@ -44,7 +44,7 @@ conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 existing_data = conn.read(worksheet="Vendors", usecols=list(range(6)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
- st.dataframe(existing_data)
+st.dataframe(existing_data)
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 # Función para obtener el próximo ID disponible
