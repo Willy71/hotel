@@ -37,35 +37,23 @@ background: rgba(28,28,56,1);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
-# Share the connector across all users connected to the app
-@st.experimental_singleton()
-def get_connector():
-    return connect()
+# Establishing a Google Sheets connection
+conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 
-# Time to live: the maximum number of seconds to keep an entry in the cache
-TTL = 24 * 60 * 60
+# Fetch existing vendors data
+existing_data = conn.read(worksheet="Vendors", usecols=list(range(6)), ttl=5)
+existing_data = existing_data.dropna(how="all")
 
-# Using `experimental_memo()` to memoize function executions
-@st.experimental_memo(ttl=TTL)
-def query_to_dataframe(_connector, query: str) -> pd.DataFrame:
-    rows = _connector.execute(query, headers=1)
-    dataframe = pd.DataFrame(list(rows))
-    return dataframe
-
-@st.experimental_memo(ttl=600)
-def get_data(_connector, gsheets_url) -> pd.DataFrame:
-    return query_to_dataframe(_connector, f'SELECT * FROM "{gsheets_url}"')
-
-st.markdown(f"## 📝 Connecting to a public Google Sheet")
-
-gsheet_connector = get_connector()
-gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
-
-data = get_data(gsheet_connector, gsheets_url)
-st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
-st.dataframe(data)
-
+ st.dataframe(existing_data)
 # ----------------------------------------------------------------------------------------------------------------------------------
+
+# Función para obtener el próximo ID disponible
+def obtener_proximo_id(df):
+    if df.empty:
+        return 1
+    else:
+        return df['ID_usuario'].max() + 1
+        
 
 def centrar_imagen(imagen, ancho):
     # Aplicar estilo CSS para centrar la imagen con Markdown
@@ -75,10 +63,12 @@ def centrar_imagen(imagen, ancho):
         f'</div>',
         unsafe_allow_html=True
     )
+    
 
 def centrar_texto(texto, tamanho, color):
     st.markdown(f"<h{tamanho} style='text-align: center; color: {color}'>{texto}</h{tamanho}>",
                 unsafe_allow_html=True)
+    
 
 def validar_email(email):
     # Expresión regular para validar direcciones de correo electrónico
@@ -88,6 +78,7 @@ def validar_email(email):
     else:
         return False
 
+
 def validar_numero_telefono(numero):
     # Define una expresión regular para un número de teléfono
     patron = re.compile(r'^\d{11}$')  # Asumiendo un formato de 10 dígitos, ajusta según tus necesidades
@@ -96,6 +87,7 @@ def validar_numero_telefono(numero):
         return True
     else:
         return False
+        
         
 # Lista de prefijos telefónicos internacionales
 prefijos = {'Estados Unidos': '+1',
@@ -207,49 +199,30 @@ with st.form(key="reservation"):
 
 
 if input_submit:
+    nuevo_id = obtener_proximo_id(df)
     # Obtener los datos ingresados
     data = {
-        'Room': room,
-        'Guests': guests,
-        'Checkin Time': checkin_time.isoformat() if checkin_time else None,
-        'Admission Date': admission_date.isoformat() if admission_date else None,
-        'Checkout Time': checkout_time.isoformat() if checkout_time else None,
-        'Departure Date': departure_date.isoformat() if departure_date else None,
-        'First Name': first_name,
-        'Last Name': last_name,
+        'user_id': nuevo_id,
+        'Quarto': room,
+        'Hospedes': guests,
+        'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
+        'Data de entrada': admission_date.isoformat() if admission_date else None,
+        'Hora de saida': checkout_time.isoformat() if checkout_time else None,
+        'Data de saida': departure_date.isoformat() if departure_date else None,
+        'Primeiro nome': first_name,
+        'Sobrenome': last_name,
         'Email': email,
-        'Country': country,
-        'Phone Number': phone_number,
-        'Street': street,
-        'Street Number': street_number,
-        'Department Number': department_number,
-        'City': city,
-        'State': state,
-        'Zip Code': zip_code,
-        'Total Cost': total_cost,
-        'Payment Option': payment_option,
-        'Pay Option': pay_option,
-        'Pay Amount': pay_amount
+        'Pais': country,
+        'Celular': phone_number,
+        'Rua': street,
+        'Numero': street_number,
+        'Apartamento': department_number,
+        'Cidade': city,
+        'Estado': state,
+        'CEP': zip_code,
+        'Costo total': total_cost,
+        'Forma de pagamento': payment_option,
+        'Opção de pagamento': pay_option,
+        'Quantia paga': pay_amount
     }
 
-   # Cargar el libro de trabajo de Excel desde la URL de Google Sheets
-    wb = load_workbook(st.secrets["gsheets"]["public_gsheets_url"])
-
-    # Seleccionar la hoja de trabajo
-    ws = wb.active
-
-    # Obtener la última fila no vacía para agregar datos debajo
-    last_row = ws.max_row
-    data_list = list(data.values())
-
-    # Escribir datos en la nueva fila
-    for col_num, value in enumerate(data_list, 1):
-        ws.cell(row=last_row + 1, column=col_num, value=value)
-
-    # Guardar el libro de trabajo modificado
-    wb.save(st.secrets["gsheets"]["public_gsheets_url"])
-
-    # Mensaje de éxito
-    centrar_texto("Reservation added successfully!!", 5, "green")
-else:
-    centrar_texto("I haven't added this reservation yet.", 5, "red")
