@@ -233,23 +233,21 @@ if input_submit:
         'Pay Amount': pay_amount
     }
 
-    try:
-        # Escribir los datos en la hoja de Google Sheets
-        gsheet_connector.execute(f'INSERT INTO "{gsheets_url}" (Room, Guests, `Checkin Time`, `Admission Date`, `Checkout Time`, `Departure Date`, `First Name`, `Last Name`, Email, Country, `Phone Number`, Street, `Street Number`, `Department Number`, City, State, `Zip Code`, `Total Cost`, `Payment Option`, `Pay Option`, `Pay Amount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                parameters={'Room': room, 'Guests': guests, 'Checkin Time': checkin_time, 'Admission Date': admission_date, 'Checkout Time': checkout_time, 'Departure Date': departure_date, 'First Name': first_name, 'Last Name': last_name, 'Email': email, 'Country': country, 'Phone Number': phone_number, 'Street': street, 'Street Number': street_number, 'Department Number': department_number, 'City': city, 'State': state, 'Zip Code': zip_code, 'Total Cost': total_cost, 'Payment Option': payment_option, 'Pay Option': pay_option, 'Pay Amount': pay_amount})
-        
-        # Mensaje de éxito
-        centrar_texto("Reservation added successfully!!", 5, "green")
-    except Exception as e:
-        # Mostrar mensajes de error detallados
-        st.error(f"Error: {str(e)}")
+   # Autenticar con la API de Google Sheets
+    gc = gspread.service_account()
     
-        # Imprimir detalles adicionales sobre la excepción
-        print("Details of the exception:")
-        print(e)
-    
-        # También puedes imprimir el traceback para obtener más detalles
-        import traceback
-        traceback.print_exc()
+    # Abrir la hoja de Google Sheets
+    sh = gc.open_by_url(st.secrets["gsheets"]["public_gsheets_url"])
+
+    # Seleccionar la primera hoja del libro
+    worksheet = sh.get_worksheet(0)
+
+    # Obtener la última fila no vacía para agregar datos debajo
+    last_row = worksheet.row_count
+    data_list = list(data.values())
+    worksheet.insert_row(data_list, last_row + 1)
+
+    # Mensaje de éxito
+    centrar_texto("Reservation added successfully!!", 5, "green")
 else:
     centrar_texto("I haven't added this reservation yet.", 5, "red")
