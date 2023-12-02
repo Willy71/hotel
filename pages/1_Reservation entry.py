@@ -236,7 +236,7 @@ if input_submit:
     try:
         # Escribir los datos en la hoja de Google Sheets
         gsheet_connector.execute(f'INSERT INTO "{gsheets_url}" (Room, Guests, `Checkin Time`, `Admission Date`, `Checkout Time`, `Departure Date`, `First Name`, `Last Name`, Email, Country, `Phone Number`, Street, `Street Number`, `Department Number`, City, State, `Zip Code`, `Total Cost`, `Payment Option`, `Pay Option`, `Pay Amount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                parameters=(room, guests, checkin_time, admission_date, checkout_time, departure_date, first_name, last_name, email, country, phone_number, street, street_number, department_number, city, state, zip_code, total_cost, payment_option, pay_option, pay_amount))
+                                parameters={'Room': room, 'Guests': guests, 'Checkin Time': checkin_time, 'Admission Date': admission_date, 'Checkout Time': checkout_time, 'Departure Date': departure_date, 'First Name': first_name, 'Last Name': last_name, 'Email': email, 'Country': country, 'Phone Number': phone_number, 'Street': street, 'Street Number': street_number, 'Department Number': department_number, 'City': city, 'State': state, 'Zip Code': zip_code, 'Total Cost': total_cost, 'Payment Option': payment_option, 'Pay Option': pay_option, 'Pay Amount': pay_amount})
         
         # Mensaje de éxito
         centrar_texto("Reservation added successfully!!", 5, "green")
