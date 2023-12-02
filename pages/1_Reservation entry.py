@@ -38,36 +38,37 @@ background: rgba(28,28,56,1);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
+import streamlit as st
+import pandas as pd
+from gsheetsdb import connect
+
+# Share the connector across all users connected to the app
 @st.experimental_singleton()
-def get_bq_client():
-    """Create a connector to BigQuery"""
-    credentials = st.secrets.bigquery
-    client = bigquery.Client.from_service_account_info(credentials)
-    return client
+def get_connector():
+    return connect()
 
-# @st.experimental_memo(ttl=TTL)
-def get_datasets(client) -> list:
-    """Get a list of BigQuery datasets"""
-    return [dataset.dataset_id for dataset in client.list_datasets()]
+# Time to live: the maximum number of seconds to keep an entry in the cache
+TTL = 24 * 60 * 60
 
-# @st.experimental_memo(ttl=TTL)
-def get_tables(client, dataset) -> pd.DataFrame:
-    """Get a list of tables in a BigQuery dataset"""
-    tables = list(client.list_tables(dataset))
-    if tables:
-        df = pd.DataFrame([table.table_id for table in tables], columns=["Table"])
-        return df
+# Using `experimental_memo()` to memoize function executions
+@st.experimental_memo(ttl=TTL)
+def query_to_dataframe(_connector, query: str) -> pd.DataFrame:
+    rows = _connector.execute(query, headers=1)
+    dataframe = pd.DataFrame(list(rows))
+    return dataframe
 
-st.markdown(f"## 📦 Connecting to BigQuery")
+@st.experimental_memo(ttl=600)
+def get_data(_connector, gsheets_url) -> pd.DataFrame:
+    return query_to_dataframe(_connector, f'SELECT * FROM "{gsheets_url}"')
 
-bq_client = get_bq_client()
+st.markdown(f"## 📝 Connecting to a public Google Sheet")
 
-try:
-    datasets = get_datasets(bq_client)
-except Exception as e:
-    st.error(f"Error fetching datasets: {str(e)}")
+gsheet_connector = get_connector()
+gsheets_url = st.secrets["gsheets"]["public_gsheets_url"]
 
-dataset_name = st.selectbox("Choose a dataset", datasets) if datasets else None
+data = get_data(gsheet_connector, gsheets_url)
+st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
+st.dataframe(data)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
 
