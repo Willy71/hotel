@@ -278,7 +278,7 @@ elif action == "Atualizar reserva existente":
 
     with st.form(key="update_form"):
         opciones_numericas = list(range(31)) 
-        room = st.selectbox("Quarto", opciones_numericas, index=None, placeholder="Selecione um quarto...", value=vendor_data["Quarto"])
+        room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
         update_button = st.form_submit_button(label="Atualizar reserva....")
         
         if update_button:
