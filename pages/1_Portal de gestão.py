@@ -357,6 +357,7 @@ elif action == "Atualizar reserva existente":
             with col310:
                 opciones_numericas = list(range(31)) 
                 room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
+            with col312
                 update_button = st.form_submit_button(label="Atualizar reserva....")
         
                 if update_button:
