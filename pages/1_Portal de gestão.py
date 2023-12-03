@@ -402,6 +402,47 @@ elif action == "Atualizar reserva existente":
                 else:
                     st.error("Não valido. Insira um número de 11 dígitos.")
 
+
+
+        
+
+
+        with st.container():    
+            col50, col51, col52, col53, col54 = st.columns([4, 2, 2, 1, 1])
+            with col50:
+                street = st.text_input('Rua')
+            with col51:
+                street_number = st.text_input('Número da rua')
+            with col52:
+                department_number = st.text_input("Número de apartamento")
+        
+        with st.container():    
+            col60, col61, col62, col63, col64 = st.columns([2, 2, 2, 1, 3])
+            with col60:
+                city = st.text_input('Cidade')
+            with col61:
+                state = st.text_input('Estado')
+            with col62:
+                zip_code = st.text_input('CEP')
+        
+        with st.container():    
+            col70, col71, col72, col73, col74, col75 = st.columns([1, 2, 2, 2, 2, 1])
+            with col71:
+                total_cost = st.number_input(label="Costo total")       
+            with col72:
+                opciones_pago = ["Nenhum", "Cartão de crédito", "A vista", "Débito"]
+                payment_option = st.selectbox("Pagamento", opciones_pago, index=None, placeholder="Opções de pagamento...")
+            with col73:
+                opciones_saldo = ["Nenhum", "Pago integral", "Pago parcial"]
+                pay_option = st.selectbox("Pagamento", opciones_saldo, index=None, placeholder="Pagamento...")
+            with col74:
+                pay_amount = st.number_input(label='Inserir pagamento')
+
+
+
+                
+        
+
        
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
