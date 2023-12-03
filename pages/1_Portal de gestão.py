@@ -46,15 +46,16 @@ conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
-st.dataframe(existing_data)
+df = st.dataframe(existing_data)
+df
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 # Función para obtener el próximo ID disponible
-def obtener_proximo_id(existing_data):
-    if existing_data.empty:
+def obtener_proximo_id(df):
+    if df.empty:
         return 1
     else:
-        return existing_data['ID_usuario'].max() + 1
+        return df['ID_usuario'].max() + 1
         
 
 def centrar_imagen(imagen, ancho):
@@ -219,7 +220,7 @@ with st.form(key="reservation"):
             
 # ----------------------------------------------------------------------------------------------------------------------------------
 if input_submit:
-    nuevo_id = obtener_proximo_id(existing_data)
+    nuevo_id = obtener_proximo_id(df)
     # Obtener los datos ingresados
     data = {
         'user_id': nuevo_id,
