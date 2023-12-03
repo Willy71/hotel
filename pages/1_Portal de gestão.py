@@ -430,5 +430,5 @@ elif action == "Apagar reserva":
         existing_data.reset_index(drop=True, inplace=True)  # Resetear los índices
         conn.update(worksheet="Hoja1", data=existing_data)
         st.success("Reserva apagada com sucesso!")
-    df = st.dataframe(existing_data)
+    df = st.dataframe(existing_data, hide_index=True)
 
