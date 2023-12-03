@@ -452,7 +452,7 @@ elif action == "Atualizar reserva existente":
                     updated_vendor_data = pd.DataFrame(
                         [
                             {
-                                'user_id': obtener_proximo_id(existing_data),
+                                'user_id': vendor_data["user_id"],  # Mantener el mismo user_id
                                 'Quarto': room,
                                 'Hospedes': guests,
                                 'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
