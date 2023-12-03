@@ -352,55 +352,55 @@ elif action == "Atualizar reserva existente":
                     pay_amount = st.number_input(label='Inserir pagamento', value=vendor_data["Quantia paga"])
 
             with st.container():
-            col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
-            with col83:
-                submit_button = st.form_submit_button("Enviar")
-                
-        if submit_button:
-            # Obtener los datos ingresados
-            data = pd.DataFrame(
-                # Removing old entry
-                existing_data.drop(
-                    existing_data[
-                        existing_data["User_id"] == vendor_to_update
-                    ].index,
-                    inplace=True,
+                col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
+                with col83:
+                    submit_button = st.form_submit_button("Enviar")
+                    
+            if submit_button:
+                # Obtener los datos ingresados
+                data = pd.DataFrame(
+                    # Removing old entry
+                    existing_data.drop(
+                        existing_data[
+                            existing_data["User_id"] == vendor_to_update
+                        ].index,
+                        inplace=True,
+                    )
                 )
-            )
-            # Creating updated data entry
-            updated_vendor_data = pd.DataFrame(
-                [
-                    {
-                        'user_id': obtener_proximo_id(existing_data),
-                        'Quarto': room,
-                        'Hospedes': guests,
-                        'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
-                        'Data de entrada': admission_date.isoformat() if admission_date else None,
-                        'Hora de saida': checkout_time.isoformat() if checkout_time else None,
-                        'Data de saida': departure_date.isoformat() if departure_date else None,
-                        'Primeiro nome': first_name,
-                        'Sobrenome': last_name,
-                        'Email': email,
-                        'Pais': country,
-                        'Celular': phone_number,
-                        'Rua': street,
-                        'Numero': street_number,
-                        'Apartamento': department_number,
-                        'Cidade': city,
-                        'Estado': state,
-                        'CEP': zip_code,
-                        'Costo total': total_cost,
-                        'Forma de pagamento': payment_option,
-                        'Opção de pagamento': pay_option,
-                        'Quantia paga': pay_amount
-                    }
-                ]
-            )
-            # Adding updated data to the dataframe
-            updated_df = pd.concat([existing_data, updated_vendor_data], ignore_index=True)
-            conn.update(worksheet="Hoja1", data=updated_df)
-            st.success("Reserva atualizada com sucessso")
-            df = st.dataframe(existing_data)
+                # Creating updated data entry
+                updated_vendor_data = pd.DataFrame(
+                    [
+                        {
+                            'user_id': obtener_proximo_id(existing_data),
+                            'Quarto': room,
+                            'Hospedes': guests,
+                            'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
+                            'Data de entrada': admission_date.isoformat() if admission_date else None,
+                            'Hora de saida': checkout_time.isoformat() if checkout_time else None,
+                            'Data de saida': departure_date.isoformat() if departure_date else None,
+                            'Primeiro nome': first_name,
+                            'Sobrenome': last_name,
+                            'Email': email,
+                            'Pais': country,
+                            'Celular': phone_number,
+                            'Rua': street,
+                            'Numero': street_number,
+                            'Apartamento': department_number,
+                            'Cidade': city,
+                            'Estado': state,
+                            'CEP': zip_code,
+                            'Costo total': total_cost,
+                            'Forma de pagamento': payment_option,
+                            'Opção de pagamento': pay_option,
+                            'Quantia paga': pay_amount
+                        }
+                    ]
+                )
+                # Adding updated data to the dataframe
+                updated_df = pd.concat([existing_data, updated_vendor_data], ignore_index=True)
+                conn.update(worksheet="Hoja1", data=updated_df)
+                st.success("Reserva atualizada com sucessso")
+                df = st.dataframe(existing_data)
               
             
 
