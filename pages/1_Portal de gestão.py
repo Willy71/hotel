@@ -430,14 +430,8 @@ elif action == "Atualizar reserva existente":
             with col374:
                 pay_amount = st.number_input(label='Inserir pagamento', value=(int(vendor_data["Quantia paga"])))
 
-        with st.container():
-            col380, col381, col382, col383, col384 = st.columns([1, 2, 4, 2, 1])
-            with col382:
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
-        with st.container():
-            col390, col391, col392, col393, col394 = st.columns([1, 2, 4, 2, 1])
-            with col392:
                 if update_button:
                     # Removing old entry
                     existing_data.drop(
@@ -501,4 +495,3 @@ elif action == "Apagar reserva":
         conn.update(worksheet="Hoja1", data=existing_data)
         st.success("Reserva apagada com sucesso!")
     df = st.dataframe(existing_data, hide_index=True)
-
