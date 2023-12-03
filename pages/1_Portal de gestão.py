@@ -277,9 +277,10 @@ elif action == "Atualizar reserva existente":
     vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
     with st.form(key="update_form"):
-        room = st.text_input(label="Quartos", value=vendor_data["Quartos"]) 
+        opciones_numericas = list(range(31)) 
+        room = st.selectbox("Quarto", opciones_numericas, index=None, placeholder="Selecione um quarto...", value=vendor_data["Quarto"])
         update_button = st.form_submit_button(label="Atualizar reserva....")
-
+        
         if update_button:
             # Removing old entry
             existing_data.drop(
