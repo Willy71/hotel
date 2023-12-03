@@ -323,7 +323,7 @@ elif action == "Atualizar reserva existente":
         with col251:
             st.metric(label="Numero", value=(int(vendor_data["Numero"])), label_visibility="visible")
         with col252:
-            st.metric(label="Apartamento", value=(int(vendor_data["Apartamento"])), label_visibility="visible")
+            st.metric(label="Apartamento", value=vendor_data["Apartamento"], label_visibility="visible")
         
     with st.container():    
         col260, col261, col262, col263, col264 = st.columns([2, 2, 2, 1, 3])
