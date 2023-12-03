@@ -318,7 +318,7 @@ elif action == "Atualizar reserva existente":
         with col240:
             st.metric(label="Codigo do pais", value=vendor_data["Pais"], label_visibility="visible")
         with col241:
-            st.metric(label="Celular", value=vendor_data["Celular"], label_visibility="visible")
+            st.metric(label="Celular", value=(int(vendor_data["Celular"])), label_visibility="visible")
        
             
        
