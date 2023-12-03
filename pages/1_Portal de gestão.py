@@ -416,7 +416,7 @@ elif action == "Atualizar reserva existente":
 # ____________________________________________________________________________________________________________________________________
 # Ver todas las reservas
 elif action == "Ver todos as reservas":
-    st.dataframe(existing_data)
+    st.table(existing_data)
 
 # ____________________________________________________________________________________________________________________________________
 # Delete Vendor by user_id
