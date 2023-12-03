@@ -280,23 +280,27 @@ elif action == "Atualizar reserva existente":
             vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
     with st.container():    
-        col210, col211, col212, col213, col214, col215, col216 = st.columns(7)
+        col210, col211, col212, col213, col214 = st.columns(5)
         with col210:
             favorite_command = int(vendor_data["Quarto"])  # Acceder al valor de la columna "Quarto"
             st.metric(label="Quarto", value=favorite_command, label_visibility="visible")
         with col211:
             st.metric(label="Hospedes", value=(int(vendor_data["Hospedes"])), label_visibility="visible")
-            vendor_data["Hora de entrada"] = pd.to_datetime(vendor_data["Hora de entrada"])
-            vendor_data["Data de entrada"] = pd.to_datetime(vendor_data["Data de entrada"])
-            vendor_data["Hora de saida"] = pd.to_datetime(vendor_data["Hora de saida"])
-            vendor_data["Data de saida"] = pd.to_datetime(vendor_data["Data de saida"])
-        with col212:
+
+
+    vendor_data["Hora de entrada"] = pd.to_datetime(vendor_data["Hora de entrada"])
+    vendor_data["Data de entrada"] = pd.to_datetime(vendor_data["Data de entrada"])
+    vendor_data["Hora de saida"] = pd.to_datetime(vendor_data["Hora de saida"])
+    vendor_data["Data de saida"] = pd.to_datetime(vendor_data["Data de saida"])
+    with st.container():    
+        col220, col221, col222, col223, col224 = st.columns([2, 2, 1, 2, 2])
+        with col220:
              st.metric(label="Hora de entrada", value=vendor_data["Hora de entrada"].isoformat(), label_visibility="visible")
-        with col213:
+        with col221:
              st.metric(label="Data de entrada", value=vendor_data["Data de entrada"].isoformat(), label_visibility="visible")
-        with col214:
+        with col223:
              st.metric(label="Hora de saida", value=vendor_data["Hora de saida"].isoformat(), label_visibility="visible")
-        with col215:
+        with col224:
              st.metric(label="Data de saida", value=vendor_data["Data de saida"].isoformat(), label_visibility="visible")
         
          
