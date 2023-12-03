@@ -188,7 +188,7 @@ with st.form(key="reservation"):
                 st.error("Não valido. Insira um número de 11 dígitos.")
     
     with st.container():    
-        col50, col51, col52, col53, col54 = st.columns([2, 2, 2, 1, 3])
+        col50, col51, col52, col53, col54 = st.columns([4, 2, 2, 1, 1])
         with col50:
             street = st.text_input('Rua')
         with col51:
