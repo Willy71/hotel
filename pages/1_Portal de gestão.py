@@ -47,7 +47,6 @@ existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
 df = st.dataframe(existing_data)
-df
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 # Función para obtener el próximo ID disponible
