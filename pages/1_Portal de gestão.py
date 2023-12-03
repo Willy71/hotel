@@ -146,26 +146,26 @@ with st.form(key="reservation"):
             guests = st.selectbox("Quantidade de hospedes", opciones_numericas_2, index=None, placeholder="Hospedes...")
     
     with st.container():    
-        col10, col11, col12, col13, col14 = st.columns([1, 2, 2, 2, 3])
-        with col11:
+        col10, col11, col12, col13, col14 = st.columns([2, 2, 2, 1, 3])
+        with col10:
             checkin_time = st.time_input('Hora de entrada', value=None)
-        with col12:
+        with col11:
             admission_date = st.date_input("Data de entrada", format="DD.MM.YYYY")
     
     with st.container():    
-        col20, col21, col22, col23, col24 = st.columns([1, 2, 2, 2, 3])
-        with col21:
+        col20, col21, col22, col23, col24 = st.columns([2, 2, 2, 1, 3])
+        with col20:
             checkout_time = st.time_input('Hora de saida', value=None)
-        with col22:
+        with col21:
             departure_date = st.date_input("Data de saida", format="DD.MM.YYYY")
     
     with st.container():    
-        col30, col31, col32, col33, col34 = st.columns([1, 2, 2, 2, 3])
-        with col31:
+        col30, col31, col32, col33, col34 = st.columns([2, 2, 2, 1, 3])
+        with col30:
             first_name = st.text_input('Primeiro nome')
-        with col32:
+        with col31:
             last_name = st.text_input('Sobrenome')
-        with col33:
+        with col32:
             email = st.text_input("Entre um email válido:")
         with col34:
             st.text("")
