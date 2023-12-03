@@ -50,11 +50,11 @@ st.dataframe(existing_data)
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 # Función para obtener el próximo ID disponible
-def obtener_proximo_id(df):
+def obtener_proximo_id(existing_data):
     if df.empty:
         return 1
     else:
-        return df['ID_usuario'].max() + 1
+        return existing_data['ID_usuario'].max() + 1
         
 
 def centrar_imagen(imagen, ancho):
@@ -219,7 +219,7 @@ with st.form(key="reservation"):
             
 # ----------------------------------------------------------------------------------------------------------------------------------
 if input_submit:
-    nuevo_id = obtener_proximo_id(df)
+    nuevo_id = obtener_proximo_id(existing_data)
     # Obtener los datos ingresados
     data = {
         'user_id': nuevo_id,
