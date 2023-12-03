@@ -1,7 +1,8 @@
 import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 import pandas as pd
-import webbrowser
-from datetime import datetime
+import datetime
+import re
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
