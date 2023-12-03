@@ -180,7 +180,7 @@ if action == "Adicionar nova reserva":
                 # Selecciona el país desde el selectbox
                 country = st.selectbox('Selecione um pais', list(prefijos.keys()))
             with col41:
-                phone_number = st.text_input("Número de telefone:")
+                phone_number = st.number_input("Número de telefone:")
             with col44:
                 st.text("")
                 # Validar el número de teléfono continuamente
@@ -393,7 +393,7 @@ elif action == "Atualizar reserva existente":
                 # Selecciona el país desde el selectbox
                 country = st.selectbox('Selecione um pais', list(prefijos.keys()))
             with col341:
-                phone_number = st.text_input("Número de telefone:", value=vendor_data["Celular"])
+                phone_number = st.number_input("Número de telefone:", value=vendor_data["Celular"])
             with col344:
                 st.text("")
                 # Validar el número de teléfono continuamente
