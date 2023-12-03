@@ -280,12 +280,21 @@ elif action == "Atualizar reserva existente":
             vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
     with st.container():    
-        col210, col211, col212, col213, col214, col215, col216, col217 = st.columns(8)
+        col210, col211, col212, col213, col214, col215, col216 = st.columns(7)
         with col210:
             favorite_command = int(vendor_data["Quarto"])  # Acceder al valor de la columna "Quarto"
             st.metric(label="Quarto", value=favorite_command, label_visibility="visible")
         with col211:
              st.metric(label="Hospedes", value=(int(vendor_data["Hospedes"])), label_visibility="visible")
+        with col212:
+             st.metric(label="Hora de entrada", value=(int(vendor_data["Hora de entrada"])), label_visibility="visible")
+        with col213:
+             st.metric(label="Data de entrada", value=(int(vendor_data["Data de entrada"])), label_visibility="visible")
+        with col214:
+             st.metric(label="Hora de saida", value=(int(vendor_data["Hora de saida"])), label_visibility="visible")
+        with col215:
+             st.metric(label="Data de saida", value=(int(vendor_data["Data de saida"])), label_visibility="visible")
+        
          
     with st.form(key="update_form"):
          with st.container():    
