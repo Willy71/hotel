@@ -280,7 +280,7 @@ elif action == "Atualizar reserva existente":
             vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
     with st.container():    
-        col210, col211, col212, col213, col214 = st.columns([2, 2, 2, 1, 3])
+        col210, col211, col212, col213, col214, col215, col216, col217 = st.columns(8)
         with col210:
             favorite_command = int(vendor_data["Quarto"])  # Acceder al valor de la columna "Quarto"
             st.metric(label="Quarto", value=favorite_command, label_visibility="visible")
