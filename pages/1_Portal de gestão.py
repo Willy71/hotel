@@ -273,13 +273,16 @@ if action == "Adicionar nova reserva":
 elif action == "Atualizar reserva existente":
     st.markdown("Selecione o ID da reserva que deseja atualizar.")
 
-    vendor_to_update = st.selectbox("Selecione o ID", options=existing_data["user_id"].astype(int).tolist())
-    vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
+    with st.container():    
+        col200, col201, col202, col203, col204 = st.columns([2, 2, 2, 1, 3])
+        with col200:
+            vendor_to_update = st.selectbox("Selecione o ID", options=existing_data["user_id"].astype(int).tolist())
+            vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
     with st.form(key="update_form"):
          with st.container():    
-            col200, col201, col202, col203, col204 = st.columns([2, 2, 2, 1, 3])
-            with col200:
+            col210, col211, col212, col213, col214 = st.columns([2, 2, 2, 1, 3])
+            with col210:
                 opciones_numericas = list(range(31)) 
                 room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
                 update_button = st.form_submit_button(label="Atualizar reserva....")
