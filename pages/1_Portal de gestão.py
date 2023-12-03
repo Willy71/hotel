@@ -284,30 +284,30 @@ elif action == "Atualizar reserva existente":
         room = st.text_input(
             label="Quartos*", value=vendor_data["Quartos"]
        
-    update_button = st.form_submit_button(label="Atualizar reserva....")
+        update_button = st.form_submit_button(label="Atualizar reserva....")
 
-    if update_button:
-        # Removing old entry
-        existing_data.drop(
-            existing_data[
-                existing_data["user_id"] == vendor_to_update
-            ].index,
-            inplace=True,
-        )
-        # Creating updated data entry
-        updated_vendor_data = pd.DataFrame(
-            [
-                {
-                    'Quarto': room,
-                }
-            ]
-        )
-        # Adding updated data to the dataframe
-        updated_df = pd.concat(
-            [existing_data, updated_vendor_data], ignore_index=True
-        )
-        conn.update(worksheet="Hoja1", data=updated_df)
-        st.success("Detalhes da reserva atualizadas com sucesso!")
+        if update_button:
+            # Removing old entry
+            existing_data.drop(
+                existing_data[
+                    existing_data["user_id"] == vendor_to_update
+                ].index,
+                inplace=True,
+            )
+            # Creating updated data entry
+            updated_vendor_data = pd.DataFrame(
+                [
+                    {
+                        'Quarto': room,
+                    }
+                ]
+            )
+            # Adding updated data to the dataframe
+            updated_df = pd.concat(
+                [existing_data, updated_vendor_data], ignore_index=True
+            )
+            conn.update(worksheet="Hoja1", data=updated_df)
+            st.success("Detalhes da reserva atualizadas com sucesso!")
 
            
 # ____________________________________________________________________________________________________________________________________
