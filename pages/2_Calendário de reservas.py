@@ -52,3 +52,11 @@ def centrar_texto(texto, tamanho, color):
 
 st.write("#")
 
+# Establishing a Google Sheets connection
+conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+
+# Fetch existing vendors data
+existing_data = conn.read(worksheet="Hoja1", usecols=list(range(6)), ttl=5)
+existing_data = existing_data.dropna(how="all")
+
+st.dataframe(existing_data)
