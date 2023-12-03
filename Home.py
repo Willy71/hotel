@@ -32,8 +32,13 @@ right: 2rem;
 [data-testid="stSidebar"] {{
 background: rgba(28,28,56,1);
 }}
+
+body {{
+    color: white;  /* Cambia el color del texto a blanco */
+}}
 </style>
 """
+
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 def centrar_imagen(imagen, ancho):
