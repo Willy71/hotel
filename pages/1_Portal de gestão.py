@@ -419,8 +419,8 @@ elif action == "Atualizar reserva existente":
                 state = st.text_input('Estado', value=vendor_data["Estado"])
             with col362:
                 zip_code = st.text_input('CEP', value=vendor_data["CEP"])
-
-         with st.container():    
+        
+        with st.container():    
             col370, col371, col372, col373, col374, col375 = st.columns([1, 2, 2, 2, 2, 1])
             with col371:
                 city = st.text_input('Cidade', value=vendor_data["Cidade"])
