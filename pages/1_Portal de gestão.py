@@ -188,25 +188,25 @@ with st.form(key="reservation"):
                 st.error("Não valido. Insira um número de 11 dígitos.")
     
     with st.container():    
-        col50, col51, col52, col53, col54 = st.columns([1, 2, 2, 2, 3])
-        with col51:
+        col50, col51, col52, col53, col54 = st.columns([2, 2, 2, 1, 3])
+        with col50:
             street = st.text_input('Rua')
-        with col52:
+        with col51:
             street_number = st.text_input('Número da rua')
-        with col53:
+        with col52:
             department_number = st.text_input("Número de apartamento")
     
     with st.container():    
-        col60, col61, col62, col63, col64 = st.columns([1, 2, 2, 2, 3])
-        with col61:
+        col60, col61, col62, col63, col64 = st.columns([2, 2, 2, 1, 3])
+        with col60:
             city = st.text_input('Cidade')
-        with col62:
+        with col61:
             state = st.text_input('Estado')
-        with col63:
+        with col62:
             zip_code = st.text_input('CEP')
     
     with st.container():    
-        col70, col71, col72, col73, col74, col75 = st.columns(6)
+        col70, col71, col72, col73, col74, col75 = st.columns([1, 2, 2, 2, 2, 1])
         with col71:
             total_cost = st.number_input(label="Costo total")       
         with col72:
