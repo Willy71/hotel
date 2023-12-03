@@ -284,6 +284,8 @@ elif action == "Atualizar reserva existente":
         with col210:
             favorite_command = int(vendor_data["Quarto"])  # Acceder al valor de la columna "Quarto"
             st.metric(label="Quarto", value=favorite_command, label_visibility="visible")
+        with col211:
+             st.metric(label="Hospedes", value=(int(vendor_data["Hospedes"])), label_visibility="visible")
          
     with st.form(key="update_form"):
          with st.container():    
