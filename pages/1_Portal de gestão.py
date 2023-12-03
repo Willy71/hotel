@@ -146,14 +146,14 @@ with st.form(key="reservation"):
             guests = st.selectbox("Quantidade de hospedes", opciones_numericas_2, index=None, placeholder="Hospedes...")
     
     with st.container():    
-        col10, col11, col12, col13, col14 = st.columns([2, 2, 2, 2, 2])
-        with col10:
-            checkin_time = st.time_input('Hora de entrada', value=None)
+        col10, col11, col12, col13, col14, col15, col16 = st.columns([1, 2, 2, 0.5, 2, 2, 1])
         with col11:
+            checkin_time = st.time_input('Hora de entrada', value=None)
+        with col12:
             admission_date = st.date_input("Data de entrada", format="DD.MM.YYYY")
-        with col13:
-            checkout_time = st.time_input('Hora de saida', value=None)
         with col14:
+            checkout_time = st.time_input('Hora de saida', value=None)
+        with col15:
             departure_date = st.date_input("Data de saida", format="DD.MM.YYYY")
     
     with st.container():    
