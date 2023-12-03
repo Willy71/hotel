@@ -90,7 +90,7 @@ def validar_numero_telefono(numero):
     else:
         return False
         
-        
+# ----------------------------------------------------------------------------------------------------------------------------------
 # Lista de prefijos telefónicos internacionales
 import phonenumbers as pn
 import pycountry
@@ -113,6 +113,19 @@ def obtener_prefijo(pais):
 
 st.write("#")
 
+# ----------------------------------------------------------------------------------------------------------------------------------
+# Seleccion de la opcion de CRUD
+action = st.selectbox(
+    "Choose an Action",
+    [
+        "Adicionar nova reserva",
+        "Atualizar reserva existente",
+        "Ver todos as reservas",
+        "Apagar reserva",
+    ],
+)
+# ----------------------------------------------------------------------------------------------------------------------------------
+# Inicio do formulario
 with st.form(key="reservation"):
     with st.container():    
         col00, col01, col02, col03, col04 = st.columns([1, 2, 2, 2, 3])
@@ -203,8 +216,8 @@ with st.form(key="reservation"):
         col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
         with col83:
             input_submit = st.form_submit_button("submit")
-
-
+            
+# ----------------------------------------------------------------------------------------------------------------------------------
 if input_submit:
     nuevo_id = obtener_proximo_id(df)
     # Obtener los datos ingresados
