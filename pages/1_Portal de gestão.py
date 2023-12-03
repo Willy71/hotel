@@ -426,10 +426,10 @@ elif action == "Atualizar reserva existente":
                 total_cost = st.number_input(label="Costo total", value=(int(vendor_data["Costo total"])))  
             with col372:
                 opciones_pago = ["Nenhum", "Cartão de crédito", "A vista", "Débito"]
-                payment_option = st.selectbox("Pagamento", opciones_pago, placeholder="Opções de pagamento...")
+                payment_option = st.selectbox("Pagamento", opciones_pago, placeholder="Opções de pagamento...", index=opciones_pago.index(vendor_data["Forma de pagamento"]))
             with col373:
                 opciones_saldo = ["Nenhum", "Pago integral", "Pago parcial"]
-                pay_option = st.selectbox("Pagamento", opciones_saldo, placeholder="Pagamento...")                
+                pay_option = st.selectbox("Pagamento", opciones_saldo, placeholder="Pagamento...", index=opciones_saldo.index(vendor_data["Opção de pagamento"]))                
             with col374:
                 pay_amount = st.number_input(label='Inserir pagamento', value=(int(vendor_data["Quantia paga"])))
 
