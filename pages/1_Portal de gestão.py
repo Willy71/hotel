@@ -160,7 +160,7 @@ with st.form(key="reservation"):
             departure_date = st.date_input("Data de saida", format="DD.MM.YYYY")
     
     with st.container():    
-        col30, col31, col32, col33, col34 = st.columns([2, 2, 2, 1, 3])
+        col30, col31, col32, col33, col34 = st.columns([2, 2, 2, 0.2, 3.8])
         with col30:
             first_name = st.text_input('Primeiro nome')
         with col31:
