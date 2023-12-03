@@ -350,15 +350,16 @@ elif action == "Atualizar reserva existente":
             st.metric(label="Quantia paga", value=vendor_data["Quantia paga"], label_visibility="visible")
             
     # --------------------------------------------------------       
-     
+    # Editando los datos 
     with st.form(key="update_form"):
          with st.container():    
             col310, col311, col312, col313, col314 = st.columns([2, 2, 2, 1, 3])
             with col310:
-                opciones_numericas = list(range(31)) 
                 room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
+            with col311:
+                guests = st.selectbox("Quantidade de hospedes", opciones_numericas_2, placeholder="Hospedes...", index=opciones_numericas_2.index(vendor_data["Hospedes"]))
+                
                 update_button = st.form_submit_button(label="Atualizar reserva....")
-        
                 if update_button:
                     # Removing old entry
                     existing_data.drop(
