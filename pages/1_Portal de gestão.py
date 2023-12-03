@@ -386,8 +386,8 @@ elif action == "Atualizar reserva existente":
                     st.success("¡El email é valido!")
                 else:
                     st.error("O endereço de e-mail não é válido.")
-                
-         with st.container():    
+
+        with st.container():
             col340, col341, col342, col343, col344 = st.columns([2, 2, 0.2, 0.2, 5.6])
             with col340:
                 # Selecciona el país desde el selectbox
