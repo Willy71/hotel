@@ -263,9 +263,9 @@ elif action == "Atualizar reserva existente":
     st.markdown("Selecione o ID da reserva que deseja atualizar")
 
     vendor_to_update = st.selectbox(
-        "Selecione o ID", options=existing_data["User_id"].astype(int).tolist()
+        "Selecione o ID", options=existing_data["user_id"].astype(int).tolist()
     )
-    vendor_data = existing_data[existing_data["User_id"] == vendor_to_update].iloc[
+    vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[
         0
     ]
     with st.form(key="reservation"):
