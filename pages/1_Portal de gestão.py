@@ -305,12 +305,12 @@ elif action == "Atualizar reserva existente":
              st.metric(label="Data de saida", value=vendor_data["Data de saida"].strftime("%d/%m/%Y"), label_visibility="visible")
     
     with st.container():    
-        col30, col31, col32, col33, col34 = st.columns([2, 2, 2, 0.2, 3.8])
-        with col30:
+        col230, col231, col232, col233 = st.columns([2, 2, 0.5, 4])
+        with col230:
             st.metric(label="Primeiro nome", value=vendor_data["Primeiro nome"], label_visibility="visible")
-        with col31:
+        with col231:
             st.metric(label="Sobrenome", value=vendor_data["Sobrenome"], label_visibility="visible")
-        with col32:
+        with col232:
             st.metric(label="Email", value=vendor_data["Email"], label_visibility="visible")
             
        
