@@ -283,7 +283,6 @@ elif action == "Atualizar reserva existente":
     with st.form(key="actualizar_reserva"):
         room = st.text_input(
             label="Quartos*", value=vendor_data["Quartos"]
-       
         update_button = st.form_submit_button(label="Atualizar reserva....")
 
         if update_button:
