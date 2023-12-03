@@ -276,7 +276,7 @@ elif action == "Atualizar reserva existente":
     vendor_to_update = st.selectbox("Selecione o ID", options=existing_data["user_id"].astype(int).tolist())
     vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
-   with st.form(key="update_form"):
+    with st.form(key="update_form"):
         room = st.text_input(label="Quartos", value=vendor_data["Quartos"]) 
         update_button = st.form_submit_button(label="Atualizar reserva....")
 
