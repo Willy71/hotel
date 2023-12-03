@@ -361,7 +361,7 @@ elif action == "Atualizar reserva existente":
                 opciones_numericas_2 = list(range(11))
                 guests = st.selectbox("Hospedes", opciones_numericas_2, placeholder="Quantidade de hospedes..", index=opciones_numericas_2.index(vendor_data["Hospedes"]))
 
-        with st.container():    
+        with st.container():
             col320, col321, col322, col323, col324, col325, col326 = st.columns([1, 2, 2, 0.5, 2, 2, 1])
             with col11:
                 checkin_time = st.time_input('Hora de entrada', value=pd.to_datetime(vendor_data["Hora de entrada"])
@@ -371,7 +371,6 @@ elif action == "Atualizar reserva existente":
                 checkout_time = st.time_input('Hora de saida', value=pd.to_datetime(vendor_data["Hora de saida"])
             with col15:
                 departure_date = st.date_input("Data de saida", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de saida"])
-                
                 update_button = st.form_submit_button(label="Atualizar reserva....")
   
                 if update_button:
