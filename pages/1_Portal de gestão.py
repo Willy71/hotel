@@ -339,7 +339,7 @@ elif action == "Atualizar reserva existente":
             st.metric(label="CEP", value=(str(vendor_data["CEP"])), label_visibility="visible")
         
     with st.container():    
-        col270, col271, col272, col273 = st.columns(4)
+        col270, col271, col272, col273 = st.columns([1.5, 3, 3, 1.5])
         with col270:
             st.metric(label="Costo total", value=vendor_data["Costo total"], label_visibility="visible")
         with col271:
