@@ -387,6 +387,21 @@ elif action == "Atualizar reserva existente":
                 else:
                     st.error("O endereço de e-mail não é válido.")
 
+        with st.container():
+            col340, col341, col342, col343, col344 = st.columns([2, 2, 0.2, 0.2, 5.6])
+            with col340:
+                # Selecciona el país desde el selectbox
+                country = st.selectbox('Selecione um pais', list(prefijos.keys()))
+            with col341:
+                phone_number = st.text_input("Número de telefone:", value=vendor_data["Celular"])
+            with col344:
+                st.text("")
+                # Validar el número de teléfono continuamente
+                if validar_numero_telefono(phone_number):
+                    st.success("Número de telefone valido!")
+                else:
+                    st.error("Não valido. Insira um número de 11 dígitos.")
+
        
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
