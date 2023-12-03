@@ -281,9 +281,9 @@ elif action == "Atualizar reserva existente":
 
     if vendor_data > 0:
         with st.container():    
-        col210, col211, col212, col213, col214 = st.columns([2, 2, 2, 1, 3])
-        with col210:
-            st.metric(label="Quarto", value=(vendor_data))
+            col210, col211, col212, col213, col214 = st.columns([2, 2, 2, 1, 3])
+            with col210:
+                st.metric(label="Quarto", value=(vendor_data))
         
 
     with st.form(key="update_form"):
