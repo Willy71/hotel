@@ -257,6 +257,7 @@ if action == "Adicionar nova reserva":
                     updated_df = pd.concat([existing_data, data], ignore_index=True)
                     conn.update(worksheet="Hoja1", data=updated_df)
                     st.success("Reserva adicionada com sucesso!")
+                    df = st.dataframe(existing_data)
 
 # View All Vendors
 elif action == "Ver todos as reservas":
