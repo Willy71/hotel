@@ -50,7 +50,7 @@ conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
-df = st.dataframe(existing_data)
+# df = st.dataframe(existing_data)
 
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Definir funciones a ser usadas:
@@ -273,4 +273,5 @@ elif action == "Apagar reserva":
         existing_data.reset_index(drop=True, inplace=True)  # Resetear los índices
         conn.update(worksheet="Hoja1", data=existing_data)
         st.success("Reserva apagada com sucesso!")
+    df = st.dataframe(existing_data)
 
