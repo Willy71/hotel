@@ -453,6 +453,26 @@ elif action == "Atualizar reserva existente":
                         [
                             {
                                 'Quarto': room,
+                                'Hospedes': guests,
+                                'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
+                                'Data de entrada': admission_date.isoformat() if admission_date else None,
+                                'Hora de saida': checkout_time.isoformat() if checkout_time else None,
+                                'Data de saida': departure_date.isoformat() if departure_date else None,
+                                'Primeiro nome': first_name,
+                                'Sobrenome': last_name,
+                                'Email': email,
+                                'Pais': country,
+                                'Celular': phone_number,
+                                'Rua': street,
+                                'Numero': street_number,
+                                'Apartamento': department_number,
+                                'Cidade': city,
+                                'Estado': state,
+                                'CEP': zip_code,
+                                'Costo total': total_cost,
+                                'Forma de pagamento': payment_option,
+                                'Opção de pagamento': pay_option,
+                                'Quantia paga': pay_amount
                             }
                         ]
                     )
