@@ -265,7 +265,7 @@ elif action == "Ver todos as reservas":
 # Delete Vendor by user_id
 elif action == "Apagar reserva":
     user_id_to_delete = st.selectbox(
-        "Selecione uma reserva para apagar", options=existing_data["user_id"].tolist()
+        "Selecione uma reserva para apagar", options=existing_data["user_id"].astype(int).tolist()
     )
 
     if st.button("Delete"):
