@@ -391,7 +391,7 @@ elif action == "Atualizar reserva existente":
             col340, col341, col342, col343, col344 = st.columns([2, 2, 0.2, 0.2, 5.6])
             with col340:
                 # Selecciona el país desde el selectbox
-                country = st.selectbox('Selecione um pais', list(prefijos.keys()), index=prefijos.index(vendor_data["Pais"]))
+                country = st.selectbox('Selecione um pais', list(prefijos.keys()), index=vendor_data["Pais"])
             with col341:
                 phone_number = st.text_input("Número de telefone:", value=vendor_data["Celular"])
             with col344:
