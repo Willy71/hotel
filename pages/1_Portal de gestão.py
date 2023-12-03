@@ -272,11 +272,16 @@ if action == "Adicionar nova reserva":
 
 elif action == "Atualizar reserva existente":
     st.markdown("Selecione o ID da reserva que deseja atualizar.")
+    # Eliminar filas con NaN en la columna "user_id"
+    existing_data = existing_data.dropna(subset=["user_id"])
+
+    # Convertir la columna "user_id" a enteros
+    existing_data["user_id"] = existing_data["user_id"].astype(int)
 
     with st.container():    
         col200, col201, col202, col203, col204 = st.columns([2, 2, 2, 1, 3])
         with col200:
-            vendor_to_update = st.selectbox("Selecione o ID", options=existing_data["user_id"].astype(int).tolist())
+            vendor_to_update = st.selectbox("Selecione o ID", options=existing_data["user_id"].tolist())
             vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
     # --------------------------------------------------------       
     # Mostrando los datos antes de editarlos
@@ -402,7 +407,7 @@ elif action == "Atualizar reserva existente":
                 else:
                     st.error("Não valido. Insira um número de 11 dígitos.")
 
-        with st.container():    
+        with st.container():  
             col350, col351, col352, col353, col354 = st.columns([4, 2, 2, 1, 1])
             with col350:
                 street = st.text_input('Rua', value=vendor_data["Rua"])
