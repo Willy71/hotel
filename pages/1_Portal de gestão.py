@@ -140,91 +140,91 @@ with st.form(key="reservation"):
         col00, col01, col02, col03, col04 = st.columns([1, 2, 2, 2, 3])
         with col01:
             opciones_numericas = list(range(31))
-            room = st.selectbox("Room", opciones_numericas, index=None, placeholder="Select a room...")
+            room = st.selectbox("Quarto", opciones_numericas, index=None, placeholder="Selecione um quarto...")
         with col02:
             opciones_numericas_2 = list(range(11))
-            guests = st.selectbox("Number of guests", opciones_numericas_2, index=None, placeholder="Guests...")
+            guests = st.selectbox("Quantidade de hospedes", opciones_numericas_2, index=None, placeholder="Hospedes...")
     
     with st.container():    
         col10, col11, col12, col13, col14 = st.columns([1, 2, 2, 2, 3])
         with col11:
-            checkin_time = st.time_input('Check in time', value=None)
+            checkin_time = st.time_input('Hora de entrada', value=None)
         with col12:
-            admission_date = st.date_input("Date of admission", format="DD.MM.YYYY")
+            admission_date = st.date_input("Data de entrada", format="DD.MM.YYYY")
     
     with st.container():    
         col20, col21, col22, col23, col24 = st.columns([1, 2, 2, 2, 3])
         with col21:
-            checkout_time = st.time_input('Check out time', value=None)
+            checkout_time = st.time_input('Hora de saida', value=None)
         with col22:
-            departure_date = st.date_input("Departure date", format="DD.MM.YYYY")
+            departure_date = st.date_input("Data de saida", format="DD.MM.YYYY")
     
     with st.container():    
         col30, col31, col32, col33, col34 = st.columns([1, 2, 2, 2, 3])
         with col31:
-            first_name = st.text_input('First name')
+            first_name = st.text_input('Primeiro nome')
         with col32:
-            last_name = st.text_input('Last name')
+            last_name = st.text_input('Sobrenome')
         with col33:
-            email = st.text_input("Enter a valid email:")
+            email = st.text_input("Entre um email válido:")
         with col34:
             st.text("")
             if validar_email(email):
-                st.success("¡The email address is valid!")
+                st.success("¡El email é valido!")
             else:
-                st.error("The email address is not valid. Please enter a valid address.")
+                st.error("O endereço de e-mail não é válido. Por Favor insira um endereço válido.")
          
     
     with st.container():    
         col40, col41, col42, col43, col44 = st.columns([1, 2, 2, 2, 3])
         with col41:
             # Selecciona el país desde el selectbox
-            country = st.selectbox('Select a country', list(prefijos.keys()))
+            country = st.selectbox('Selecione um pais', list(prefijos.keys()))
         with col42:
-            phone_number = st.text_input("Phone number:")
+            phone_number = st.text_input("Número de telefone:")
         with col44:
             st.text("")
             # Validar el número de teléfono continuamente
             if validar_numero_telefono(phone_number):
-                st.success("Valid phone number!")
+                st.success("Número de telefone valido!")
             else:
-                st.error("Invalid phone number. Enter a 11-digit number.")
+                st.error("Número de telfone não valido. Insira um número de 11 dígitos.")
     
     with st.container():    
         col50, col51, col52, col53, col54 = st.columns([1, 2, 2, 2, 3])
         with col51:
-            street = st.text_input('Street')
+            street = st.text_input('Rua')
         with col52:
-            street_number = st.text_input('Street number')
+            street_number = st.text_input('Número da rua')
         with col53:
-            department_number = st.text_input("Department number")
+            department_number = st.text_input("Número de apartamento")
     
     with st.container():    
         col60, col61, col62, col63, col64 = st.columns([1, 2, 2, 2, 3])
         with col61:
-            city = st.text_input('City')
+            city = st.text_input('Cidade')
         with col62:
-            state = st.text_input('State')
+            state = st.text_input('Estado')
         with col63:
-            zip_code = st.text_input('Zip code')
+            zip_code = st.text_input('CEP')
     
     with st.container():    
         col70, col71, col72, col73, col74, col75 = st.columns(6)
         with col71:
-            total_cost = st.number_input(label="Total cost")       
+            total_cost = st.number_input(label="Costo total")       
         with col72:
-            opciones_pago = ["None", "Credit card", "Cash", "Debit"]
-            payment_option = st.selectbox("Payment", opciones_pago, index=None, placeholder="Payment option...")
+            opciones_pago = ["Nenhum", "Cartão de crédito", "A vista", "Débito"]
+            payment_option = st.selectbox("Pagamento", opciones_pago, index=None, placeholder="Opções de pagamento...")
         with col73:
-            opciones_saldo = ["None", "Full payment", "Partial payment"]
-            pay_option = st.selectbox("Pay", opciones_saldo, index=None, placeholder="Pay...")
+            opciones_saldo = ["Nenhum", "Pago integral", "Pago parcial"]
+            pay_option = st.selectbox("Pagamento", opciones_saldo, index=None, placeholder="Pagamento...")
         with col74:
-            pay_amount = st.number_input(label='Insert a pay')
+            pay_amount = st.number_input(label='Inserir pagamento')
 
     with st.container():    
         col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
         with col83:
-            input_submit = st.form_submit_button("submit")
+            input_submit = st.form_submit_button("Enviar")
             
 # ----------------------------------------------------------------------------------------------------------------------------------
 if input_submit:
