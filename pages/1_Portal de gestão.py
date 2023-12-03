@@ -355,7 +355,7 @@ elif action == "Atualizar reserva existente":
                 col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
                 with col83:
                     submit_button = st.form_submit_button("Enviar")
-                     if submit_button:
+                    if submit_button:
                         # Obtener los datos ingresados
                         data = pd.DataFrame(
                             # Removing old entry
