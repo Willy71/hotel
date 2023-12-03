@@ -325,9 +325,9 @@ elif action == "Atualizar reserva existente":
         with col250:
             st.metric(label="Rua", value=vendor_data["Rua"], label_visibility="visible")
         with col251:
-            st.metric(label="Numero", value=vendor_data["Numero"], label_visibility="visible")
+            st.metric(label="Numero", value=(int(vendor_data["Numero"])), label_visibility="visible")
         with col252:
-            st.metric(label="Apartamento", value=vendor_data["Apartamento"], label_visibility="visible")
+            st.metric(label="Apartamento", value=(int(vendor_data["Apartamento"])), label_visibility="visible")
         
     with st.container():    
         col260, col261, col262, col263, col264 = st.columns([2, 2, 2, 1, 3])
@@ -336,25 +336,19 @@ elif action == "Atualizar reserva existente":
         with col261:
             st.metric(label="Estado", value=vendor_data["Estado"], label_visibility="visible")
         with col262:
-            st.metric(label="CEP", value=vendor_data["CEP"], label_visibility="visible")
+            st.metric(label="CEP", value=(str(vendor_data["CEP"])), label_visibility="visible")
         
     with st.container():    
-        col270, col271, col272, col273, col274, col275 = st.columns([1, 2, 2, 2, 2, 1])
-        with col271:
+        col270, col271, col272, col273 = st.columns(4)
+        with col270:
             st.metric(label="Costo total", value=vendor_data["Costo total"], label_visibility="visible")
-        with col272:
+        with col271:
             st.metric(label="Forma de pagamento", value=vendor_data["Forma de pagamento"], label_visibility="visible")
-        with col273:
+        with col272:
             st.metric(label="Opção de pagamento", value=vendor_data["Opção de pagamento"], label_visibility="visible")
-        with col274:
+        with col273:
             st.metric(label="Quantia paga", value=vendor_data["Quantia paga"], label_visibility="visible")
-
-
-    
-       
             
-       
-        
     # --------------------------------------------------------       
      
     with st.form(key="update_form"):
