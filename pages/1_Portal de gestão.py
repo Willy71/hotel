@@ -51,7 +51,7 @@ st.dataframe(existing_data)
 
 # Función para obtener el próximo ID disponible
 def obtener_proximo_id(existing_data):
-    if df.empty:
+    if existing_data.empty:
         return 1
     else:
         return existing_data['ID_usuario'].max() + 1
