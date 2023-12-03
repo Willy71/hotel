@@ -291,7 +291,7 @@ elif action == "Atualizar reserva existente":
         with col213:
              st.metric(label="Data de entrada", value=(int(vendor_data["Data de entrada"])).isoformat(), label_visibility="visible")
         with col214:
-             st.metric(label="Hora de saida", value=(int(vendor_data["Hora de saida"])).isoformat()visibility="visible")
+             st.metric(label="Hora de saida", value=(int(vendor_data["Hora de saida"])).isoformat(), label_visibility="visible")
         with col215:
              st.metric(label="Data de saida", value=(int(vendor_data["Data de saida"])).isoformat(), label_visibility="visible")
         
