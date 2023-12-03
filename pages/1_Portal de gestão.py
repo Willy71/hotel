@@ -173,7 +173,7 @@ with st.form(key="reservation"):
          
     
     with st.container():    
-        col40, col41, col42, col43, col44 = st.columns([2, 2, 2, 0.2, 3.8])
+        col40, col41, col42, col43, col44 = st.columns([2, 2, 0.2, 0.2, 5.6])
         with col40:
             # Selecciona el país desde el selectbox
             country = st.selectbox('Selecione um pais', list(prefijos.keys()))
