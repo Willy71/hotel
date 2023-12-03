@@ -404,7 +404,7 @@ elif action == "Atualizar reserva existente":
             with col350:
                 street = st.text_input('Rua', value=vendor_data["Rua"])
             with col351:
-                street_number = st.text_input('Número da rua', value=(int(vendor_data["Numero"])))
+                street_number = st.text_input('Número', value=(int(vendor_data["Numero"])))
             with col352:
                 department_number = st.text_input("Apartamento", value=vendor_data["Apartamento"])
         
