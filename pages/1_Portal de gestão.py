@@ -258,7 +258,7 @@ if action == "Adicionar nova reserva":
                     updated_df = pd.concat([existing_data, data], ignore_index=True)
                     conn.update(worksheet="Hoja1", data=updated_df)
                     with st.container():
-                        col50, col51, col52, col53, col54 = st.columns([1, 2, 4, 2, 1])
-                        with col52:
+                        col100, col101, col102, col103, col104 = st.columns([1, 2, 4, 2, 1])
+                        with col102:
                             st.success("Detalhes da reserva enviados com sucesso!")
 
