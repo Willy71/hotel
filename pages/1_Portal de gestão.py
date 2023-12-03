@@ -225,12 +225,11 @@ if action == "Adicionar nova reserva":
             with col83:
                 submit_button = st.form_submit_button("Enviar")
                 if submit_button:
-                    nuevo_id = obtener_proximo_id(df)
                     # Obtener los datos ingresados
                     data = pd.DataFrame(
                         [
                             {
-                                'user_id': nuevo_id,
+                                'user_id': obtener_proximo_id(existing_data),
                                 'Quarto': room,
                                 'Hospedes': guests,
                                 'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
