@@ -420,19 +420,7 @@ elif action == "Atualizar reserva existente":
             with col362:
                 zip_code = st.text_input('CEP', value=vendor_data["CEP"])
         
-        with st.container():    
-            col370, col371, col372, col373, col374, col375 = st.columns([1, 2, 2, 2, 2, 1])
-            with col371:
-                total_cost = st.number_input(label="Costo total", value=(int(vendor_data["Costo total"])))       
-            with col372:
-                opciones_pago = ["Nenhum", "Cartão de crédito", "A vista", "Débito"]
-                payment_option = st.selectbox("Pagamento", opciones_pago, placeholder="Opções de pagamento...", value=vendor_data["Forma de pagamento"])
-            with col373:
-                opciones_saldo = ["Nenhum", "Pago integral", "Pago parcial"]
-                pay_option = st.selectbox("Pagamento", opciones_saldo, index=None, placeholder="Pagamento...", value=vendor_data["Opção de pagamento"])
-            with col374:
-                pay_amount = st.number_input(label='Inserir pagamento', value=(int(vendor_data["Quantia paga"])))
-
+        
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
                 if update_button:
