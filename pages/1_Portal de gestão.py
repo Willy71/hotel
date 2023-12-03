@@ -107,9 +107,7 @@ prefijos = {c.alpha_2: pn.country_code_for_region(c.alpha_2) for c in pycountry.
 
 # Función para obtener el prefijo seleccionado
 def obtener_prefijo(pais):
-    # Obtener el prefijo del país seleccionado
-    prefijo = prefijos.get(pais, '')
-    return prefijo
+    return prefijos.get(pais, '')
 
 st.write("#")
 
@@ -167,16 +165,11 @@ if action == "Adicionar nova reserva":
              
         # ...
 
-        # Dentro de la sección donde defines el formulario para adicionar reserva
         with st.container():    
             col40, col41, col42, col43, col44 = st.columns([2, 2, 0.2, 0.2, 5.6])
             with col40:
                 # Selecciona el país desde el selectbox
                 country = st.selectbox('Selecione um pais', list(prefijos.keys()))
-
-                # Muestra el prefijo correspondiente al país seleccionado
-                selected_prefix = obtener_prefijo(country)
-                st.write(f"Código Telefónico: {selected_prefix}")
             with col41:
                 phone_number = st.text_input("Número de telefone:")
             with col44:
@@ -186,7 +179,6 @@ if action == "Adicionar nova reserva":
                     st.success("Número de telefone valido!")
                 else:
                     st.error("Não valido. Insira um número de 11 dígitos.")
-
         
         with st.container():    
             col50, col51, col52, col53, col54 = st.columns([4, 2, 2, 1, 1])
@@ -391,16 +383,11 @@ elif action == "Atualizar reserva existente":
                 else:
                     st.error("O endereço de e-mail não é válido.")
 
-        # Dentro de la sección donde defines el selectbox para el país
         with st.container():
             col340, col341, col342, col343, col344 = st.columns([2, 2, 0.2, 0.2, 5.6])
             with col340:
                 # Selecciona el país desde el selectbox
                 country = st.selectbox('Selecione um pais', list(prefijos.keys()))
-
-                # Muestra el prefijo correspondiente al país seleccionado
-                selected_prefix = obtener_prefijo(country)
-                st.write(f"Código Telefónico: {selected_prefix}")
             with col341:
                 phone_number = st.text_input("Número de telefone:", value=(int(vendor_data["Celular"])))
             with col344:
@@ -410,6 +397,7 @@ elif action == "Atualizar reserva existente":
                     st.success("Número de telefone valido!")
                 else:
                     st.error("Não valido. Insira um número de 11 dígitos.")
+
 
         with st.container():  
             col350, col351, col352, col353, col354 = st.columns([4, 2, 2, 1, 1])
