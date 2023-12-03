@@ -137,7 +137,7 @@ action = st.selectbox(
 
 with st.form(key="reservation"):
     with st.container():    
-        col00, col01, col02, col03, col04 = st.columns([1, 2, 2, 2, 3])
+        col00, col01, col02, col03, col04 = st.columns([2, 2, 2, 1, 3])
         with col00:
             opciones_numericas = list(range(31))
             room = st.selectbox("Quarto", opciones_numericas, index=None, placeholder="Selecione um quarto...")
