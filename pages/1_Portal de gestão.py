@@ -257,8 +257,23 @@ if action == "Adicionar nova reserva":
                     )
                     updated_df = pd.concat([existing_data, data], ignore_index=True)
                     conn.update(worksheet="Hoja1", data=updated_df)
-                    with st.container():
-                        col100, col101, col102, col103, col104 = st.columns([1, 2, 4, 2, 1])
-                        with col102:
-                            st.success("Detalhes da reserva enviados com sucesso!")
+                    st.success("Detalhes da reserva enviados com sucesso!")
+
+# View All Vendors
+elif action == "Ver todos as reservas":
+    st.dataframe(existing_data)
+
+# Delete Vendor
+elif action == "Apagar reserva":
+    vendor_to_delete = st.selectbox(
+        "Selecione uma reserva para apagar", options=existing_data["Sobrenome"].tolist()
+    )
+
+    if st.button("Delete"):
+        existing_data.drop(
+            existing_data[existing_data["Sobrenome"] == vendor_to_delete].index,
+            inplace=True,
+        )
+        conn.update(worksheet="Hoja1", data=existing_data)
+        st.success("Reserva apagada com sucesso!")
 
