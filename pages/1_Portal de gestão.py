@@ -402,11 +402,6 @@ elif action == "Atualizar reserva existente":
                 else:
                     st.error("Não valido. Insira um número de 11 dígitos.")
 
-
-
-        
-
-
         with st.container():    
             col350, col351, col352, col353, col354 = st.columns([4, 2, 2, 1, 1])
             with col350:
@@ -438,16 +433,8 @@ elif action == "Atualizar reserva existente":
             with col374:
                 pay_amount = st.number_input(label='Inserir pagamento', value=(int(vendor_data["Quantia paga"])))
 
-
-
-                
-        
-
-       
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
-
-      
                 if update_button:
                     # Removing old entry
                     existing_data.drop(
