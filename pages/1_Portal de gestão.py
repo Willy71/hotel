@@ -287,13 +287,13 @@ elif action == "Atualizar reserva existente":
         with col211:
              st.metric(label="Hospedes", value=(int(vendor_data["Hospedes"])), label_visibility="visible")
         with col212:
-             st.metric(label="Hora de entrada", value=(int(vendor_data["Hora de entrada"])).isoformat(), label_visibility="visible")
+             st.metric(label="Hora de entrada", value=vendor_data["Hora de entrada"].isoformat(), label_visibility="visible")
         with col213:
-             st.metric(label="Data de entrada", value=(int(vendor_data["Data de entrada"])).isoformat(), label_visibility="visible")
+             st.metric(label="Data de entrada", value=vendor_data["Data de entrada"].isoformat(), label_visibility="visible")
         with col214:
-             st.metric(label="Hora de saida", value=(int(vendor_data["Hora de saida"])).isoformat(), label_visibility="visible")
+             st.metric(label="Hora de saida", value=vendor_data["Hora de saida"].isoformat(), label_visibility="visible")
         with col215:
-             st.metric(label="Data de saida", value=(int(vendor_data["Data de saida"])).isoformat(), label_visibility="visible")
+             st.metric(label="Data de saida", value=vendor_data["Data de saida"].isoformat(), label_visibility="visible")
         
          
     with st.form(key="update_form"):
