@@ -172,7 +172,7 @@ with st.form(key="reservation"):
             if validar_email(email):
                 st.success("¡El email é valido!")
             else:
-                st.error("O endereço de e-mail não é válido. Por Favor insira um endereço válido.")
+                st.error("O endereço de e-mail não é válido.")
          
     
     with st.container():    
