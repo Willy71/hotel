@@ -363,28 +363,29 @@ elif action == "Atualizar reserva existente":
             col390, col391, col392, col393, col394 = st.columns([1, 1, 3, 1, 1])
             with col392:
                 update_button = st.form_submit_button(label="Atualizar reserva....")
-                if update_button:
-                    # Removing old entry
-                    existing_data.drop(
-                        existing_data[
-                            existing_data["user_id"] == vendor_to_update
-                        ].index,
-                        inplace=True,
-                    )
-                    # Creating updated data entry
-                    updated_vendor_data = pd.DataFrame(
-                        [
-                            {
-                                'Quarto': room,
-                            }
-                        ]
-                    )
-                    # Adding updated data to the dataframe
-                    updated_df = pd.concat(
-                        [existing_data, updated_vendor_data], ignore_index=True
-                    )
-                    conn.update(worksheet="Hoja1", data=updated_df)
-                    st.success("Detalhes da reserva atualizadas com sucesso!")
+        
+        if update_button:
+            # Removing old entry
+            existing_data.drop(
+                existing_data[
+                    existing_data["user_id"] == vendor_to_update
+                ].index,
+                inplace=True,
+            )
+            # Creating updated data entry
+            updated_vendor_data = pd.DataFrame(
+                [
+                    {
+                        'Quarto': room,
+                    }
+                ]
+            )
+            # Adding updated data to the dataframe
+            updated_df = pd.concat(
+                [existing_data, updated_vendor_data], ignore_index=True
+            )
+            conn.update(worksheet="Hoja1", data=updated_df)
+            st.success("Detalhes da reserva atualizadas com sucesso!")
 
            
 # ____________________________________________________________________________________________________________________________________
