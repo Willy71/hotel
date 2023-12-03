@@ -307,11 +307,11 @@ elif action == "Atualizar reserva existente":
     with st.container():    
         col30, col31, col32, col33, col34 = st.columns([2, 2, 2, 0.2, 3.8])
         with col30:
-            st.metric(label="Primeiro nome", value=(int(vendor_data["Primeiro nome"])), label_visibility="visible")
+            st.metric(label="Primeiro nome", value=vendor_data["Primeiro nome"], label_visibility="visible")
         with col31:
-            st.metric(label="Sobrenome", value=(int(vendor_data["Sobrenome"])), label_visibility="visible")
+            st.metric(label="Sobrenome", value=vendor_data["Sobrenome"], label_visibility="visible")
         with col32:
-            st.metric(label="Email", value=(int(vendor_data["Email"])), label_visibility="visible")
+            st.metric(label="Email", value=vendor_data["Email"], label_visibility="visible")
             
        
         
