@@ -312,6 +312,14 @@ elif action == "Atualizar reserva existente":
             st.metric(label="Sobrenome", value=vendor_data["Sobrenome"], label_visibility="visible")
         with col233:
             st.metric(label="Email", value=vendor_data["Email"], label_visibility="visible")
+
+    with st.container():    
+        col240, col241, col242, col243 = st.columns([2, 3.5, 0.5, 2])
+        with col240:
+            st.metric(label="Codigo do pais", value=vendor_data["Pais"], label_visibility="visible")
+        with col241:
+            st.metric(label="Celular", value=vendor_data["Celular"], label_visibility="visible")
+       
             
        
         
