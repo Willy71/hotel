@@ -92,15 +92,20 @@ def validar_numero_telefono(numero):
         
         
 # Lista de prefijos telefónicos internacionales
-prefijos = {'Estados Unidos': '+1',
-            'Canadá': '+1',
-            'Brasil': '+55',
-            'Argentina': '+54',
-            'Reino Unido': '+44',
-            'Australia': '+61',
-            'India': '+91',
-            # Agrega más países según sea necesario
-           }
+import phonenumbers as pn
+import pycountry
+
+prefijos = {c.alpha_2: pn.country_code_for_region(c.alpha_2) for c in pycountry.countries}
+
+# prefijos = {'Estados Unidos': '+1',
+#            'Canadá': '+1',
+#            'Brasil': '+55',
+#            'Argentina': '+54',
+#            'Reino Unido': '+44',
+#            'Australia': '+61',
+#            'India': '+91',
+#            Agrega más países según sea necesario
+#           }
 
 # Función para obtener el prefijo seleccionado
 def obtener_prefijo(pais):
