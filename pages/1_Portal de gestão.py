@@ -36,6 +36,8 @@ background: rgba(28,28,56,1);
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+st.title("Portal de gestão")
+
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Establishing a Google Sheets connection
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
