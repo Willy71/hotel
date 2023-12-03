@@ -431,7 +431,7 @@ elif action == "Atualizar reserva existente":
                 opciones_saldo = ["Nenhum", "Pago integral", "Pago parcial"]
                 pay_option = st.selectbox("Pagamento", opciones_saldo, index=None, placeholder="Pagamento...")                
             with col374:
-                pay_amount = st.number_input(label='Inserir pagamento')
+                pay_amount = st.number_input(label='Inserir pagamento', value=(int(vendor_data["Quantia paga"])))
 
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
