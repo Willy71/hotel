@@ -223,34 +223,39 @@ if action == "Adicionar nova reserva":
         with st.container():    
             col81, col82, col83, col84, col85 = st.columns([1.2, 1.2, 1, 1, 1])
             with col83:
-                input_submit = st.form_submit_button("Enviar")
-            
-# ----------------------------------------------------------------------------------------------------------------------------------
-if input_submit:
-    nuevo_id = obtener_proximo_id(df)
-    # Obtener los datos ingresados
-    data = {
-        'user_id': nuevo_id,
-        'Quarto': room,
-        'Hospedes': guests,
-        'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
-        'Data de entrada': admission_date.isoformat() if admission_date else None,
-        'Hora de saida': checkout_time.isoformat() if checkout_time else None,
-        'Data de saida': departure_date.isoformat() if departure_date else None,
-        'Primeiro nome': first_name,
-        'Sobrenome': last_name,
-        'Email': email,
-        'Pais': country,
-        'Celular': phone_number,
-        'Rua': street,
-        'Numero': street_number,
-        'Apartamento': department_number,
-        'Cidade': city,
-        'Estado': state,
-        'CEP': zip_code,
-        'Costo total': total_cost,
-        'Forma de pagamento': payment_option,
-        'Opção de pagamento': pay_option,
-        'Quantia paga': pay_amount
-    }
+                submit_button = st.form_submit_button("Enviar")
+                if submit_button:
+                    nuevo_id = obtener_proximo_id(df)
+                    # Obtener los datos ingresados
+                    data = pd.DataFrame(
+                        [
+                            {
+                                'user_id': nuevo_id,
+                                'Quarto': room,
+                                'Hospedes': guests,
+                                'Hora de entrada': checkin_time.isoformat() if checkin_time else None,
+                                'Data de entrada': admission_date.isoformat() if admission_date else None,
+                                'Hora de saida': checkout_time.isoformat() if checkout_time else None,
+                                'Data de saida': departure_date.isoformat() if departure_date else None,
+                                'Primeiro nome': first_name,
+                                'Sobrenome': last_name,
+                                'Email': email,
+                                'Pais': country,
+                                'Celular': phone_number,
+                                'Rua': street,
+                                'Numero': street_number,
+                                'Apartamento': department_number,
+                                'Cidade': city,
+                                'Estado': state,
+                                'CEP': zip_code,
+                                'Costo total': total_cost,
+                                'Forma de pagamento': payment_option,
+                                'Opção de pagamento': pay_option,
+                                'Quantia paga': pay_amount
+                            }
+                        ]
+                    )
+                    updated_df = pd.concat([existing_data, data], ignore_index=True)
+                    conn.update(worksheet="Hoja1", data=updated_df)
+                    st.success("Detalhes da reserva enviados com sucesso!")
 
