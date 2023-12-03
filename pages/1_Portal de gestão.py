@@ -173,11 +173,11 @@ with st.form(key="reservation"):
          
     
     with st.container():    
-        col40, col41, col42, col43, col44 = st.columns([1, 2, 2, 2, 3])
-        with col41:
+        col40, col41, col42, col43, col44 = st.columns([2, 2, 2, 0.2, 3.8])
+        with col40:
             # Selecciona el país desde el selectbox
             country = st.selectbox('Selecione um pais', list(prefijos.keys()))
-        with col42:
+        with col41:
             phone_number = st.text_input("Número de telefone:")
         with col44:
             st.text("")
@@ -185,7 +185,7 @@ with st.form(key="reservation"):
             if validar_numero_telefono(phone_number):
                 st.success("Número de telefone valido!")
             else:
-                st.error("Número de telfone não valido. Insira um número de 11 dígitos.")
+                st.error("Não valido. Insira um número de 11 dígitos.")
     
     with st.container():    
         col50, col51, col52, col53, col54 = st.columns([1, 2, 2, 2, 3])
