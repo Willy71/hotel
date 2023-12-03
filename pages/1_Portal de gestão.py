@@ -60,7 +60,7 @@ def obtener_proximo_id(df):
     if df.empty:
         return 1
     else:
-        return df['ID_usuario'].max() + 1
+        return df['user_id'].max() + 1
         
 
 def centrar_imagen(imagen, ancho):
@@ -263,17 +263,15 @@ if action == "Adicionar nova reserva":
 elif action == "Ver todos as reservas":
     st.dataframe(existing_data)
 
-# Delete Vendor
+# Delete Vendor by user_id
 elif action == "Apagar reserva":
-    vendor_to_delete = st.selectbox(
-        "Selecione uma reserva para apagar", options=existing_data["Sobrenome"].tolist()
+    user_id_to_delete = st.selectbox(
+        "Selecione uma reserva para apagar", options=existing_data["user_id"].tolist()
     )
 
     if st.button("Delete"):
-        existing_data.drop(
-            existing_data[existing_data["Sobrenome"] == vendor_to_delete].index,
-            inplace=True,
-        )
+        existing_data = existing_data[existing_data["user_id"] != user_id_to_delete]
+        existing_data.reset_index(drop=True, inplace=True)  # Resetear los índices
         conn.update(worksheet="Hoja1", data=existing_data)
         st.success("Reserva apagada com sucesso!")
 
