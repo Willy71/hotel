@@ -363,13 +363,13 @@ with st.form(key="update_form"):
 
     with st.container():
         col320, col321, col322, col323, col324, col325, col326 = st.columns([1, 2, 2, 0.5, 2, 2, 1])
-        with col11:
+        with col321:
             checkin_time = st.time_input('Hora de entrada', value=pd.to_datetime(vendor_data["Hora de entrada"])
-        with col12:
+        with col322:
             admission_date = st.date_input("Data de entrada", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de entrada"])
-        with col14:
+        with col324:
             checkout_time = st.time_input('Hora de saida', value=pd.to_datetime(vendor_data["Hora de saida"])
-        with col15:
+        with col325:
             departure_date = st.date_input("Data de saida", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de saida"])
                 update_button = st.form_submit_button(label="Atualizar reserva....")
   
