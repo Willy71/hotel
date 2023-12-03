@@ -277,32 +277,35 @@ elif action == "Atualizar reserva existente":
     vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
     with st.form(key="update_form"):
-        opciones_numericas = list(range(31)) 
-        room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
-        update_button = st.form_submit_button(label="Atualizar reserva....")
+         with st.container():    
+            col200, col201, col202, col203, col204 = st.columns([2, 2, 2, 1, 3])
+            with co200:
+                opciones_numericas = list(range(31)) 
+                room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
+                update_button = st.form_submit_button(label="Atualizar reserva....")
         
-        if update_button:
-            # Removing old entry
-            existing_data.drop(
-                existing_data[
-                    existing_data["user_id"] == vendor_to_update
-                ].index,
-                inplace=True,
-            )
-            # Creating updated data entry
-            updated_vendor_data = pd.DataFrame(
-                [
-                    {
-                        'Quarto': room,
-                    }
-                ]
-            )
-            # Adding updated data to the dataframe
-            updated_df = pd.concat(
-                [existing_data, updated_vendor_data], ignore_index=True
-            )
-            conn.update(worksheet="Hoja1", data=updated_df)
-            st.success("Detalhes da reserva atualizadas com sucesso!")
+                if update_button:
+                    # Removing old entry
+                    existing_data.drop(
+                        existing_data[
+                            existing_data["user_id"] == vendor_to_update
+                        ].index,
+                        inplace=True,
+                    )
+                    # Creating updated data entry
+                    updated_vendor_data = pd.DataFrame(
+                        [
+                            {
+                                'Quarto': room,
+                            }
+                        ]
+                    )
+                    # Adding updated data to the dataframe
+                    updated_df = pd.concat(
+                        [existing_data, updated_vendor_data], ignore_index=True
+                    )
+                    conn.update(worksheet="Hoja1", data=updated_df)
+                    st.success("Detalhes da reserva atualizadas com sucesso!")
 
            
 # ____________________________________________________________________________________________________________________________________
