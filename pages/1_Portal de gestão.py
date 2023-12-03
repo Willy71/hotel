@@ -285,7 +285,11 @@ elif action == "Atualizar reserva existente":
             favorite_command = int(vendor_data["Quarto"])  # Acceder al valor de la columna "Quarto"
             st.metric(label="Quarto", value=favorite_command, label_visibility="visible")
         with col211:
-             st.metric(label="Hospedes", value=(int(vendor_data["Hospedes"])), label_visibility="visible")
+            st.metric(label="Hospedes", value=(int(vendor_data["Hospedes"])), label_visibility="visible")
+            vendor_data["Hora de entrada"] = pd.to_datetime(vendor_data["Hora de entrada"])
+            vendor_data["Data de entrada"] = pd.to_datetime(vendor_data["Data de entrada"])
+            vendor_data["Hora de saida"] = pd.to_datetime(vendor_data["Hora de saida"])
+            vendor_data["Data de saida"] = pd.to_datetime(vendor_data["Data de saida"])
         with col212:
              st.metric(label="Hora de entrada", value=vendor_data["Hora de entrada"].isoformat(), label_visibility="visible")
         with col213:
