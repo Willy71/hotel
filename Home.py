@@ -34,7 +34,7 @@ background: rgba(28,28,56,1);
 }}
 
 body {{
-    color: white;  /* Cambia el color del texto a blanco */
+    color: white;
 }}
 </style>
 """
