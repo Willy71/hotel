@@ -4,6 +4,7 @@ import pandas as pd
 import datetime
 import re
 
+# ----------------------------------------------------------------------------------------------------------------------------------
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
     page_title="Reservations",
@@ -11,6 +12,8 @@ st.set_page_config(
     layout="wide"
 )
 
+# ----------------------------------------------------------------------------------------------------------------------------------
+# Colocar background
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
@@ -35,11 +38,12 @@ background: rgba(28,28,56,1);
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
-
+# ----------------------------------------------------------------------------------------------------------------------------------
+# Titulo de la pagina
 st.title("Portal de gestão")
 
 # ----------------------------------------------------------------------------------------------------------------------------------
-# Establishing a Google Sheets connection
+# Establecer conexion con Google Sheets
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 
 # Fetch existing vendors data
@@ -47,7 +51,9 @@ existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
 df = st.dataframe(existing_data)
+
 # ----------------------------------------------------------------------------------------------------------------------------------
+# Definir funciones a ser usadas:
 
 # Función para obtener el próximo ID disponible
 def obtener_proximo_id(df):
@@ -91,6 +97,8 @@ def validar_numero_telefono(numero):
         return False
         
 # ----------------------------------------------------------------------------------------------------------------------------------
+# Constantes
+
 # Lista de prefijos telefónicos internacionales
 import phonenumbers as pn
 import pycountry
@@ -116,16 +124,17 @@ st.write("#")
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Seleccion de la opcion de CRUD
 action = st.selectbox(
-    "Choose an Action",
+    "Escolha uma ação",
     [
-        "Adicionar nova reserva",
-        "Atualizar reserva existente",
-        "Ver todos as reservas",
-        "Apagar reserva",
+        "Adicionar nova reserva", # Insert
+        "Atualizar reserva existente", # Update
+        "Ver todos as reservas", # View
+        "Apagar reserva", # Delete
     ],
 )
 # ----------------------------------------------------------------------------------------------------------------------------------
-# Inicio do formulario
+# Formulario
+
 with st.form(key="reservation"):
     with st.container():    
         col00, col01, col02, col03, col04 = st.columns([1, 2, 2, 2, 3])
