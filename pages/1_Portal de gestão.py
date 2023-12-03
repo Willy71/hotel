@@ -279,11 +279,10 @@ elif action == "Atualizar reserva existente":
             vendor_to_update = st.selectbox("Selecione o ID", options=existing_data["user_id"].astype(int).tolist())
             vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
 
-    if vendor_data > 0:
-        with st.container():    
-            col210, col211, col212, col213, col214 = st.columns([2, 2, 2, 1, 3])
-            with col210:
-                st.metric(label="Quarto", value=(vendor_data))
+    with st.container():    
+        col210, col211, col212, col213, col214 = st.columns([2, 2, 2, 1, 3])
+        with col210:
+            st.metric(label="Quarto", value=(vendor_data))
         
 
     with st.form(key="update_form"):
