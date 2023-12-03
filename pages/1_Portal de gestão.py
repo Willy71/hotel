@@ -371,7 +371,23 @@ elif action == "Atualizar reserva existente":
                 checkout_time = st.time_input('Hora de saida', value=pd.to_datetime(vendor_data["Hora de saida"]))
             with col325:
                 departure_date = st.date_input("Data de saida", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de saida"]))
+                
+        with st.container():    
+            col330, col331, col332, col333, col334 = st.columns([2, 2, 2, 0.2, 3.8])
+            with col330:
+                first_name = st.text_input('Primeiro nome', value=vendor_data["Primeiro nome"])
+            with col331:
+                last_name = st.text_input('Sobrenome', value=vendor_data["Sobrenome"])
+            with col332:
+                email = st.text_input("Entre um email válido:", value=vendor_data["Email"])
+            with col334:
+                st.text("")
+                if validar_email(email):
+                    st.success("¡El email é valido!")
+                else:
+                    st.error("O endereço de e-mail não é válido.")
                 update_button = st.form_submit_button(label="Atualizar reserva....")
+
       
                 if update_button:
                     # Removing old entry
