@@ -278,7 +278,8 @@ elif action == "Atualizar reserva existente":
         with col200:
             vendor_to_update = st.selectbox("Selecione o ID", options=existing_data["user_id"].astype(int).tolist())
             vendor_data = existing_data[existing_data["user_id"] == vendor_to_update].iloc[0]
-
+    # --------------------------------------------------------       
+    # Mostrando los datos antes de editarlos
     with st.container():    
         col210, col211, col212, col213, col214 = st.columns(5)
         with col210:
@@ -302,8 +303,20 @@ elif action == "Atualizar reserva existente":
              st.metric(label="Hora de saida", value=vendor_data["Hora de saida"].strftime("%H:%M"), label_visibility="visible")
         with col224:
              st.metric(label="Data de saida", value=vendor_data["Data de saida"].strftime("%d/%m/%Y"), label_visibility="visible")
+    
+    with st.container():    
+        col30, col31, col32, col33, col34 = st.columns([2, 2, 2, 0.2, 3.8])
+        with col30:
+            st.metric(label="Primeiro nome", value=(int(vendor_data["Primeiro nome"])), label_visibility="visible")
+        with col31:
+            st.metric(label="Sobrenome", value=(int(vendor_data["Sobrenome"])), label_visibility="visible")
+        with col32:
+            st.metric(label="Email", value=(int(vendor_data["Email"])), label_visibility="visible")
+            
+       
         
-         
+    # --------------------------------------------------------       
+     
     with st.form(key="update_form"):
          with st.container():    
             col310, col311, col312, col313, col314 = st.columns([2, 2, 2, 1, 3])
