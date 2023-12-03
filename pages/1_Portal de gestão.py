@@ -350,51 +350,51 @@ elif action == "Atualizar reserva existente":
             st.metric(label="Quantia paga", value=vendor_data["Quantia paga"], label_visibility="visible")
             
     # --------------------------------------------------------       
-     
-    with st.form(key="update_form"):
-         with st.container():    
-            col310, col311, col312, col313, col314 = st.columns([2, 2, 2, 1, 3])
-            with col310:
-                opciones_numericas = list(range(31))
-                room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
-            with col311:
-                opciones_numericas_2 = list(range(11))
-                guests = st.selectbox("Hospedes", opciones_numericas_2, placeholder="Quantidade de hospedes..", index=opciones_numericas_2.index(vendor_data["Hospedes"]))
+        
+with st.form(key="update_form"):
+    with st.container():    
+        col310, col311, col312, col313, col314 = st.columns([2, 2, 2, 1, 3])
+        with col310:
+            opciones_numericas = list(range(31))
+            room = st.selectbox("Quarto", opciones_numericas, placeholder="Selecione um quarto...", index=opciones_numericas.index(vendor_data["Quarto"]))
+        with col311:
+            opciones_numericas_2 = list(range(11))
+            guests = st.selectbox("Hospedes", opciones_numericas_2, placeholder="Quantidade de hospedes..", index=opciones_numericas_2.index(vendor_data["Hospedes"]))
 
-        with st.container():
-            col320, col321, col322, col323, col324, col325, col326 = st.columns([1, 2, 2, 0.5, 2, 2, 1])
-            with col11:
-                checkin_time = st.time_input('Hora de entrada', value=pd.to_datetime(vendor_data["Hora de entrada"])
-            with col12:
-                admission_date = st.date_input("Data de entrada", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de entrada"])
-            with col14:
-                checkout_time = st.time_input('Hora de saida', value=pd.to_datetime(vendor_data["Hora de saida"])
-            with col15:
-                departure_date = st.date_input("Data de saida", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de saida"])
+    with st.container():
+        col320, col321, col322, col323, col324, col325, col326 = st.columns([1, 2, 2, 0.5, 2, 2, 1])
+        with col11:
+            checkin_time = st.time_input('Hora de entrada', value=pd.to_datetime(vendor_data["Hora de entrada"])
+        with col12:
+            admission_date = st.date_input("Data de entrada", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de entrada"])
+        with col14:
+            checkout_time = st.time_input('Hora de saida', value=pd.to_datetime(vendor_data["Hora de saida"])
+        with col15:
+            departure_date = st.date_input("Data de saida", format="DD.MM.YYYY", value=pd.to_datetime(vendor_data["Data de saida"])
                 update_button = st.form_submit_button(label="Atualizar reserva....")
   
-                if update_button:
-                    # Removing old entry
-                    existing_data.drop(
-                        existing_data[
-                            existing_data["user_id"] == vendor_to_update
-                        ].index,
-                        inplace=True,
-                    )
-                    # Creating updated data entry
-                    updated_vendor_data = pd.DataFrame(
-                        [
-                            {
-                                'Quarto': room,
-                            }
-                        ]
-                    )
-                    # Adding updated data to the dataframe
-                    updated_df = pd.concat(
-                        [existing_data, updated_vendor_data], ignore_index=True
-                    )
-                    conn.update(worksheet="Hoja1", data=updated_df)
-                    st.success("Detalhes da reserva atualizadas com sucesso!")
+            if update_button:
+                # Removing old entry
+                existing_data.drop(
+                    existing_data[
+                        existing_data["user_id"] == vendor_to_update
+                    ].index,
+                    inplace=True,
+                )
+                # Creating updated data entry
+                updated_vendor_data = pd.DataFrame(
+                    [
+                        {
+                            'Quarto': room,
+                        }
+                    ]
+                )
+                # Adding updated data to the dataframe
+                updated_df = pd.concat(
+                    [existing_data, updated_vendor_data], ignore_index=True
+                )
+                conn.update(worksheet="Hoja1", data=updated_df)
+                st.success("Detalhes da reserva atualizadas com sucesso!")
 
            
 # ____________________________________________________________________________________________________________________________________
