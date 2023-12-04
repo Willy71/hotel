@@ -126,6 +126,8 @@ action = st.selectbox(
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Formulario
 
+vendor_to_update = None  # Establecer un valor predeterminado
+
 if action == "Adicionar nova reserva":
     st.markdown("Insira os detalhes da nova reserva")
     with st.form(key="reservation"):
