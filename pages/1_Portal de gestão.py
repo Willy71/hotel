@@ -261,7 +261,7 @@ if action == "Adicionar nova reserva":
                 updated_df = pd.concat([existing_data, updated_vendor_data], ignore_index=True)
                 conn.update(worksheet="Hoja1", data=updated_df)
                 st.success("Reserva adicionada com sucesso")
-                df = st.dataframe(existing_data)
+                df = st.dataframe(existing_data, hide_index=True)
 # ____________________________________________________________________________________________________________________________________
 
 elif action == "Atualizar reserva existente":
@@ -486,8 +486,7 @@ elif action == "Atualizar reserva existente":
                     updated_df.sort_values(by='user_id', inplace=True)
                     conn.update(worksheet="Hoja1", data=updated_df)
                     st.success("Detalhes da reserva atualizadas com sucesso!")
-
-           
+                    st.dataframe(existing_data, hide_index=True)      
 # ____________________________________________________________________________________________________________________________________
 # Ver todas las reservas
 elif action == "Ver todos as reservas":
