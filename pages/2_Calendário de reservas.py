@@ -76,15 +76,23 @@ def mark_occupied_dates(months, occupancy_data):
 
     return marked_dates
 
+for _, row in occupancy_data.iterrows():
+        fecha_ocupacion = datetime.strptime(row["Data de entrada"], "%d/%m/%Y").date()
+        fecha_ocupacion_str = fecha_ocupacion.strftime("%Y-%m-%d")  # Convertir a formato estándar
+        if fecha_ocupacion.month in months:
+            marked_dates.append(fecha_ocupacion_str)
+
+    return marked_dates
+
 # Streamlit app setup
 st.title("Calendario de Ocupación")
 
 # Widget para seleccionar el "Quarto" (Room)
-room_options = existing_data["Quarto"].unique()
+room_options = sorted(existing_data["Room"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Filtrar los datos según la habitación seleccionada
-filtered_data = existing_data[existing_data["Quarto"] == selected_room]
+filtered_data = existing_data[existing_data["Room"] == selected_room]
 
 # Multiselect para seleccionar los meses
 months = st.multiselect("Selecione os meses:", list(range(1, 13)), [1, 2, 3])
@@ -93,7 +101,7 @@ months = st.multiselect("Selecione os meses:", list(range(1, 13)), [1, 2, 3])
 marked_dates = mark_occupied_dates(months, filtered_data)
 
 # Mostrar el calendario con fechas marcadas en rojo
-selected_dates = st.calendar(marked_dates=marked_dates, key="cal")
+selected_dates = st.date_input("Días seleccionados:", marked_dates)
 
 # Mostrar las fechas seleccionadas
 st.write("Días selecionados:", selected_dates)
