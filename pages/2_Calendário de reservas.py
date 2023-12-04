@@ -66,8 +66,8 @@ existing_data = existing_data.dropna(how="all")
 # Funcion para definir el checking y el checkout y asignar un dia mas si es necesario
 # Function to mark occupied dates in the calendar
 
-def mark_occupied_dates(selected_room, occupancy_data):
-    marked_dates = []
+def get_occupied_dates(selected_room, occupancy_data):
+    occupied_dates = []
 
     for _, row in occupancy_data[occupancy_data["Quarto"] == selected_room].iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
@@ -82,26 +82,21 @@ def mark_occupied_dates(selected_room, occupancy_data):
         # Añadir días al rango de fechas
         current_date = fecha_entrada
         while current_date <= fecha_saida:
-            marked_dates.append(current_date.strftime("%Y-%m-%d"))
+            occupied_dates.append(current_date.strftime("%Y-%m-%d"))
             current_date += timedelta(days=1)
 
-    return marked_dates
+    return occupied_dates
 
 # ----------------------------------------------------------------------------------------------------------------------------
-
-
-# Streamlit app setup
-st.title("Calendario de Ocupação")
 
 # Widget para seleccionar el "Quarto" (Room)
 room_options = sorted(existing_data["Quarto"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
-# Filtrar los datos según la habitación seleccionada
-filtered_data = existing_data[existing_data["Quarto"] == selected_room]
+# Obtener las fechas ocupadas para el cuarto seleccionado
+occupied_dates = get_occupied_dates(selected_room, existing_data)
 
-# Marcar las fechas ocupadas según el cuarto seleccionado
-marked_dates = mark_occupied_dates(selected_room, filtered_data)
-
-# Mostrar el calendario con fechas marcadas en rojo
-selected_dates = calendar(marked_dates, key="cal")
+# Mostrar las fechas ocupadas en una tabla
+st.write("Fechas de ocupación para el cuarto:", selected_room)
+df_occupied_dates = pd.DataFrame({"Fechas de Ocupación": occupied_dates})
+st.table(df_occupied_dates)
