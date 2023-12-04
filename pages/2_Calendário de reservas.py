@@ -71,11 +71,17 @@ def mark_occupied_dates(selected_month, selected_anio, occupancy_data):
 
     for _, row in occupancy_data.iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
-        fecha_salida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
+
+        # Verificar si la columna "Data de saida" existe en el DataFrame
+        if "Data de saida" in row.index:
+            fecha_saida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
+        else:
+            # En caso de que no exista, asumir una salida para evitar errores
+            fecha_saida = fecha_entrada
 
         # Ajustar el check-in y check-out según tus necesidades
         checkin_time = datetime(fecha_entrada.year, fecha_entrada.month, fecha_entrada.day, 11, 0, 0)
-        checkout_time = datetime(fecha_salida.year, fecha_salida.month, fecha_salida.day, 10, 0, 0)
+        checkout_time = datetime(fecha_saida.year, fecha_saida.month, fecha_saida.day, 10, 0, 0)
 
         # Verificar si el rango de fechas intersecta con el mes y año seleccionados
         if (checkin_time.month == selected_month and checkin_time.year == selected_anio) or \
@@ -87,6 +93,7 @@ def mark_occupied_dates(selected_month, selected_anio, occupancy_data):
                 current_date += timedelta(days=1)
 
     return marked_dates
+
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
@@ -120,7 +127,3 @@ marked_dates = mark_occupied_dates(selected_month, selected_anio, filtered_data)
 
 # Mostrar el calendario con fechas marcadas en rojo
 selected_dates = calendar(marked_dates, key="cal")
-
-# Mostrar las fechas seleccionadas
-# st.write("Días seleccionados:", ", ".join(marked_dates))
-
