@@ -66,10 +66,10 @@ existing_data = existing_data.dropna(how="all")
 # Funcion para definir el checking y el checkout y asignar un dia mas si es necesario
 # Function to mark occupied dates in the calendar
 
-def mark_occupied_dates(selected_month, selected_anio, occupancy_data):
+def mark_occupied_dates(selected_room, occupancy_data):
     marked_dates = []
 
-    for _, row in occupancy_data.iterrows():
+    for _, row in occupancy_data[occupancy_data["Quarto"] == selected_room].iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
 
         # Verificar si la columna "Data de saida" existe en el DataFrame
@@ -79,13 +79,11 @@ def mark_occupied_dates(selected_month, selected_anio, occupancy_data):
             # En caso de que no exista, asumir una salida para evitar errores
             fecha_saida = fecha_entrada
 
-        # Verificar si el rango de fechas intersecta con el mes y año seleccionados
-        if fecha_entrada.month == selected_month and fecha_entrada.year == selected_anio:
-            # Añadir días al rango de fechas
-            current_date = fecha_entrada
-            while current_date <= fecha_saida:
-                marked_dates.append(current_date.strftime("%Y-%m-%d"))
-                current_date += timedelta(days=1)
+        # Añadir días al rango de fechas
+        current_date = fecha_entrada
+        while current_date <= fecha_saida:
+            marked_dates.append(current_date.strftime("%Y-%m-%d"))
+            current_date += timedelta(days=1)
 
     return marked_dates
 
@@ -99,22 +97,12 @@ st.title("Calendario de Ocupação")
 room_options = sorted(existing_data["Quarto"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
-# Extraer el año de la columna "Data de entrada"
-existing_data["Ano"] = pd.to_datetime(existing_data["Data de entrada"], format="%d/%m/%Y").dt.year
+# Filtrar los datos según la habitación seleccionada
+filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
-# Multiselect para seleccionar los años
-opciones_anio = sorted(existing_data["Ano"].unique())
-selected_anio = st.selectbox("Ano:", opciones_anio, index=None, placeholder="Selecione o ano...")
-
-# Multiselect para seleccionar los meses
-opciones_numericas = list(range(1, 13))
-selected_month = st.selectbox("Mês:", opciones_numericas, index=None, placeholder="Selecione o mês...")
-
-# Filtrar los datos según la habitación, año y mes seleccionados
-filtered_data = existing_data[(existing_data["Quarto"] == selected_room) & (existing_data["Ano"] == selected_anio)]
-
-# Marcar las fechas ocupadas según el mes y la habitación filtrada
-marked_dates = mark_occupied_dates(selected_month, selected_anio, filtered_data)
+# Marcar las fechas ocupadas según el cuarto seleccionado
+marked_dates = mark_occupied_dates(selected_room, filtered_data)
 
 # Mostrar el calendario con fechas marcadas en rojo
 selected_dates = calendar(marked_dates, key="cal")
+
