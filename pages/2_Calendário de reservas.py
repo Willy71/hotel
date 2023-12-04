@@ -64,34 +64,27 @@ existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
 # Funcion para definir el checking y el checkout y asignar un dia mas si es necesario
+# Function to mark occupied dates in the calendar
 
-def mark_occupied_dates(months, occupancy_data):
+def mark_occupied_dates(selected_month, selected_anio, occupancy_data):
     marked_dates = []
-
 
     for _, row in occupancy_data.iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
-        fecha_salida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
+        fecha_salida = datetime.strptime(row["Data de saída"], "%d/%m/%Y")
 
-        # Ajustar las fechas según el horario de entrada y salida
-        fecha_entrada = fecha_entrada.replace(hour=11, minute=0, second=0)
-        fecha_salida = fecha_salida.replace(hour=10, minute=0, second=0)
+        # Ajustar el check-in y check-out según tus necesidades
+        checkin_time = datetime(fecha_entrada.year, fecha_entrada.month, fecha_entrada.day, 11, 0, 0)
+        checkout_time = datetime(fecha_salida.year, fecha_salida.month, fecha_salida.day, 10, 0, 0)
 
-        # Si la entrada es después de las 11 am, sumar un día
-        if fecha_entrada.hour < 11:
-            fecha_entrada += timedelta(days=1)
-
-        # Si la salida es antes de las 10 am, sumar un día
-        if fecha_salida.hour < 10:
-            fecha_salida += timedelta(days=1)
-
-        # Recorrer el rango de fechas entre entrada y salida
-        current_date = fecha_entrada
-        while current_date < fecha_salida:
-            fecha_ocupacion_str = current_date.strftime("%Y-%m-%d")
-            if current_date.month in months:
-                marked_dates.append(fecha_ocupacion_str)
-            current_date += timedelta(days=1)
+        # Verificar si el rango de fechas intersecta con el mes y año seleccionados
+        if (checkin_time.month == selected_month and checkin_time.year == selected_anio) or \
+           (checkout_time.month == selected_month and checkout_time.year == selected_anio):
+            # Añadir días al rango de fechas
+            current_date = checkin_time
+            while current_date <= checkout_time:
+                marked_dates.append(current_date.strftime("%Y-%m-%d"))
+                current_date += timedelta(days=1)
 
     return marked_dates
 
@@ -106,7 +99,7 @@ room_options = sorted(existing_data["Quarto"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Filtrar los datos según la habitación seleccionada
-filtered_data = existing_data[existing_data["Quarto"] == selected_room]
+# filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
 # Extraer el año de la columna "Data de entrada"
 existing_data["Ano"] = pd.to_datetime(existing_data["Data de entrada"], format="%d/%m/%Y").dt.year
@@ -119,8 +112,11 @@ selected_anio = st.selectbox("Ano:", opciones_anio, index=None, placeholder="Sel
 opciones_numericas = list(range(1, 13))
 selected_month = st.selectbox("Mês:", opciones_numericas, index=None, placeholder="Selecione o mês...")
 
-# Marcar las fechas ocupadas según los meses seleccionados y la habitación filtrada
-marked_dates = mark_occupied_dates([selected_month], filtered_data)
+# Filtrar los datos según la habitación, año y mes seleccionados
+filtered_data = existing_data[(existing_data["Quarto"] == selected_room) & (existing_data["Ano"] == selected_anio)]
+
+# Marcar las fechas ocupadas según el mes y la habitación filtrada
+marked_dates = mark_occupied_dates(selected_month, selected_anio, filtered_data)
 
 # Mostrar el calendario con fechas marcadas en rojo
 selected_dates = calendar(marked_dates, key="cal")
