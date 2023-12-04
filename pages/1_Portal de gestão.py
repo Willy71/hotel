@@ -479,6 +479,8 @@ elif action == "Atualizar reserva existente":
                     updated_df = pd.concat(
                         [existing_data, updated_vendor_data], ignore_index=True
                     )
+                    # Ordenar el DataFrame por user_id
+                    updated_df.sort_values(by='user_id', inplace=True)
                     conn.update(worksheet="Hoja1", data=updated_df)
                     st.success("Detalhes da reserva atualizadas com sucesso!")
 
