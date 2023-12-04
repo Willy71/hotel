@@ -62,17 +62,18 @@ existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
-# Funcion para definir el checking y el checkout y asignar un dia mas si es necesario
-# Function to mark occupied dates in the calendar
-
+# Obtener las fechas de ocupación para un cuarto seleccionado
 def get_occupied_dates(selected_room, occupancy_data):
     entry_dates = []
+    entry_times = []
     exit_dates = []
+    exit_times = []
     occupied_dates = []
 
     for _, row in occupancy_data[occupancy_data["Quarto"] == selected_room].iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
         entry_dates.append(fecha_entrada.strftime("%Y-%m-%d"))
+        entry_times.append(fecha_entrada.strftime("%H:%M"))
 
         # Verificar si la columna "Data de saida" existe en el DataFrame
         if "Data de saida" in row.index:
@@ -81,6 +82,7 @@ def get_occupied_dates(selected_room, occupancy_data):
             # En caso de que no exista, asumir una salida para evitar errores
             fecha_saida = fecha_entrada
         exit_dates.append(fecha_saida.strftime("%Y-%m-%d"))
+        exit_times.append(fecha_saida.strftime("%H:%M"))
 
         # Añadir días al rango de fechas
         current_date = fecha_entrada
@@ -89,26 +91,32 @@ def get_occupied_dates(selected_room, occupancy_data):
             current_date += timedelta(days=1)
 
     # Asegurarse de que todas las listas tengan la misma longitud
-    max_length = max(len(entry_dates), len(exit_dates), len(occupied_dates))
+    max_length = max(len(entry_dates), len(entry_times), len(exit_dates), len(exit_times), len(occupied_dates))
     entry_dates += [''] * (max_length - len(entry_dates))
+    entry_times += [''] * (max_length - len(entry_times))
     exit_dates += [''] * (max_length - len(exit_dates))
+    exit_times += [''] * (max_length - len(exit_times))
     occupied_dates += [''] * (max_length - len(occupied_dates))
 
-    return entry_dates, exit_dates, occupied_dates
+    return entry_dates, entry_times, exit_dates, exit_times, occupied_dates
+
+
 
 # ----------------------------------------------------------------------------------------------------------------------------
-
 # Widget para seleccionar el "Quarto" (Room)
 room_options = sorted(existing_data["Quarto"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Obtener las fechas ocupadas para el cuarto seleccionado
-entry_dates, exit_dates, occupied_dates = get_occupied_dates(selected_room, existing_data)
+entry_dates, entry_times, exit_dates, exit_times, occupied_dates = get_occupied_dates(selected_room, existing_data)
 
 # Crear DataFrame con las fechas y mostrar en una tabla
 df_occupied_dates = pd.DataFrame({
+    "Hora de Entrada": entry_times,
     "Fecha de Entrada": entry_dates,
-    "Fecha de Salida": exit_dates,
+    "Hora de Salida": exit_times,
+    "Fecha de Salida": exit_dates,    
     # "Fechas de Ocupación": occupied_dates
 })
+st.table(df_occupied_dates)
 st.table(df_occupied_dates)
