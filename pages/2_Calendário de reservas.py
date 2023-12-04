@@ -73,7 +73,7 @@ def get_occupied_dates(selected_room, occupancy_data):
     for _, row in occupancy_data[occupancy_data["Quarto"] == selected_room].iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
         entry_dates.append(fecha_entrada.strftime("%Y-%m-%d"))
-        entry_times.append(fecha_entrada.strftime("%H:%M"))
+        entry_times.append(row["Hora de entrada"])
 
         # Verificar si las columnas de hora de entrada y salida existen en el DataFrame
         if "Hora de entrada" in row.index and "Hora de saida" in row.index:
@@ -84,14 +84,14 @@ def get_occupied_dates(selected_room, occupancy_data):
             hora_entrada = "00:00"
             hora_saida = "00:00"
 
-        # Añadir horas al rango de fechas
-        exit_fecha_saida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
-        exit_dates.append(exit_fecha_saida.strftime("%Y-%m-%d"))
+        # Convertir a objetos de fecha y hora
+        fecha_saida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
+        exit_dates.append(fecha_saida.strftime("%Y-%m-%d"))
         exit_times.append(hora_saida)
 
         # Añadir días al rango de fechas
         current_date = fecha_entrada
-        while current_date <= exit_fecha_saida:
+        while current_date <= fecha_saida:
             occupied_dates.append(current_date.strftime("%Y-%m-%d"))
             current_date += timedelta(days=1)
 
@@ -115,10 +115,10 @@ entry_dates, entry_times, exit_dates, exit_times, occupied_dates = get_occupied_
 
 # Crear DataFrame con las fechas y mostrar en una tabla
 df_occupied_dates = pd.DataFrame({
+    "Fecha de Entrada": entry_dates,
     "Hora de Entrada": entry_times,
-    "Data de Entrada": entry_dates,
-    "Hora de Saida": exit_times,
-    "Data de Saida": exit_dates,    
-    # "Fechas de Ocupación": occupied_dates
+    "Fecha de Salida": exit_dates,
+    "Hora de Salida": exit_times,
+    "Fechas de Ocupación": occupied_dates
 })
 st.table(df_occupied_dates)
