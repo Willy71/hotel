@@ -431,7 +431,7 @@ elif action == "Atualizar reserva existente":
                 pay_amount = st.number_input(label='Inserir pagamento', value=(int(vendor_data["Quantia paga"])))
         
         with st.container():
-            col380, col381, col382, col383, col384 = st.columns([1.5, 2, 3, 1.5, 1])
+            col380, col381, col382, col383, col384 = st.columns([1.6, 2, 3, 1.4, 1])
             with col382:
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
