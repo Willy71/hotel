@@ -92,7 +92,7 @@ months = st.multiselect("Selecione os meses:", list(range(1, 13)), [1, 2, 3])
 marked_dates = mark_occupied_dates(months, filtered_data)
 
 # Mostrar el calendario con fechas marcadas en rojo
-selected_dates = st.date_input("Días seleccionados:", marked_dates)
+selected_dates = calendar(selected_dates=marked_dates, key="cal")
 
 # Mostrar las fechas seleccionadas
 st.write("Días selecionados:", selected_dates)
