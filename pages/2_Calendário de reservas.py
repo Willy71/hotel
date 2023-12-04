@@ -68,9 +68,10 @@ existing_data = existing_data.dropna(how="all")
 def mark_occupied_dates(months, occupancy_data):
     marked_dates = []
 
+
     for _, row in occupancy_data.iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
-        fecha_salida = datetime.strptime(row["Data de saída"], "%d/%m/%Y")
+        fecha_salida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
 
         # Ajustar las fechas según el horario de entrada y salida
         fecha_entrada = fecha_entrada.replace(hour=11, minute=0, second=0)
