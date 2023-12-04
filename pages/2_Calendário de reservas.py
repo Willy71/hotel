@@ -87,10 +87,10 @@ filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
 # Multiselect para seleccionar los meses
 opciones_numericas = list(range(1, 13))
-months = st.selectbox("Mês:", opciones_numericas, index=None, placeholder="Selecione o mês...")
+selected_month = st.selectbox("Mês:", opciones_numericas, index=None, placeholder="Selecione o mês...")
 
 # Marcar las fechas ocupadas según los meses seleccionados y la habitación filtrada
-marked_dates = mark_occupied_dates(months, filtered_data)
+marked_dates = mark_occupied_dates([selected_month], filtered_data)
 
 # Mostrar el calendario con fechas marcadas en rojo
 selected_dates = calendar(marked_dates, key="cal")
