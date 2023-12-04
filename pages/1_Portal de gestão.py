@@ -435,6 +435,9 @@ elif action == "Atualizar reserva existente":
             with col382:
                 update_button = st.form_submit_button(label="Atualizar reserva....")
 
+        with st.container():
+            col390, col391, col392, col393, col394 = st.columns([1.6, 2, 3, 1.4, 1])
+            with col392:
                 if update_button:
                     # Removing old entry
                     existing_data.drop(
