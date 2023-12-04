@@ -249,7 +249,7 @@ if action == "Adicionar nova reserva":
                 # Removing old entry
                 existing_data.drop(
                     existing_data[
-                        existing_data["User_id"] == vendor_to_update
+                        existing_data["user_id"] == vendor_to_update
                     ].index,
                     inplace=True,
                 )
