@@ -89,15 +89,10 @@ def get_occupied_dates(selected_room, occupancy_data):
 
 # Configuración inicial
 st.title("Calendario de Ocupação")
-room_options = ["1", "2", "3"]  # Reemplazar con tus opciones reales
-selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
-# Obtener datos de ocupación
-# Aquí deberías cargar tus datos de Google Sheets o desde donde los obtengas
-# En lugar de esta línea, carga tu propio conjunto de datos
-existing_data = pd.DataFrame({"Quarto": ["1", "2", "3"],
-                              "Data de entrada": ["01/01/2022", "02/01/2022", "05/01/2022"],
-                              "Data de saida": ["03/01/2022", "04/01/2022", "08/01/2022"]})
+# Widget para seleccionar el "Quarto" (Room)
+room_options = sorted(existing_data["Quarto"].astype(int).unique())
+selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Obtener las fechas ocupadas para la habitación seleccionada
 marked_dates = get_occupied_dates(selected_room, existing_data)
