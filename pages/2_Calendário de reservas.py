@@ -86,7 +86,8 @@ selected_room = st.selectbox("Selecione o Quarto:", room_options)
 filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
 # Multiselect para seleccionar los meses
-months = st.selectbox("Selecione o mes:", list(range(1, 13)))
+opciones_numericas = list(range(1, 13))
+months = st.selectbox("Mês:", opciones_numericas, index=None, placeholder="Selecione o mês...")
 
 # Marcar las fechas ocupadas según los meses seleccionados y la habitación filtrada
 marked_dates = mark_occupied_dates(months, filtered_data)
