@@ -103,6 +103,9 @@ filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 # Marcar las fechas ocupadas según el cuarto seleccionado
 marked_dates = mark_occupied_dates(selected_room, filtered_data)
 
+# Después de obtener las fechas marcadas, imprime para verificar
+print("Fechas marcadas:", marked_dates)
+
 # Mostrar el calendario con fechas marcadas en rojo
 selected_dates = calendar(marked_dates, key="cal")
 
