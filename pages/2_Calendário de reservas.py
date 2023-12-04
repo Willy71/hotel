@@ -75,18 +75,23 @@ def get_occupied_dates(selected_room, occupancy_data):
         entry_dates.append(fecha_entrada.strftime("%Y-%m-%d"))
         entry_times.append(fecha_entrada.strftime("%H:%M"))
 
-        # Verificar si la columna "Data de saida" existe en el DataFrame
-        if "Data de saida" in row.index:
-            fecha_saida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
+        # Verificar si las columnas de hora de entrada y salida existen en el DataFrame
+        if "Hora de entrada" in row.index and "Hora de saida" in row.index:
+            hora_entrada = row["Hora de entrada"]
+            hora_saida = row["Hora de saida"]
         else:
-            # En caso de que no exista, asumir una salida para evitar errores
-            fecha_saida = fecha_entrada
-        exit_dates.append(fecha_saida.strftime("%Y-%m-%d"))
-        exit_times.append(fecha_saida.strftime("%H:%M"))
+            # En caso de que no existan, asumir horas por defecto
+            hora_entrada = "00:00"
+            hora_saida = "00:00"
+
+        # Añadir horas al rango de fechas
+        exit_fecha_saida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
+        exit_dates.append(exit_fecha_saida.strftime("%Y-%m-%d"))
+        exit_times.append(hora_saida)
 
         # Añadir días al rango de fechas
         current_date = fecha_entrada
-        while current_date <= fecha_saida:
+        while current_date <= exit_fecha_saida:
             occupied_dates.append(current_date.strftime("%Y-%m-%d"))
             current_date += timedelta(days=1)
 
@@ -100,8 +105,6 @@ def get_occupied_dates(selected_room, occupancy_data):
 
     return entry_dates, entry_times, exit_dates, exit_times, occupied_dates
 
-
-
 # ----------------------------------------------------------------------------------------------------------------------------
 # Widget para seleccionar el "Quarto" (Room)
 room_options = sorted(existing_data["Quarto"].astype(int).unique())
@@ -113,10 +116,9 @@ entry_dates, entry_times, exit_dates, exit_times, occupied_dates = get_occupied_
 # Crear DataFrame con las fechas y mostrar en una tabla
 df_occupied_dates = pd.DataFrame({
     "Hora de Entrada": entry_times,
-    "Fecha de Entrada": entry_dates,
-    "Hora de Salida": exit_times,
-    "Fecha de Salida": exit_dates,    
+    "Data de Entrada": entry_dates,
+    "Hora de Saida": exit_times,
+    "Data de Saida": exit_dates,    
     # "Fechas de Ocupación": occupied_dates
 })
-st.table(df_occupied_dates)
 st.table(df_occupied_dates)
