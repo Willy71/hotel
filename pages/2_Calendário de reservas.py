@@ -101,13 +101,7 @@ selected_room = st.selectbox("Selecione o Quarto:", room_options)
 filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
 # Marcar las fechas ocupadas según el cuarto seleccionado
-# marked_dates = mark_occupied_dates(selected_room, filtered_data)
+marked_dates = mark_occupied_dates(selected_room, filtered_data)
 
 # Mostrar el calendario con fechas marcadas en rojo
-# selected_dates = calendar(marked_dates, key="cal")
-
-# Crear fechas de ocupación manualmente para probar
-marked_dates_manual = ["2023-12-01", "2023-12-02", "2023-12-03"]
-
-# Mostrar el calendario con fechas marcadas en rojo
-selected_dates_manual = calendar(marked_dates_manual, key="cal")
+selected_dates = calendar(marked_dates, key="cal")
