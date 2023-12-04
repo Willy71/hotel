@@ -97,6 +97,10 @@ def validar_numero_telefono(numero):
         return False
 
 def verificar_disponibilidad(df, admission_date, departure_date, vendor_to_update=None):
+    print("Admission Date:", admission_date)
+    print("Departure Date:", departure_date)
+    print("Existing Data:")
+    print(df)
     # Convertir las columnas de fecha a objetos datetime si aún no lo están
     df["Data de entrada"] = pd.to_datetime(df["Data de entrada"])
     df["Data de saida"] = pd.to_datetime(df["Data de saida"])
@@ -111,6 +115,9 @@ def verificar_disponibilidad(df, admission_date, departure_date, vendor_to_updat
     # Excluir la reserva que se está actualizando, si es el caso
     if vendor_to_update is not None:
         overlapping_reservations = overlapping_reservations[overlapping_reservations["user_id"] != vendor_to_update]
+        # Imprimir el DataFrame resultante
+        print("Overlapping Reservations:")
+        print(overlapping_reservations)
 
     return overlapping_reservations.empty
         
