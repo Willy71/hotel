@@ -67,9 +67,12 @@ existing_data = existing_data.dropna(how="all")
 
 def get_occupied_dates(selected_room, occupancy_data):
     occupied_dates = []
+    entry_dates = []
+    exit_dates = []
 
     for _, row in occupancy_data[occupancy_data["Quarto"] == selected_room].iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
+        entry_dates.append(fecha_entrada.strftime("%Y-%m-%d"))
 
         # Verificar si la columna "Data de saida" existe en el DataFrame
         if "Data de saida" in row.index:
@@ -77,6 +80,7 @@ def get_occupied_dates(selected_room, occupancy_data):
         else:
             # En caso de que no exista, asumir una salida para evitar errores
             fecha_saida = fecha_entrada
+        exit_dates.append(fecha_saida.strftime("%Y-%m-%d"))
 
         # Añadir días al rango de fechas
         current_date = fecha_entrada
@@ -84,7 +88,7 @@ def get_occupied_dates(selected_room, occupancy_data):
             occupied_dates.append(current_date.strftime("%Y-%m-%d"))
             current_date += timedelta(days=1)
 
-    return occupied_dates
+    return entry_dates, exit_dates, occupied_dates
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
@@ -93,9 +97,12 @@ room_options = sorted(existing_data["Quarto"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Obtener las fechas ocupadas para el cuarto seleccionado
-occupied_dates = get_occupied_dates(selected_room, existing_data)
+entry_dates, exit_dates, occupied_dates = get_occupied_dates(selected_room, existing_data)
 
-# Mostrar las fechas ocupadas en una tabla
-st.write("Fechas de ocupación para el cuarto:", selected_room)
-df_occupied_dates = pd.DataFrame({"Fechas de Ocupación": occupied_dates})
+# Crear DataFrame con las fechas y mostrar en una tabla
+df_occupied_dates = pd.DataFrame({
+    "Fecha de Entrada": entry_dates,
+    "Fecha de Salida": exit_dates,
+    "Fechas de Ocupación": occupied_dates
+})
 st.table(df_occupied_dates)
