@@ -64,6 +64,7 @@ existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
 # Obtener las fechas ocupadas
+
 def get_occupied_dates(selected_room, occupancy_data):
     marked_dates = []
 
@@ -80,7 +81,10 @@ def get_occupied_dates(selected_room, occupancy_data):
         # Añadir días al rango de fechas
         current_date = fecha_entrada
         while current_date <= fecha_saida:
-            marked_dates.append(current_date.strftime("%Y-%m-%d"))
+            marked_dates.append({
+                'title': 'Ocupado',
+                'start': current_date.strftime("%Y-%m-%d")
+            })
             current_date += timedelta(days=1)
 
     return marked_dates
@@ -99,6 +103,8 @@ marked_dates = get_occupied_dates(selected_room, existing_data)
 
 # Crear el código JavaScript para inicializar FullCalendar
 calendar_code = f"""
+    <link rel="stylesheet" href="https://unpkg.com/@fullcalendar/core/main.css" />
+    <script src="https://unpkg.com/@fullcalendar/core/main.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {{
         var calendarEl = document.getElementById('calendar');
