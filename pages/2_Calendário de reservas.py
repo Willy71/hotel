@@ -72,7 +72,7 @@ def mark_occupied_dates(selected_room, occupancy_data):
 
         # Verificar si la columna "Data de saida" existe en el DataFrame
         if "Data de saída" in row.index:
-            fecha_saida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
+            fecha_saida = datetime.strptime(row["Data de saída"], "%d/%m/%Y")
         else:
             # En caso de que no exista, asumir una salida para evitar errores
             fecha_saida = fecha_entrada
@@ -80,11 +80,10 @@ def mark_occupied_dates(selected_room, occupancy_data):
         # Añadir días al rango de fechas
         current_date = fecha_entrada
         while current_date <= fecha_saida:
-            marked_dates.append(current_date.strftime("%Y-%m-%d"))
+            marked_dates.append(current_date)
             current_date += timedelta(days=1)
 
     return marked_dates
-
 # ----------------------------------------------------------------------------------------------------------------------------
 # Streamlit app setup
 st.title("Calendario de Ocupação")
@@ -102,10 +101,16 @@ marked_dates = mark_occupied_dates(selected_room, filtered_data)
 # Crear un DataFrame para usar con Plotly Express
 df_calendar = pd.DataFrame({"Date": marked_dates})
 
-# Crear un gráfico de calendario con Plotly Express
-fig = px.timeline(df_calendar, x_start="Date", x_end="Date", title="Calendario de Ocupação")
+# Crear un gráfico de heatmap con Plotly Express
+fig = px.imshow([[1] * len(marked_dates)], color_continuous_scale='Viridis',
+                labels=dict(color="Ocupado"), x=df_calendar["Date"],
+                title=f"Calendario de Ocupação para o Quarto {selected_room}")
 
 # Configuración adicional del diseño
+fig.update_layout(yaxis_title="", xaxis_title="", showlegend=False)
+
+# Mostrar el gráfico en Streamlit
+st.plotly_chart(fig)
 fig.update_yaxes(showticklabels=False, visible=False)
 fig.update_xaxes(showticklabels=False)
 
