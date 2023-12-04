@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import datetime, timedelta
-from streamlit_calendar import calendar
+import streamlit.components.v1 as components
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
 
@@ -63,10 +63,8 @@ existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
-# Funcion para definir el checking y el checkout y asignar un dia mas si es necesario
-# Function to mark occupied dates in the calendar
-
-def mark_occupied_dates(selected_room, occupancy_data):
+# Obtener las fechas ocupadas
+def get_occupied_dates(selected_room, occupancy_data):
     marked_dates = []
 
     for _, row in occupancy_data[occupancy_data["Quarto"] == selected_room].iterrows():
@@ -89,19 +87,38 @@ def mark_occupied_dates(selected_room, occupancy_data):
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
-
-# Streamlit app setup
+# Configuración inicial
 st.title("Calendario de Ocupação")
-
-# Widget para seleccionar el "Quarto" (Room)
-room_options = sorted(existing_data["Quarto"].astype(int).unique())
+room_options = ["1", "2", "3"]  # Reemplazar con tus opciones reales
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
-# Filtrar los datos según la habitación seleccionada
-filtered_data = existing_data[existing_data["Quarto"] == selected_room]
+# Obtener datos de ocupación
+# Aquí deberías cargar tus datos de Google Sheets o desde donde los obtengas
+# En lugar de esta línea, carga tu propio conjunto de datos
+existing_data = pd.DataFrame({"Quarto": ["1", "2", "3"],
+                              "Data de entrada": ["01/01/2022", "02/01/2022", "05/01/2022"],
+                              "Data de saida": ["03/01/2022", "04/01/2022", "08/01/2022"]})
 
-# Marcar las fechas ocupadas según el cuarto seleccionado
-marked_dates = mark_occupied_dates(selected_room, filtered_data)
+# Obtener las fechas ocupadas para la habitación seleccionada
+marked_dates = get_occupied_dates(selected_room, existing_data)
 
-# Mostrar el calendario con fechas marcadas en rojo
-selected_dates = calendar(marked_dates, key="cal")
+# Crear el código JavaScript para inicializar FullCalendar
+calendar_code = f"""
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {{
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {{
+            initialView: 'dayGridMonth',
+            events: {marked_dates},
+            dateClick: function(info) {{
+                alert('Date clicked: ' + info.dateStr);
+            }}
+        }});
+        calendar.render();
+    }});
+    </script>
+"""
+
+# Mostrar el calendario
+st.markdown(calendar_code, unsafe_allow_html=True)
+components.html("<div id='calendar'></div>", height=600)
