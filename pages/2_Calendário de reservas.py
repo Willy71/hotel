@@ -76,7 +76,7 @@ def mark_occupied_dates(months, occupancy_data):
     return marked_dates
 
 # Streamlit app setup
-st.title("Calendario de Ocupación")
+st.title("Calendario de Ocupação")
 
 # Widget para seleccionar el "Quarto" (Room)
 room_options = sorted(existing_data["Quarto"].astype(int).unique())
