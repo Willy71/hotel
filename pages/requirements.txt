@@ -5,4 +5,7 @@ datetime
 phonenumbers
 pycountry
 streamlit.components.v1
+fullcalendar
+@fullcalendar/core 
+@fullcalendar/daygrid
 
