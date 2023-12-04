@@ -63,17 +63,39 @@ existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
+# Funcion para definir el checking y el checkout y asignar un dia mas si es necesario
 
-# Function to mark occupied dates in the calendar
 def mark_occupied_dates(months, occupancy_data):
     marked_dates = []
 
     for _, row in occupancy_data.iterrows():
-        fecha_ocupacion = datetime.strptime(row["Data de entrada"], "%d/%m/%Y").date()
-        fecha_ocupacion_str = fecha_ocupacion.strftime("%Y-%m-%d")  # Convertir a formato estándar
-        if fecha_ocupacion.month in months:
-            marked_dates.append(fecha_ocupacion_str)
+        fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
+        fecha_salida = datetime.strptime(row["Data de saída"], "%d/%m/%Y")
+
+        # Ajustar las fechas según el horario de entrada y salida
+        fecha_entrada = fecha_entrada.replace(hour=11, minute=0, second=0)
+        fecha_salida = fecha_salida.replace(hour=10, minute=0, second=0)
+
+        # Si la entrada es después de las 11 am, sumar un día
+        if fecha_entrada.hour < 11:
+            fecha_entrada += timedelta(days=1)
+
+        # Si la salida es antes de las 10 am, sumar un día
+        if fecha_salida.hour < 10:
+            fecha_salida += timedelta(days=1)
+
+        # Recorrer el rango de fechas entre entrada y salida
+        current_date = fecha_entrada
+        while current_date < fecha_salida:
+            fecha_ocupacion_str = current_date.strftime("%Y-%m-%d")
+            if current_date.month in months:
+                marked_dates.append(fecha_ocupacion_str)
+            current_date += timedelta(days=1)
+
     return marked_dates
+
+# ----------------------------------------------------------------------------------------------------------------------------
+
 
 # Streamlit app setup
 st.title("Calendario de Ocupação")
