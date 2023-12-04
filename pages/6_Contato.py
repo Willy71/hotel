@@ -29,7 +29,7 @@ right: 2rem;
 }}
 
 [data-testid="stSidebar"] {{
-background: rgba(0,128,128,1);
+background: rgba(0,0,0,0);
 }}
 </style>
 """
