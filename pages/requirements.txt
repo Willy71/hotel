@@ -5,4 +5,5 @@ datetime
 phonenumbers
 pycountry
 streamlit_calendar
+plotly.express
 
