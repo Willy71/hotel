@@ -1,3 +1,4 @@
+
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
@@ -33,7 +34,7 @@ right: 2rem;
 }}
 
 [data-testid="stSidebar"] {{
-background: rgba(28,28,56,1);
+background: rgba(0,0,0,0);
 }}
 </style>
 """
@@ -248,7 +249,7 @@ if action == "Adicionar nova reserva":
                 # Removing old entry
                 existing_data.drop(
                     existing_data[
-                        existing_data["user_id"] == vendor_to_update
+                        existing_data["User_id"] == vendor_to_update
                     ].index,
                     inplace=True,
                 )
@@ -503,3 +504,5 @@ elif action == "Apagar reserva":
         conn.update(worksheet="Hoja1", data=existing_data)
         st.success("Reserva apagada com sucesso!")
     df = st.dataframe(existing_data, hide_index=True)
+
+#Fin del codigo
