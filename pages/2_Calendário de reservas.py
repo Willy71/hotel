@@ -115,10 +115,10 @@ entry_dates, entry_times, exit_dates, exit_times, occupied_dates = get_occupied_
 
 # Crear DataFrame con las fechas y mostrar en una tabla
 df_occupied_dates = pd.DataFrame({
-    "Fecha de Entrada": entry_dates,
     "Hora de Entrada": entry_times,
-    "Fecha de Salida": exit_dates,
+    "Fecha de Entrada": entry_dates,
     "Hora de Salida": exit_times,
-    "Fechas de Ocupación": occupied_dates
+    "Fecha de Salida": exit_dates,
+    # "Fechas de Ocupación": occupied_dates
 })
 st.table(df_occupied_dates)
