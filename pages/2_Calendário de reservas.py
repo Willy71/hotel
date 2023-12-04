@@ -71,7 +71,7 @@ def mark_occupied_dates(selected_room, occupancy_data):
 
         # Verificar si la columna "Data de saida" existe en el DataFrame
         if "Data de saída" in row.index:
-            fecha_saida = datetime.strptime(row["Data de saída"], "%d/%m/%Y")
+            fecha_saida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
         else:
             # En caso de que no exista, asumir una salida para evitar errores
             fecha_saida = fecha_entrada
