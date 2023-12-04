@@ -109,6 +109,6 @@ entry_dates, exit_dates, occupied_dates = get_occupied_dates(selected_room, exis
 df_occupied_dates = pd.DataFrame({
     "Fecha de Entrada": entry_dates,
     "Fecha de Salida": exit_dates,
-    "Fechas de Ocupación": occupied_dates
+    # "Fechas de Ocupación": occupied_dates
 })
 st.table(df_occupied_dates)
