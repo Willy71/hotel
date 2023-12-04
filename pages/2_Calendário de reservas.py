@@ -66,9 +66,9 @@ existing_data = existing_data.dropna(how="all")
 # Function to mark occupied dates in the calendar
 
 def get_occupied_dates(selected_room, occupancy_data):
-    occupied_dates = []
     entry_dates = []
     exit_dates = []
+    occupied_dates = []
 
     for _, row in occupancy_data[occupancy_data["Quarto"] == selected_room].iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
@@ -87,6 +87,12 @@ def get_occupied_dates(selected_room, occupancy_data):
         while current_date <= fecha_saida:
             occupied_dates.append(current_date.strftime("%Y-%m-%d"))
             current_date += timedelta(days=1)
+
+    # Asegurarse de que todas las listas tengan la misma longitud
+    max_length = max(len(entry_dates), len(exit_dates), len(occupied_dates))
+    entry_dates += [''] * (max_length - len(entry_dates))
+    exit_dates += [''] * (max_length - len(exit_dates))
+    occupied_dates += [''] * (max_length - len(occupied_dates))
 
     return entry_dates, exit_dates, occupied_dates
 
