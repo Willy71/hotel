@@ -122,5 +122,5 @@ marked_dates = mark_occupied_dates(selected_month, selected_anio, filtered_data)
 selected_dates = calendar(marked_dates, key="cal")
 
 # Mostrar las fechas seleccionadas
-st.write("Días seleccionados:", ", ".join(marked_dates))
+# st.write("Días seleccionados:", ", ".join(marked_dates))
 
