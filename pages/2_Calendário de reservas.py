@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 import plotly.express as px
+from streamlit_gsheets import GSheetsConnection
 
 
 # Colocar nome na pagina, icone e ampliar a tela
