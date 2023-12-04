@@ -4,6 +4,5 @@ pandas
 datetime
 phonenumbers
 pycountry
-streamlit_calendar
-plotly.express
+streamlit.components.v1
 
