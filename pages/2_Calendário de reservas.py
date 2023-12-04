@@ -79,21 +79,15 @@ def mark_occupied_dates(selected_month, selected_anio, occupancy_data):
             # En caso de que no exista, asumir una salida para evitar errores
             fecha_saida = fecha_entrada
 
-        # Ajustar el check-in y check-out según tus necesidades
-        checkin_time = datetime(fecha_entrada.year, fecha_entrada.month, fecha_entrada.day, 11, 0, 0)
-        checkout_time = datetime(fecha_saida.year, fecha_saida.month, fecha_saida.day, 10, 0, 0)
-
         # Verificar si el rango de fechas intersecta con el mes y año seleccionados
-        if (checkin_time.month == selected_month and checkin_time.year == selected_anio) or \
-           (checkout_time.month == selected_month and checkout_time.year == selected_anio):
+        if fecha_entrada.month == selected_month and fecha_entrada.year == selected_anio:
             # Añadir días al rango de fechas
-            current_date = checkin_time
-            while current_date <= checkout_time:
+            current_date = fecha_entrada
+            while current_date <= fecha_saida:
                 marked_dates.append(current_date.strftime("%Y-%m-%d"))
                 current_date += timedelta(days=1)
 
     return marked_dates
-
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
@@ -104,9 +98,6 @@ st.title("Calendario de Ocupação")
 # Widget para seleccionar el "Quarto" (Room)
 room_options = sorted(existing_data["Quarto"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
-
-# Filtrar los datos según la habitación seleccionada
-# filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
 # Extraer el año de la columna "Data de entrada"
 existing_data["Ano"] = pd.to_datetime(existing_data["Data de entrada"], format="%d/%m/%Y").dt.year
