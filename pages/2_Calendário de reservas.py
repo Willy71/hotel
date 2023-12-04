@@ -69,7 +69,7 @@ def mark_occupied_dates(months, occupancy_data):
     marked_dates = []
 
     for _, row in occupancy_data.iterrows():
-        fecha_ocupacion = datetime.strptime(row["Fecha"], "%Y-%m-%d").date()
+        fecha_ocupacion = datetime.strptime(row["Data de entrada"], "%d-%m-%Y").date()
         if fecha_ocupacion.month in months:
             marked_dates.append(fecha_ocupacion)
 
@@ -79,7 +79,7 @@ def mark_occupied_dates(months, occupancy_data):
 st.title("Calendario de Ocupación")
 
 # Multiselect for selecting months
-months = st.multiselect("Seleccione los meses:", list(range(1, 13)), [1, 2, 3])
+months = st.multiselect("Selecione os meses:", list(range(1, 13)), [1, 2, 3])
 
 # Mark occupied dates based on the selected months
 marked_dates = mark_occupied_dates(months, existing_data)
@@ -88,4 +88,4 @@ marked_dates = mark_occupied_dates(months, existing_data)
 selected_dates = st.calendar(marked_dates=marked_dates, key="cal")
 
 # Display the selected dates
-st.write("Días seleccionados:", selected_dates)
+st.write("Días selecionados:", selected_dates)
