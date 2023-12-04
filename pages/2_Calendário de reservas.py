@@ -69,7 +69,7 @@ def mark_occupied_dates(months, occupancy_data):
     marked_dates = []
 
     for _, row in occupancy_data.iterrows():
-        fecha_ocupacion = datetime.strptime(row["Data de entrada"], "%d-%m-%Y").date()
+        fecha_ocupacion = datetime.strptime(row["Data de entrada"], "%Y-%m-%d").date()
         if fecha_ocupacion.month in months:
             marked_dates.append(fecha_ocupacion)
 
