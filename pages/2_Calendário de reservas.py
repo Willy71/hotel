@@ -108,6 +108,13 @@ selected_room = st.selectbox("Selecione o Quarto:", room_options)
 # Filtrar los datos según la habitación seleccionada
 filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
+# Extraer el año de la columna "Data de entrada"
+existing_data["Ano"] = pd.to_datetime(existing_data["Data de entrada"], format="%d/%m/%Y").dt.year
+
+# Multiselect para seleccionar los años
+opciones_anio = sorted(existing_data["Ano"].unique())
+selected_anio = st.selectbox("Ano:", opciones_anio, index=None, placeholder="Selecione o ano...")
+
 # Multiselect para seleccionar los meses
 opciones_numericas = list(range(1, 13))
 selected_month = st.selectbox("Mês:", opciones_numericas, index=None, placeholder="Selecione o mês...")
