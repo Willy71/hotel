@@ -71,7 +71,7 @@ def mark_occupied_dates(selected_month, selected_anio, occupancy_data):
 
     for _, row in occupancy_data.iterrows():
         fecha_entrada = datetime.strptime(row["Data de entrada"], "%d/%m/%Y")
-        fecha_salida = datetime.strptime(row["Data de saída"], "%d/%m/%Y")
+        fecha_salida = datetime.strptime(row["Data de saida"], "%d/%m/%Y")
 
         # Ajustar el check-in y check-out según tus necesidades
         checkin_time = datetime(fecha_entrada.year, fecha_entrada.month, fecha_entrada.day, 11, 0, 0)
