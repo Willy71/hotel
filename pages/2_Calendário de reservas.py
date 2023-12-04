@@ -2,9 +2,7 @@ import streamlit as st
 from datetime import datetime
 from streamlit_calendar import calendar
 import pandas as pd
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from df2gspread import df2gspread as d2g
+from streamlit_gsheets import GSheetsConnection
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -66,46 +64,28 @@ existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
-# Función para obtener los datos de ocupación desde Google Sheets
-def obtener_datos_ocupacion():
-    # Configurar las credenciales para acceder a Google Sheets
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name("path/to/your/credentials.json", scope)
-    client = gspread.authorize(creds)
-
-    # Obtener la hoja de cálculo
-    sheet = client.open("Nombre de tu hoja de cálculo").sheet1
-
-    # Leer los datos en un DataFrame de pandas
-    df = pd.DataFrame(sheet.get_all_records())
-
-    return df
-
-# Función para marcar días de ocupación en el calendario
-def marcar_dias_ocupados(months, datos_ocupacion):
+# Function to mark occupied dates in the calendar
+def mark_occupied_dates(months, occupancy_data):
     marked_dates = []
 
-    for _, row in datos_ocupacion.iterrows():
+    for _, row in occupancy_data.iterrows():
         fecha_ocupacion = datetime.strptime(row["Fecha"], "%Y-%m-%d").date()
         if fecha_ocupacion.month in months:
             marked_dates.append(fecha_ocupacion)
 
     return marked_dates
 
-# Cargar datos de ocupación
-datos_ocupacion = obtener_datos_ocupacion()
-
-# Configuración de la aplicación Streamlit
+# Streamlit app setup
 st.title("Calendario de Ocupación")
 
-# Calendario multimonth
+# Multiselect for selecting months
 months = st.multiselect("Seleccione los meses:", list(range(1, 13)), [1, 2, 3])
-marked_dates = marcar_dias_ocupados(months, datos_ocupacion)
 
-# Mostrar el calendario con días de ocupación marcados en rojo
+# Mark occupied dates based on the selected months
+marked_dates = mark_occupied_dates(months, existing_data)
+
+# Calendar display with marked occupied dates in red
 selected_dates = st.calendar(marked_dates=marked_dates, key="cal")
 
-# Mostrar los días seleccionados
+# Display the selected dates
 st.write("Días seleccionados:", selected_dates)
-
-
