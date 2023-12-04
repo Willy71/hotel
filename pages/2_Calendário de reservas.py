@@ -64,12 +64,6 @@ existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
 # Function to mark occupied dates in the calendar
 def mark_occupied_dates(months, occupancy_data):
     marked_dates = []
@@ -86,11 +80,11 @@ def mark_occupied_dates(months, occupancy_data):
 st.title("Calendario de Ocupación")
 
 # Widget para seleccionar el "Quarto" (Room)
-room_options = existing_data["Room"].unique()
+room_options = existing_data["Quarto"].unique()
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Filtrar los datos según la habitación seleccionada
-filtered_data = existing_data[existing_data["Room"] == selected_room]
+filtered_data = existing_data[existing_data["Quarto"] == selected_room]
 
 # Multiselect para seleccionar los meses
 months = st.multiselect("Selecione os meses:", list(range(1, 13)), [1, 2, 3])
