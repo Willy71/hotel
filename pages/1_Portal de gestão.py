@@ -99,10 +99,10 @@ def validar_numero_telefono(numero):
 def verificar_disponibilidad(df, admission_date, departure_date, vendor_to_update=None):
     # Filtrar reservas que coinciden con el rango de fechas seleccionado
     overlapping_reservations = df[
-        ((df["Data de entrada"] <= admission_date) & (df["Data de saida"] >= admission_date)) or
-        ((df["Data de entrada"] <= departure_date) & (df["Data de saida"] >= departure_date))
+        df["Data de entrada"].between(admission_date, departure_date) |
+        df["Data de saida"].between(admission_date, departure_date) |
+        ((df["Data de entrada"] <= departure_date) & (df["Data de saida"] >= admission_date))
     ]
-
     # Excluir la reserva que se está actualizando, si es el caso
     if vendor_to_update is not None:
         overlapping_reservations = overlapping_reservations[overlapping_reservations["user_id"] != vendor_to_update]
