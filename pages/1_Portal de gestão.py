@@ -33,7 +33,7 @@ right: 2rem;
 }}
 
 [data-testid="stSidebar"] {{
-background: rgba(0,128,128,1);
+background: rgba(46,139,87,1);
 }}
 </style>
 """
