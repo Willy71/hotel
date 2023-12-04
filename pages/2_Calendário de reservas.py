@@ -1,8 +1,8 @@
 import streamlit as st
-from datetime import datetime
-from streamlit_calendar import calendar
 import pandas as pd
-from streamlit_gsheets import GSheetsConnection
+from datetime import datetime
+import plotly.express as px
+
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -70,9 +70,8 @@ def mark_occupied_dates(months, occupancy_data):
 
     for _, row in occupancy_data.iterrows():
         fecha_ocupacion = datetime.strptime(row["Data de entrada"], "%d/%m/%Y").date()
-        fecha_ocupacion_str = fecha_ocupacion.strftime("%Y-%m-%d")  # Convertir a formato estándar
         if fecha_ocupacion.month in months:
-            marked_dates.append(fecha_ocupacion_str)
+            marked_dates.append(fecha_ocupacion)
 
     return marked_dates
 
@@ -85,8 +84,14 @@ months = st.multiselect("Selecione os meses:", list(range(1, 13)), [1, 2, 3])
 # Mark occupied dates based on the selected months
 marked_dates = mark_occupied_dates(months, existing_data)
 
-# Calendar display with marked occupied dates in red
-selected_dates = st.calendar(marked_dates=marked_dates, key="cal")
+# Create a DataFrame for the plotly calendar chart
+data = {"Fecha": marked_dates}
+df_marked_dates = pd.DataFrame(data)
 
-# Display the selected dates
-st.write("Días selecionados:", selected_dates)
+# Create the plotly calendar chart
+fig = px.scatter(df_marked_dates, x="Fecha", y=df_marked_dates.index % 7,
+                 labels={"Fecha": "Días Ocupados"}, title="Calendario de Ocupación",
+                 template="plotly_white", color_discrete_sequence=["red"])
+
+# Show the plotly chart
+st.plotly_chart(fig)
