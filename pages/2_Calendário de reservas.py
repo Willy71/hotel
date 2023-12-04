@@ -64,6 +64,12 @@ existing_data = existing_data.dropna(how="all")
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+
+
+
 # Function to mark occupied dates in the calendar
 def mark_occupied_dates(months, occupancy_data):
     marked_dates = []
@@ -79,14 +85,21 @@ def mark_occupied_dates(months, occupancy_data):
 # Streamlit app setup
 st.title("Calendario de Ocupación")
 
-# Multiselect for selecting months
+# Widget para seleccionar el "Quarto" (Room)
+room_options = existing_data["Room"].unique()
+selected_room = st.selectbox("Selecione o Quarto:", room_options)
+
+# Filtrar los datos según la habitación seleccionada
+filtered_data = existing_data[existing_data["Room"] == selected_room]
+
+# Multiselect para seleccionar los meses
 months = st.multiselect("Selecione os meses:", list(range(1, 13)), [1, 2, 3])
 
-# Mark occupied dates based on the selected months
-marked_dates = mark_occupied_dates(months, existing_data)
+# Marcar las fechas ocupadas según los meses seleccionados y la habitación filtrada
+marked_dates = mark_occupied_dates(months, filtered_data)
 
-# Calendar display with marked occupied dates in red
+# Mostrar el calendario con fechas marcadas en rojo
 selected_dates = st.calendar(marked_dates=marked_dates, key="cal")
 
-# Display the selected dates
+# Mostrar las fechas seleccionadas
 st.write("Días selecionados:", selected_dates)
