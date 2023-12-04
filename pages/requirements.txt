@@ -4,4 +4,6 @@ pandas
 datetime
 phonenumbers
 pycountry
-streamlit.components.v1
+streamlit_calendar
+
+
