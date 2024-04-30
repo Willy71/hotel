@@ -61,7 +61,7 @@ def photo_link(alt_text, img_url, link_url, img_width):
 
 st.write("#")
 
-centrar_imagen("https://i.postimg.cc/kg86jt2S/Your-Company-removebg-preview.png", 300)
+centrar_imagen("https://i.postimg.cc/mDFQdDqb/Your-Company-removebg-preview.png", 300)
 st.markdown("")
 
 st.markdown("""<hr style="height:10px;border:none;color:#333;background-color:#333;" /> """, unsafe_allow_html=True)
