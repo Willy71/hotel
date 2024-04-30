@@ -14,7 +14,7 @@ st.set_page_config(
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://i.postimg.cc/jdtSsJ9t/jr-korpa-H-BJWTh-ZRok-unsplash.jpg");
+background-image: url("https://i.postimg.cc/7LZ9Nqw6/jr-korpa-H-BJWTh-ZRok-unsplash.jpg");
 background-size: 180%;
 background-position: top left;
 background-repeat: repeat;
