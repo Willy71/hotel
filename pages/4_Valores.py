@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import webbrowser
 from datetime import datetime
+import re
+import gspread
+from google.oauth2.service_account import Credentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -34,6 +37,8 @@ background: rgba(0,0,0,0);
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
 
 
 def centrar_imagen(imagen, ancho):
