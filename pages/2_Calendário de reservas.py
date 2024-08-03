@@ -1,7 +1,9 @@
 import streamlit as st
 from datetime import datetime, timedelta
 import pandas as pd
-from streamlit_gsheets import GSheetsConnection
+import re
+import gspread
+from google.oauth2.service_account import Credentials
 
 # Colocar nome na pagina, icone e ampliar a tela
 st.set_page_config(
@@ -53,15 +55,30 @@ def centrar_texto(texto, tamanho, color):
                 unsafe_allow_html=True)
 
 st.write("#")
-# ----------------------------------------------------------------------------------------------------------------------------
-# Establishing a Google Sheets connection
-conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 
-# Fetch existing vendors data
-existing_data = conn.read(worksheet="Hoja1", usecols=list(range(22)), ttl=5)
-existing_data = existing_data.dropna(how="all")
+#=============================================================================================================================
+# Conexion via gspread a traves de https://console.cloud.google.com/ y Google sheets
 
-# ----------------------------------------------------------------------------------------------------------------------------
+# Ruta al archivo de credenciales
+SERVICE_ACCOUNT_INFO = st.secrets["gsheets"]
+
+# Scopes necesarios
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+
+# Cargar credenciales y autorizar
+credentials = Credentials.from_service_account_info(SERVICE_ACCOUNT_INFO, scopes=SCOPES)
+gc = gspread.authorize(credentials)
+
+# Clave de la hoja de cálculo (la parte de la URL después de "/d/" y antes de "/edit")
+SPREADSHEET_KEY = '1ndVk4efZZN74serPvDpN6tcm2NamLqKlcYfz2-y156g'  # Reemplaza con la clave de tu documento
+SHEET_NAME = 'hoja1'  # Nombre de la hoja dentro del documento
+
+try:
+    existing_data = gc.open_by_key(SPREADSHEET_KEY).worksheet(SHEET_NAME)
+except gspread.exceptions.SpreadsheetNotFound:
+    st.error(f"No se encontró la hoja de cálculo con la clave '{SPREADSHEET_KEY}'. Asegúrate de que la clave es correcta y que has compartido la hoja con el correo electrónico del cliente de servicio.")
+#=============================================================================================================================
+
 # Obtener las fechas de ocupación para un cuarto seleccionado
 def get_occupied_dates(selected_room, occupancy_data):
     entry_dates = []
