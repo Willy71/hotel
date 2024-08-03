@@ -1,7 +1,8 @@
-streamlit
-st-gsheets-connection
+gspread
+oauth2client
 pandas
 datetime
 phonenumbers
 pycountry
+numpy==1.26.4
 
