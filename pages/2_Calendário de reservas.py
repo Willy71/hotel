@@ -74,8 +74,7 @@ SPREADSHEET_KEY = '1ndVk4efZZN74serPvDpN6tcm2NamLqKlcYfz2-y156g'  # Reemplaza co
 SHEET_NAME = 'Hoja1'  # Nombre de la hoja dentro del documento
 
 try:
-    rows = gc.open_by_key(SPREADSHEET_KEY).worksheet(SHEET_NAME)
-    existing_data = pd.DataFrame(rows)
+    existing_data = gc.open_by_key(SPREADSHEET_KEY).worksheet(SHEET_NAME)
 except gspread.exceptions.SpreadsheetNotFound:
     st.error(f"No se encontró la hoja de cálculo con la clave '{SPREADSHEET_KEY}'. Asegúrate de que la clave es correcta y que has compartido la hoja con el correo electrónico del cliente de servicio.")
 #=============================================================================================================================
