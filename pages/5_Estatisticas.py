@@ -52,7 +52,7 @@ credentials = Credentials.from_service_account_info(SERVICE_ACCOUNT_INFO, scopes
 gc = gspread.authorize(credentials)
 
 # Clave de la hoja de cálculo (la parte de la URL después de "/d/" y antes de "/edit")
-SPREADSHEET_KEY = '1ndVk4efZZN74serPvDpN6tcm2NamLqKlcYfz2-y156g'  # Reemplaza con la clave de tu documento
+SPREADSHEET_KEY =  st.secrets["gsheets"]["SPREADSHEET_KEY"]  # Reemplaza con la clave de tu documento
 SHEET_NAME = 'hoja1'  # Nombre de la hoja dentro del documento
 
 try:
