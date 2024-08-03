@@ -74,7 +74,8 @@ SPREADSHEET_KEY = '1ndVk4efZZN74serPvDpN6tcm2NamLqKlcYfz2-y156g'  # Reemplaza co
 SHEET_NAME = 'Hoja1'  # Nombre de la hoja dentro del documento
 
 try:
-    existing_data = gc.open_by_key(SPREADSHEET_KEY).worksheet(SHEET_NAME)
+    rows = gc.open_by_key(SPREADSHEET_KEY).worksheet(SHEET_NAME)
+    existing_data = pd.DataFrame(rows)
 except gspread.exceptions.SpreadsheetNotFound:
     st.error(f"No se encontró la hoja de cálculo con la clave '{SPREADSHEET_KEY}'. Asegúrate de que la clave es correcta y que has compartido la hoja con el correo electrónico del cliente de servicio.")
 #=============================================================================================================================
@@ -124,7 +125,7 @@ def get_occupied_dates(selected_room, occupancy_data):
 
 # ----------------------------------------------------------------------------------------------------------------------------
 # Widget para seleccionar el "Quarto" (Room)
-room_options = existing_data["Quarto"].astype(int).unique()
+room_options = sorted(existing_data["Quarto"].astype(int).unique())
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Obtener las fechas ocupadas para el cuarto seleccionado
