@@ -124,7 +124,7 @@ def get_occupied_dates(selected_room, occupancy_data):
 
 # ----------------------------------------------------------------------------------------------------------------------------
 # Widget para seleccionar el "Quarto" (Room)
-room_options = sorted(existing_data["Quarto"].astype(int).unique())
+room_options = existing_data["Quarto"].astype(int).unique()
 selected_room = st.selectbox("Selecione o Quarto:", room_options)
 
 # Obtener las fechas ocupadas para el cuarto seleccionado
