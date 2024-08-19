@@ -89,7 +89,6 @@ def centrar_texto(texto, tamanho, color):
     st.markdown(f"<h{tamanho} style='text-align: center; color: {color}'>{texto}</h{tamanho}>",
                 unsafe_allow_html=True)
 
-st.write("#")
 
 # Obtener las fechas de ocupación para un cuarto seleccionado
 def get_occupied_dates(selected_room, occupancy_data):
