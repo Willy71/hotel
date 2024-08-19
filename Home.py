@@ -71,8 +71,6 @@ def photo_link(alt_text, img_url, link_url, img_width):
     markdown_code = f'<a href="{link_url}" target="_blank"><img src="{img_url}" alt="{alt_text}" width="{img_width}"></a>'
     st.markdown(markdown_code, unsafe_allow_html=True)
 
-st.write("#")
-
 centrar_imagen("https://i.postimg.cc/mDFQdDqb/Your-Company-removebg-preview.png", 300)
 st.markdown("")
 
