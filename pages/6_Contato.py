@@ -10,6 +10,18 @@ st.set_page_config(
     layout="wide"
 )
 
+# We reduced the empty space at the beginning of the streamlit
+reduce_space ="""
+            <style type="text/css">
+            /* Remueve el espacio en el encabezado por defecto de las apps de Streamlit */
+            div[data-testid="stAppViewBlockContainer"]{
+                padding-top:30px;
+            }
+            </style>
+            """
+# We load reduce_space
+st.html(reduce_space)
+
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
@@ -53,7 +65,6 @@ def photo_link(alt_text, img_url, link_url, img_width):
     markdown_code = f'<a href="{link_url}" target="_blank"><img src="{img_url}" alt="{alt_text}" width="{img_width}"></a>'
     st.markdown(markdown_code, unsafe_allow_html=True)
     
-st.write("#")
 
 with st.container():    
     col00, col01, col02, col03, col04, col05 = st.columns(6)
