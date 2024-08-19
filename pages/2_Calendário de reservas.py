@@ -12,6 +12,18 @@ st.set_page_config(
     layout="wide"
 )
 
+# We reduced the empty space at the beginning of the streamlit
+reduce_space ="""
+            <style type="text/css">
+            /* Remueve el espacio en el encabezado por defecto de las apps de Streamlit */
+            div[data-testid="stAppViewBlockContainer"]{
+                padding-top:30px;
+            }
+            </style>
+            """
+# We load reduce_space
+st.html(reduce_space)
+
 # ----------------------------------------------------------------------------------------------------------------------------
 # Colocar el background y definir los colores del sidebar
 page_bg_img = f"""
