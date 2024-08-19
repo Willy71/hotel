@@ -14,6 +14,17 @@ st.set_page_config(
     layout="wide"
 )
 
+# We reduced the empty space at the beginning of the streamlit
+reduce_space ="""
+            <style type="text/css">
+            /* Remueve el espacio en el encabezado por defecto de las apps de Streamlit */
+            div[data-testid="stAppViewBlockContainer"]{
+                padding-top:30px;
+            }
+            </style>
+            """
+# We load reduce_space
+st.html(reduce_space)
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Colocar background
 page_bg_img = f"""
@@ -132,9 +143,7 @@ prefijos = {c.alpha_2: pn.country_code_for_region(c.alpha_2) for c in pycountry.
 # Función para obtener el prefijo seleccionado
 def obtener_prefijo(pais):
     return prefijos.get(pais, '')
-
-st.write("#")
-
+    
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Seleccion de la opcion de CRUD
 action = st.selectbox(
